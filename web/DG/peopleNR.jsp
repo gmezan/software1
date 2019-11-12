@@ -5,7 +5,12 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page import="Beans.Usuario"%>
+<%@page import="java.util.ArrayList"%>
+
+<%
+    ArrayList<Usuario> lista = (ArrayList<Usuario>) request.getAttribute("listaNR");
+    %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,14 +25,14 @@
   <title>DG - Personas no registradas</title>
 
   <!-- Custom fonts for this template -->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=request.getContextPath()%>/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
 
   <!-- Custom styles for this page -->
-  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -85,11 +90,11 @@
         </a>
         <div id="collapsePers" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="peopleR.html">Personas registradas</a>
-            <a class="collapse-item active" href="peopleNR.html">Personas no registradas</a>
-            <a class="collapse-item" href="Ban.html">Personas baneadas</a>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaUsuario">Personas registradas</a>
+            <a class="collapse-item active" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaNR">Personas no registradas</a>
+            <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaBan">Personas baneadas</a>
             <h6 class="collapse-header">Otro:</h6>
-            <a class="collapse-item" href="peopleDA.html">Delegados de actividad</a>
+            <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaDA">Delegados de actividad</a>
           </div>
         </div>
       </li>
@@ -213,6 +218,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                   <tr>
+                       <th>Código</th>
                     <th>Nombre</th>
                     <th>Correo PUCP</th>
                     <th>Condición</th>
@@ -222,6 +228,7 @@
                   </thead>
                   <tfoot>
                   <tr>
+                       <th>Código</th>
                     <th>Nombre</th>
                     <th>Correo PUCP</th>
                     <th>Condición</th>
@@ -229,341 +236,32 @@
                   </tr>
                   </tfoot>
                   <tbody>
+                                                                        <%
+                          int i = 1;
+                          for (Usuario u: lista){
+%>
                   <tr>
-                    <td>Tiger Nixon</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
+                      <td><%= u.getCodigoPucp()%></td>
+                    <td><%= u.getNombre()+ " " + u.getApellido() %></td>
+                    <td><%= u.getCorreoPucp()%></td>
+                    <td><%= u.getCondicion()%></td>
                     <td >
                       <div class="form-group row text-center btn-user">
                         <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
+                          
+                          <a href="#editP" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                         </div>
                         <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
+                          <a href="#deleteP" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
+                       </div>
                       </div>
                     </td>
 
                   </tr>
-                  <tr>
-                    <td>Garrett Winters</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
-                    <td>                                            <div class="form-group row text-center btn-user">
-                      <div class="col-sm-4 mb-2 mb-sm-0">
-
-                        <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                      </div>
-                      <div class="col-sm-4">
-                        <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                      </div>
-                    </div>
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Ashton Cox</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Cedric Kelly</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Airi Satou</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Brielle Williamson</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Herrod Chandler</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Rhona Davidson</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Colleen Hurst</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Sonya Frost</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Egresado</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Jena Gaines</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Alumno</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Quinn Flynn</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Alumno</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Charde Marshall</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Alumno</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Haley Kennedy</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Alumno</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Tatyana Fitzpatrick</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Alumno</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Michael Silva</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Alumno</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Paul Byrd</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Alumno</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Gloria Little</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Alumno</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
-                  <tr>
-                    <td>Bradley Greer</td>
-                    <td>ejemplopucp@pucp.edu.pe</td>
-                    <td>Alumno</td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editEmployeeModal" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-
-                    </td>
-
-                  </tr>
+                  <%
+                      i++;
+                      }
+                    %>
 
                   </tbody>
                 </table>
@@ -659,21 +357,21 @@
 
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<%=request.getContextPath()%>vendor/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
+  <script src="<%=request.getContextPath()%>/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="../js/demo/datatables-demo.js"></script>
+  <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
 
 </body>
 

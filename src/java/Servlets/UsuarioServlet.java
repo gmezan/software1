@@ -38,17 +38,34 @@ public class UsuarioServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         
-        RequestDispatcher view;
-        Usuario usuario;
         UsuarioDao uDao = new UsuarioDao();
-        ArrayList<Usuario> u = uDao.listarUsuario();
+
+        RequestDispatcher view;
         
         switch(action){
             case "listaUsuario":
-                request.setAttribute("listaUsuario", u);
+                
+                request.setAttribute("listaUsuario", uDao.listarUsuario());
                 view = request.getRequestDispatcher("/DG/peopleR.jsp");
                 view.forward(request, response);
                 break;
+                
+            case "listaNR":
+                request.setAttribute("listaNR", uDao.listarUsuarioNR());
+                view = request.getRequestDispatcher("/DG/peopleNR.jsp");
+                view.forward(request, response);
+                break;
+            
+            case "listaBan":
+                request.setAttribute("listaBan", uDao.listarUsuarioBaneado());
+                view = request.getRequestDispatcher("/DG/Ban.jsp");
+                view.forward(request, response);
+                
+            case "listaDA":
+                request.setAttribute("listaDA", uDao.listarDA());
+                view = request.getRequestDispatcher("/DG/peopleDA.jsp");
+                view.forward(request, response);
+                
                 
             case "lista2":
                 view = request.getRequestDispatcher("/DG/indexDG.jsp");
