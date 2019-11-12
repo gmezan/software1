@@ -78,7 +78,7 @@
         </div>
 
         <li class="nav-item">
-            <a class="nav-link" href="activities.html">
+            <a class="nav-link" href="<%=request.getContextPath()%>/ActividadServlet?action=listaActividades">
                 <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
                 <span>Actividades</span></a>
         </li>

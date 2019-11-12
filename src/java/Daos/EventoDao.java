@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author Fernando
  */
-public class EventoDao {
+public class EventoDao extends BaseDao {
 
     public ArrayList<Evento> listarEventos() {
 

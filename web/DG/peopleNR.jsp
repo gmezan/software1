@@ -78,7 +78,7 @@
       </div>
 
       <li class="nav-item">
-        <a class="nav-link" href="activities.html">
+        <a class="nav-link" href="<%=request.getContextPath()%>/ActividadServlet?action=listaActividades">
           <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
           <span>Actividades</span></a>
       </li>
@@ -249,7 +249,7 @@
                       <div class="form-group row text-center btn-user">
                         <div class="col-sm-4 mb-2 mb-sm-0">
                           
-                          <a href="#editP" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
+                          <a href="#editP" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                         </div>
                         <div class="col-sm-4">
                           <a href="#deleteP" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>

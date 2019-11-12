@@ -13,8 +13,8 @@ public class Actividad {
 
     private String nombreActividad;
     private int idActividad;
+    private Usuario delegadoActividad;
     private int delegado_codigoPucp;
- 
     
     
     /**
@@ -45,18 +45,20 @@ public class Actividad {
         this.idActividad = idActividad;
     }
 
-    /**
-     * @return the delegado_codigoPucp
-     */
+    public Usuario getDelegadoActividad() {
+        return delegadoActividad;
+    }
+
+    public void setDelegadoActividad(Usuario delegadoActividad) {
+        this.delegadoActividad = delegadoActividad;
+    }
+
     public int getDelegado_codigoPucp() {
         return delegado_codigoPucp;
     }
 
-    /**
-     * @param delegado_codigoPucp the delegado_codigoPucp to set
-     */
-    public void setDelegado_codigoPucp(int delegado_codigoPucp) {
-        this.delegado_codigoPucp = delegado_codigoPucp;
+    public void setDelegado_codigoPucp(int delegado_Actividad) {
+        this.delegado_codigoPucp = delegado_Actividad;
     }
 
 }

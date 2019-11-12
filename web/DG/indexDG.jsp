@@ -69,7 +69,7 @@
       </div>
 
       <li class="nav-item">
-        <a class="nav-link" href="activities.html">
+        <a class="nav-link" href="<%=request.getContextPath()%>/ActividadServlet?action=listaActividades">
           <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
           <span>Actividades</span></a>
       </li>
@@ -81,11 +81,11 @@
         </a>
         <div id="collapsePers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaUsuario">Personas registradas</a>
-            <a class="collapse-item" href="peopleNR.html">Personas no registradas</a>
-            <a class="collapse-item" href="Ban.html">Personas baneadas</a>
-            <h6 class="collapse-header">Otro:</h6>
-            <a class="collapse-item" href="peopleDA.html">Delegados de actividad</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaUsuario">Personas registradas</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaNR">Personas no registradas</a>
+                    <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaBan">Personas baneadas</a>
+                    <h6 class="collapse-header">Otro:</h6>
+                    <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaDA">Delegados de actividad</a>
 
           </div>
         </div>

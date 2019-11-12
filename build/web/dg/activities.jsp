@@ -4,7 +4,10 @@
     Author     : GUSTAVO
 --%>
 
+<%@page import="Beans.Actividad"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% ArrayList<Actividad> listaActividades = (ArrayList<Actividad>) request.getAttribute("listaActividades"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,14 +22,14 @@
   <title>DG - Actividades</title>
 
   <!-- Custom fonts for this template -->
-  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=request.getContextPath()%>/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template -->
-  <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
 
   <!-- Custom styles for this page -->
-  <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
 
@@ -72,7 +75,7 @@
       </div>
 
       <li class="nav-item active">
-        <a class="nav-link" href="activities.html">
+        <a class="nav-link" href="<%=request.getContextPath()%>/ActividadServlet?action=listaActividades">
           <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
           <span>Actividades</span></a>
       </li>
@@ -84,11 +87,11 @@
         </a>
         <div id="collapsePers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="peopleR.html">Personas registradas</a>
-            <a class="collapse-item" href="peopleNR.html">Personas no registradas</a>
-            <a class="collapse-item" href="Ban.html">Personas baneadas</a>
-            <h6 class="collapse-header">Otro:</h6>
-            <a class="collapse-item" href="peopleDA.html">Delegados de actividad</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaUsuario">Personas registradas</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaNR">Personas no registradas</a>
+                    <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaBan">Personas baneadas</a>
+                    <h6 class="collapse-header">Otro:</h6>
+                    <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaDA">Delegados de actividad</a>
 
           </div>
 
@@ -246,10 +249,14 @@
                   </tr>
                   </tfoot>
                   <tbody>
+                      
+                  <% int i = 1;
+                  for (Actividad a : listaActividades){
+                  %>
                   <tr>
-                    <td>Futsal</td>
+                    <td><%=a.getNombreActividad()%></td>
                     <td>Deporte</td>
-                    <td>Garrett Winters</td>
+                    <td><%=a.getDelegado_codigoPucp()%></td>
                     <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
                     </td>
                     <td>
@@ -262,197 +269,16 @@
                           <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
                         </div>
                       </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Voley</td>
-                    <td>Deporte</td>
-                    <td>Ashton Cox</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Basquet</td>
-                    <td>Deporte</td>
-                    <td>Cedric Kelly</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Atletismo</td>
-                    <td>Deporte</td>
-                    <td>Airi Satou</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Bebé crece</td>
-                    <td>Gymkhana</td>
-                    <td>Brielle Williamson</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Huevitos</td>
-                    <td>Gymkhana</td>
-                    <td>Herrod Chandler</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Vueltitas</td>
-                    <td>Gymkhana</td>
-                    <td>Rhona Davidson</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>4xjonca</td>
-                    <td>Gymkhana</td>
-                    <td>Colleen Hurst</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Bailetón</td>
-                    <td>Bailetón</td>
-                    <td>Sonya Frost</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Cacería</td>
-                    <td>Cacería</td>
-                    <td>Jena Gaines</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Sketch</td>
-                    <td>Inauguración</td>
-                    <td>Quinn Flynn</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-                  <tr>
-                    <td>Danza</td>
-                    <td>Inauguración</td>
-                    <td>Charde Marshall</td>
-                    <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                    </td>
-                    <td>
-                      <div class="form-group row text-center btn-user">
-                        <div class="col-sm-4 mb-2 mb-sm-0">
-
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                        <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                        </div>
-                      </div>
-                    </td>                  </tr>
-
-
-
-
+                    </td>                  
+                  </tr>
+                  
+                  <%
+                      i++;
+                      }
+                      
+                      %>
+                  
+                  
                   </tbody>
                 </table>
               </div>
@@ -608,21 +434,21 @@
 
 
   <!-- Bootstrap core JavaScript-->
-  <script src="../vendor/jquery/jquery.min.js"></script>
-  <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="../js/sb-admin-2.min.js"></script>
+  <script src="<%=request.getContextPath()%>/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="../js/demo/datatables-demo.js"></script>
+  <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
 
 </body>
 
