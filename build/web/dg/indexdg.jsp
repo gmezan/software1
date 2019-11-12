@@ -81,7 +81,7 @@
         </a>
         <div id="collapsePers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="peopleR.html">Personas registradas</a>
+              <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaUsuario">Personas registradas</a>
             <a class="collapse-item" href="peopleNR.html">Personas no registradas</a>
             <a class="collapse-item" href="Ban.html">Personas baneadas</a>
             <h6 class="collapse-header">Otro:</h6>
