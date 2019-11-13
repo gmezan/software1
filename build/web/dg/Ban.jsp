@@ -220,9 +220,9 @@
                             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                 <tr>
-                                     <th>Código</th>
+                                    <th>Código</th>
                                     <th>Nombre</th>
-                                    <th>Correo PUCP</th>
+                                    <th>CorreoPUCP</th>
                                     <th>Condición</th>
                                     <th>Acciones</th>
 
@@ -230,9 +230,9 @@
                                 </thead>
                                 <tfoot>
                                 <tr>
-                                     <th>Código</th>
+                                    <th>Código</th>
                                     <th>Nombre</th>
-                                    <th>Correo PUCP</th>
+                                    <th>CorreoPUCP</th>
                                     <th>Condición</th>
                                     <th>Acciones</th>
                                 </tr>
@@ -243,7 +243,7 @@
                           for (Usuario u: lista){
 %>
                   <tr>
-                      <td><%= u.getCodigoPucp()%></td>
+                    <td><%= u.getCodigoPucp()%></td>
                     <td><%= u.getNombre()+ " " + u.getApellido() %></td>
                     <td><%= u.getCorreoPucp()%></td>
                     <td><%= u.getCondicion()%></td>

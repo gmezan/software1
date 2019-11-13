@@ -236,19 +236,17 @@
                   </tr>
                   </tfoot>
                   <tbody>
-                                                                        <%
+                  <%
                           int i = 1;
-                          for (Usuario u: lista){
-%>
+                          for (Usuario u: lista){   %>
                   <tr>
-                      <td><%= u.getCodigoPucp()%></td>
+                    <td><%= u.getCodigoPucp()%></td>
                     <td><%= u.getNombre()+ " " + u.getApellido() %></td>
                     <td><%= u.getCorreoPucp()%></td>
                     <td><%= u.getCondicion()%></td>
-                    <td >
+                    <td>
                       <div class="form-group row text-center btn-user">
                         <div class="col-sm-4 mb-2 mb-sm-0">
-                          
                           <a href="#editP" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                         </div>
                         <div class="col-sm-4">
@@ -256,12 +254,11 @@
                        </div>
                       </div>
                     </td>
-
                   </tr>
                   <%
                       i++;
                       }
-                    %>
+                    %>                                 
 
                   </tbody>
                 </table>
@@ -357,7 +354,7 @@
 
 
   <!-- Bootstrap core JavaScript-->
-  <script src="<%=request.getContextPath()%>vendor/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->

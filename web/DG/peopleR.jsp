@@ -210,34 +210,17 @@
           <h1 class="h3 mb-2 text-gray-800">Personas registradas</h1>
           <p class="mb-4">Acá encontrarás a los alumnos y egresados de telecomunicaciones que han sido registrados en el sistema.</p>
 
-          <!-- DataTales Example -->
+                   <!-- DataTales Example -->
           <div class="card shadow mb-4">
-
-
-
-            <div class="card-header py-3 collapsed">
+            <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Tabla de datos</h6>
             </div>
-
-            <div class="container-fluid"style="padding-top: 10px">
-
-              <!--
-                    <div class="col-sm-10 mb-3 mb-sm-0">
-                      <a href="#addP" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus"></i> <span>Añadir</span></a>
-                    </div>
-                    -->
-
-            </div>
-
-
-
             <div class="card-body">
-
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                   <tr>
-                      <th>Código</th>
+                       <th>Código</th>
                     <th>Nombre</th>
                     <th>Correo PUCP</th>
                     <th>Condición</th>
@@ -255,8 +238,10 @@
                   </tr>
                   </tfoot>
                   <tbody>
-
-                      <%
+                      
+                      
+                      
+                                         <%
                           int i = 1;
                           for (Usuario u: lista){
 %>
@@ -282,7 +267,9 @@
                       i++;
                       }
                     %>
-                 
+                      
+                      
+                      
 
                   </tbody>
                 </table>
@@ -517,7 +504,7 @@
   </script>
 
   <!-- Page level custom scripts -->
-  <script src="../js/demo/datatables-demo.js"></script>
+  <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
 
 </body>
 
