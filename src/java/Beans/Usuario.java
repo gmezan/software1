@@ -19,7 +19,21 @@ public class Usuario {
     private String Condicion;
     private Rol rol;
     private Estado estado;
+    private int idActividad = 0;
+    private Actividad actividad;
 
+    public int getIdActividad() {
+        return idActividad;
+    }
+
+    public void setIdActividad(int idActividad) {
+        this.idActividad = idActividad;
+    }
+    
+    public String getFullname(){
+        return nombre + " " + apellido;
+    }
+    
     public int getCodigoPucp() {
         return codigoPucp;
     }
@@ -82,6 +96,14 @@ public class Usuario {
 
     public void setEstado(Estado estado) {
         this.estado = estado;
+    }
+
+    public Actividad getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
     }
             
     

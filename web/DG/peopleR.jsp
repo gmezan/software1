@@ -4,12 +4,19 @@
     Author     : GUSTAVO
 --%>
 
+<%@page import="Daos.UsuarioDao"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.util.HashMap"%>
 <%@page import="Beans.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
     ArrayList<Usuario> lista = (ArrayList<Usuario>) request.getAttribute("listaUsuario");
+    HashMap<Integer, String> listaAct = (HashMap<Integer, String>) request.getAttribute("listaActividad");
+    HashMap<Integer, String> listaTodasActividades = (HashMap<Integer, String>) request.getAttribute("listaTodasActividades");
+
+
     %>
 
 <!DOCTYPE html>
@@ -224,6 +231,7 @@
                     <th>Nombre</th>
                     <th>Correo PUCP</th>
                     <th>Condición</th>
+                    <th>Rol</th>
                     <th>Acciones</th>
 
                   </tr>
@@ -234,30 +242,30 @@
                     <th>Nombre</th>
                     <th>Correo PUCP</th>
                     <th>Condición</th>
+                    <th>Rol</th>
                     <th>Acciones</th>
                   </tr>
                   </tfoot>
                   <tbody>
-                      
-                      
-                      
-                                         <%
+                         
+                                                               <%
                           int i = 1;
                           for (Usuario u: lista){
 %>
                   <tr>
                       <td><%= u.getCodigoPucp()%></td>
-                    <td><%= u.getNombre()+ " " + u.getApellido() %></td>
+                    <td><%= u.getFullname() %></td>
                     <td><%= u.getCorreoPucp()%></td>
                     <td><%= u.getCondicion()%></td>
-                    <td >
+                    <td><%= u.getRol().getRol()%></td>
+                    <td>
                       <div class="form-group row text-center btn-user">
                         <div class="col-sm-4 mb-2 mb-sm-0">
                           
-                          <a href="#editP" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
+                          <a href="#editP" data-id='<%= u.getCodigoPucp()%>' data-nombre='<%= u.getFullname() %>' data-correo=<%= u.getCorreoPucp()%> data-condicion=<%= u.getCondicion()%>  data-rol=<%= u.getRol().getId()%> data-idact=<%=u.getIdActividad()%> style="color: green" class="editar-Persona button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                         </div>
                         <div class="col-sm-4">
-                          <a href="#deleteP" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
+                          <a href="#deleteP" data-id='<%= u.getCodigoPucp()%>' style="color: green" class="borrar-Persona button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
                        </div>
                       </div>
                     </td>
@@ -267,9 +275,6 @@
                       i++;
                       }
                     %>
-                      
-                      
-                      
 
                   </tbody>
                 </table>
@@ -369,52 +374,54 @@
   <div id="editP" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form>
+        <form method="POST" action="UsuarioServlet?action=actualizar">
           <div class="modal-header">
             <h4 class="modal-title">Editar</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
+
+              
+              <input type="hidden" id="codigoPucpUsuario"  name="codigoPucpUsuario" >
+              
             <div class="form-group">
-              <label>Nombre</label>
-              <input type="text" value="Nombre" class="form-control" disabled>
+              <label>Nombre completo</label>
+              <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" disabled>
             </div>
             <div class="form-group">
               <label>Correo PUCP</label>
-              <input type="email" value="Apellido" class="form-control" disabled>
+              <input type="email"  id="correoPucpUsuario" name="correoPucpUsuario" class="form-control" disabled>
             </div>
             <div class="form-group">
               <label>Condición</label>
-              <select id="selectionP"   class="form-control form-control-user button" type="text" disabled>
-                <option class="button"  value="Alumno">Alumno</option>
-                <option class="button"  value="Egresado">Egresado</option>
-              </select>
+                <input type="text" id="condicionUsuario" name ="condicionUsuario" class="form-control" disabled>
             </div>
-
-
-
+ 
             <div class="form-group" id="comboboxDA" style="display: none">
               <label>Actividad</label>
-              <select    class="form-control form-control-user button" type="text" required>
-                <option class="button"  value="act1">4xjonca</option>
-                <option class="button"  value="act2">Atletismo</option>
-                <option class="button"  value="act3">Baileton</option>
-                <option class="button"  value="act4">Basquet</option>
-                <option class="button"  value="act5">Bebe crece</option>
-                <option class="button"  value="act6">Caceria</option>
-                <option class="button"  value="act7">Danza</option>
+              <select   id="actividadEscogida" name="actividadEscogida" class="form-control form-control-user button" type="text" required>
+                  <option class="button"  value="0"   >---Escoger Actividad---</option>
+                  <%
+                      for(Map.Entry mapElement: listaTodasActividades.entrySet() ){
+                          
+                          if(listaAct.containsKey(mapElement.getKey()))
+                          { 
+                              out.write("<option class='button'  value='"+mapElement.getKey()+"'   >" +mapElement.getValue()+ "</option>");
+                          }
+                          else
+                          {
+                              out.write("<option class='button' hidden='true' value='" + mapElement.getKey()+"'   >" +mapElement.getValue()+ "</option>");
+                          }
+                          // <option class="button"  value="<%=mapElement.getKey()>"   ><%=mapElement.getValue()></option>
 
+                           } %>       
               </select>
-
             </div>
-
             <div class="form-check" >
-              <input  type="checkbox" id="EditModalCheckboxDA" onclick="functionDA()" class="form-check-input" >
+                <input  type="checkbox" id="EditModalCheckboxDA" name="EditModalCheckboxDA" onclick="functionDA()" class="form-check-input"  >
               <label class="form-check-label" > Delegado de actividad</label>
 
             </div>
-
-
 
           </div>
           <div class="modal-footer">
@@ -427,7 +434,7 @@
     </div>
   </div>
 
-  <!-- Delete Modal HTML -->
+  <!-- Ban Modal HTML -->
   <div id="banP" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -455,12 +462,13 @@
   <div id="deleteP" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form>
+        <form method="POST" action="UsuarioServlet?action=borrar">
           <div class="modal-header">
             <h4 class="modal-title">Borrar miembro </h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
+              <input type="hidden" id="codigoPucpUsuarioBorrar"  name="codigoPucpUsuarioBorrar" >
             <p>¿Estás seguro que deseas eliminar a esta persona?</p>
             <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
           </div>
@@ -473,7 +481,16 @@
     </div>
   </div>
 
-  <!-- Bootstrap core JavaScript-->
+
+
+
+  
+  
+  
+  <!-- Page level custom scripts -->
+    <!-- Bootstrap core JavaScript-->
+    
+  <script src="<%=request.getContextPath()%>/https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -486,6 +503,12 @@
   <!-- Page level plugins -->
   <script src="<%=request.getContextPath()%>/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  
+
+  <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
+  
+  
+  
 
   <script>
     function functionDA() {
@@ -496,16 +519,46 @@
 
       // If the checkbox is checked, display the output text
       if (checkBox.checked === true){
+          checkBox.value = "true";
         cda.style.display = "block";
       } else {
+          checkBox.value = "false";
         cda.style.display = "none";
       }
     }
-  </script>
+      
+     $(document).on("click", ".editar-Persona", function () {
 
-  <!-- Page level custom scripts -->
-  <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
+     $(".modal-body  #codigoPucpUsuario").val(  $(this).data('id') );
+     $(".modal-body .form-group #nombreUsuario").val(  $(this).data('nombre') );
+     $(".modal-body .form-group #correoPucpUsuario").val(  $(this).data('correo') );
+     $(".modal-body .form-group #condicionUsuario").val(  $(this).data('condicion') );
+     $(".modal-body .form-check #EditModalCheckboxDA").prop("checked", false);
+     if($(this).data('condicion') === "Egresado"){
+         $(".modal-body .form-check #EditModalCheckboxDA").prop("disabled", true);
+     }
+
+    else{
+        $(".modal-body .form-check #EditModalCheckboxDA").prop("disabled", false);
+        $(".modal-body .form-group #actividadEscogida").val("0" );
+        var rol = $(this).data('rol');
+        var actividad = $(this).data('idact');
+
+        if (rol.toString()==="2"){
+            $(".modal-body .form-check #EditModalCheckboxDA").prop("checked", true);
+            $(".modal-body .form-group #actividadEscogida").val(actividad );
+        }
+        
+        functionDA(); 
+        }
+        });
+      
+      //codigoPucpUsuarioBorrar
+      $(document).on("click", ".borrar-Persona", function () {
+          $(".modal-body  #codigoPucpUsuarioBorrar").val(  $(this).data('id') );
+      });
+      </script>
+  
 
 </body>
-
 </html>

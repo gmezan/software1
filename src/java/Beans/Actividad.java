@@ -15,6 +15,8 @@ public class Actividad {
     private int idActividad;
     private Usuario delegadoActividad;
     private int delegado_codigoPucp;
+    private String descripcion;
+    private String nombreDelegado;
     
     
     /**
@@ -59,6 +61,22 @@ public class Actividad {
 
     public void setDelegado_codigoPucp(int delegado_Actividad) {
         this.delegado_codigoPucp = delegado_Actividad;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getNombreDelegado() {
+        return nombreDelegado;
+    }
+
+    public void setNombreDelegado(String nombreDelegado) {
+        this.nombreDelegado = nombreDelegado;
     }
 
 }

@@ -254,7 +254,7 @@
                           <a href="#editP" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                         </div>
                         <div class="col-sm-4">
-                          <a href="#deleteP" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
+                          <a href="#deleteP" data-id="<%=u.getCodigoPucp()%>"  style="color: green" class="borrar-Persona button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
                        </div>
                       </div>
                     </td>
@@ -317,7 +317,7 @@
     </div>
 </div>
 
-<div id="editEmployeeModal" class="modal fade">
+<div id="editP" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
             <form>
@@ -336,28 +336,31 @@
     </div>
 </div>
 
-<div id="deleteEmployeeModal" class="modal fade">
+<!--delete Modal HTML -->
+  <div id="deleteP" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <form>
-                <div class="modal-header">
-                    <h4 class="modal-title">Borrar solicitud de registro </h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estás seguro que no deseas aceptar a esta persona?</p>
-                    <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit" class="btn btn-danger" value="Borrar">
-                </div>
-            </form>
-        </div>
+      <div class="modal-content">
+        <form method="POST" action="UsuarioServlet?action=borrar">
+          <div class="modal-header">
+            <h4 class="modal-title">Borrar miembro </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+              <input type="hidden" id="codigoPucpUsuarioBorrar"  name="codigoPucpUsuarioBorrar" >
+            <p>¿Estás seguro que deseas eliminar a esta persona?</p>
+            <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
+          </div>
+          <div class="modal-footer">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+            <input  type="submit" class="btn btn-danger" value="Borrar">
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>
 
 
+<script src="<%=request.getContextPath()%>/https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -375,6 +378,13 @@
 <!-- Page level custom scripts -->
 <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
 
-</body>
 
+<script>
+          //codigoPucpUsuarioBorrar
+      $(document).on("click", ".borrar-Persona", function () {
+          $(".modal-body  #codigoPucpUsuarioBorrar").val(  $(this).data('id') );
+      });
+      </script>
+
+</body>
 </html>

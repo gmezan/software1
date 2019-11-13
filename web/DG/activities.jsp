@@ -252,21 +252,22 @@
                       
                   <% int i = 1;
                   for (Actividad a : listaActividades){
+                      String x = (a.getDelegado_codigoPucp()==0)?("Sin delegado"):(a.getNombreDelegado());
                   %>
                   <tr>
                     <td><%=a.getNombreActividad()%></td>
-                    <td>Deporte</td>
-                    <td><%=a.getDelegado_codigoPucp()%></td>
+                    <td><%=a.getDescripcion()%></td>
+                    <td><%=x%></td>
                     <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
                     </td>
                     <td>
                       <div class="form-group row text-center btn-user">
                         <div class="col-sm-4 mb-2 mb-sm-0">
 
-                          <a href="#editActivity" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
+                          <a href="#editActivity" data-id='<%=a.getIdActividad()%>' data-nombre='<%=a.getNombreActividad()%>' data-descripcion='<%=a.getDescripcion()%>' class="editar-Actividad button btn btn-success" style="color: green"  data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                         </div>
                         <div class="col-sm-4">
-                          <a href="#deleteActivity" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
+                          <a href="#deleteActivity" data-id='<%=a.getIdActividad()%>' data-nombre='<%=a.getNombreActividad()%>' class="borrar-Actividad button btn btn-danger" data-toggle="modal"><i class="fas fa-trash"   style="color: white" data-toggle="tooltip" title="Edit"></i></a>
                         </div>
                       </div>
                     </td>                  
@@ -335,29 +336,30 @@
   <div id="addActivity" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form>
+        <form  method="POST" action="ActividadServlet?action=guardar">
+            
           <div class="modal-header">
             <h4 class="modal-title">Añadir actividad</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
+              
+            <!--<input type="hidden" id="actividadId" name="actividadId"  />-->
+              
             <div class="form-group">
               <label>Nombre</label>
-              <input type="text" class="form-control" required>
+              <input type="text" id="nombreActividadNuevo" name="nombreActividadNuevo" class="form-control" required>
             </div>
             <div class="form-group">
-              <label>Descrición</label>
-              <input type="email" class="form-control" required>
+              <label>Descripción</label>
+              <input type="text" id="descripcionActividadNuevo" name="descripcionActividadNuevo"  class="form-control" required>
             </div>
 
+            <!--
             <div class="form-group">
-              <label>Imagen<br></label>
-              <form action="upload.php" method="post" enctype="multipart/form-data">
-
-                <input class="btn " type="file" name="fileToUpload" id="fileToUpload">
-                <input class="btn btn-primary" type="submit" value="Upload Image" name="upload">
-              </form>
-            </div>
+              <label>File</label>
+            <input type="file" name="fileActividad" />
+            </div>-->
 
 
 
@@ -370,55 +372,66 @@
       </div>
     </div>
   </div>
+  
   <!-- Edit Modal HTML -->
   <div id="editActivity" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form>
+        <form method="POST" action="ActividadServlet?action=actualizar">
           <div class="modal-header">
             <h4 class="modal-title">Editar actividad</h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
-          <div class="modal-body">
+            <div class="modal-body">
+              
+            <input type="hidden" id="actividadId" name="actividadId"  >
+              
             <div class="form-group">
               <label>Nombre</label>
-              <input type="text" class="form-control" value="4xjonca" required>
+              <input type="text" id="nombreActividad" name="nombreActividad" class="form-control" >
             </div>
             <div class="form-group">
               <label>Descripción</label>
-              <input type="text" class="form-control" value="Gymkhana" required>
+              <input type="text" id="descripcionActividad" name="descripcionActividad" class="form-control" >
             </div>
 
-
+            <!--
             <div class="form-group">
-              <label>Imagen<br></label>
-              <form action="other/upload.php" method="post" enctype="multipart/form-data">
+              <label>File</label>
+            <input type="file" name="fileActividad" />
+            </div>-->
 
-                <input class="btn " type="file" name="fileToUpload" id="fileToUpload">
-                <input class="btn btn-primary" type="submit" value="Upload Image" name="upload">
-              </form>
-            </div>
+
 
           </div>
+          
+            
+            
           <div class="modal-footer">
 
             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
             <input type="submit" class="btn btn-info" value="Guardar">
           </div>
         </form>
+        </div>
       </div>
     </div>
-  </div>
+  
+  
+  
   <!-- Delete Modal HTML -->
   <div id="deleteActivity" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form>
+        <form method="POST" action="ActividadServlet?action=borrar">
           <div class="modal-header">
             <h4 class="modal-title">Borrar actividad </h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
+              
+              <input type="hidden" id="actividadIdBorrar" name="actividadIdBorrar"  >
+              
             <p>¿Estás seguro que deseas eliminar esta actividad?</p>
             <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
           </div>
@@ -432,8 +445,9 @@
   </div>
 
 
-
+      
   <!-- Bootstrap core JavaScript-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
   <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -449,6 +463,30 @@
 
   <!-- Page level custom scripts -->
   <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
+  
+    <script>
+      
+      $(document).on("click", ".editar-Actividad", function () {
+
+     $(".modal-body  #actividadId").val( $(this).data('id') );
+     $(".modal-body .form-group #nombreActividad").val( $(this).data('nombre') );
+     $(".modal-body .form-group #descripcionActividad").val(  $(this).data('descripcion') );
+     
+
+        });
+
+
+      $(document).on("click", ".borrar-Actividad", function () {
+
+     $(".modal-body  #actividadIdBorrar").val( $(this).data('id') );
+     $(".modal-body .form-group #nombreActividadBorrar").val( $(this).data('nombre') );
+     
+
+        });
+      </script>
+  
+
+
 
 </body>
 

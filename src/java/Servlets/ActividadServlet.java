@@ -14,7 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import Beans.Actividad;
+import java.io.InputStream;
+import java.nio.file.Paths;
+import javax.servlet.http.Part;
 /**
  *
  * @author GUSTAVO
@@ -46,6 +49,42 @@ public class ActividadServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/DG/activities.jsp");
                 view.forward(request, response);
                 break;
+                
+                
+            case "guardar":
+                                
+                String descripcionNuevo = request.getParameter("descripcionActividadNuevo");
+                String nombreNuevo = request.getParameter("nombreActividadNuevo");
+                actividadesDao.nuevaActividad(nombreNuevo,descripcionNuevo);
+                response.sendRedirect("ActividadServlet?action=listaActividades");
+                
+                /*
+                Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
+                String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
+                InputStream fileContent = filePart.getInputStream();
+                    InputStream initialStream = new FileInputStream(
+                new File("src/main/resources/sample.txt"));
+              byte[] buffer = new byte[initialStream.available()];
+              initialStream.read(buffer);
+
+              File targetFile = new File("src/main/resources/targetFile.tmp");
+              OutputStream outStream = new FileOutputStream(targetFile);
+              outStream.write(buffer);*/
+                break;
+                
+            case "actualizar":
+
+                String descripcion = request.getParameter("descripcionActividad");
+                String nombre = request.getParameter("nombreActividad");
+                int idActividad = Integer.parseInt(request.getParameter("actividadId"));
+                actividadesDao.actualizarActividad(nombre, descripcion, idActividad);
+                response.sendRedirect("ActividadServlet?action=listaActividades");
+                break;
+                
+            case "borrar":
+                actividadesDao.borrarActividad(Integer.parseInt(request.getParameter("actividadIdBorrar")));
+                response.sendRedirect("ActividadServlet?action=listaActividades");
+                break;        
             
         }
         

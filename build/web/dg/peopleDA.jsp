@@ -4,13 +4,20 @@
     Author     : GUSTAVO
 --%>
 
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <%@page import="java.util.ArrayList"%>
 
 <%
-    ArrayList<Usuario> lista = (ArrayList<Usuario>) request.getAttribute("listaDA");
+    ArrayList<Usuario> lista1 = (ArrayList<Usuario>) request.getAttribute("listaDA");
+
+    HashMap<Integer, String> listaAct = (HashMap<Integer, String>) request.getAttribute("listaActividad");
+    HashMap<Integer, String> listaTodasActividades = (HashMap<Integer, String>) request.getAttribute("listaTodasActividades");
+
     %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -253,21 +260,22 @@
 
                                                                         <%
                           int i = 1;
-                          for (Usuario u: lista){
+                          for (Usuario u: lista1){
 %>
                   <tr>
                       <td><%= u.getCodigoPucp()%></td>
                     <td><%= u.getNombre()+ " " + u.getApellido() %></td>
                     <td><%= u.getCorreoPucp()%></td>
-                    <td><%= u.getCondicion()%></td>
+                    <td><%= u.getActividad().getNombreActividad()%></td>
                     <td >
                       <div class="form-group row text-center btn-user">
                         <div class="col-sm-4 mb-2 mb-sm-0">
                           
-                          <a href="#editP" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
+                            <a href="#editP" data-id='<%= u.getCodigoPucp()%>' data-nombre='<%= u.getFullname() %>' data-correo=<%= u.getCorreoPucp()%> data-condicion=<%= u.getCondicion()%>  data-rol=<%= u.getRol().getId()%> data-idact=<%=u.getIdActividad()%> style="color: green" class="editar-Persona button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
+               
                         </div>
                         <div class="col-sm-4">
-                          <a href="#deleteP" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
+                          <a href="#deleteP" data-id="<%=u.getCodigoPucp()%>" style="color: green" class="borrar-Persona button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
                        </div>
                       </div>
                     </td>
@@ -280,7 +288,7 @@
 
                                 </tbody>
                             </table>
-                        </div>
+                        </div>e
                     </div>
                 </div>
 
@@ -368,64 +376,93 @@
     </div>
 </div>
 <!-- Edit Modal HTML -->
-<div id="editEmployeeModal" class="modal fade">
+  <div id="editP" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <form>
-                <div class="modal-header">
-                    <h4 class="modal-title">Editar</h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Nombre</label>
-                        <input type="text" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Correo PUCP</label>
-                        <input type="email" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Condición</label>
-                        <select class="form-control form-control-user" type="text" >
-                            <option value="null">  -- Seleccione una opcion --</option>
-                            <option value="Alumno">Alumno</option>
-                            <option value="Egresado">Egresado</option>
+      <div class="modal-content">
+        <form method="POST" action="UsuarioServlet?action=actualizar">
+          <div class="modal-header">
+            <h4 class="modal-title">Editar</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
 
-                        </select>
-                    </div>
+              
+              <input type="hidden" id="codigoPucpUsuario"  name="codigoPucpUsuario" >
+              
+            <div class="form-group">
+              <label>Nombre completo</label>
+              <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" disabled>
+            </div>
+            <div class="form-group">
+              <label>Correo PUCP</label>
+              <input type="email"  id="correoPucpUsuario" name="correoPucpUsuario" class="form-control" disabled>
+            </div>
+            <div class="form-group">
+              <label>Condición</label>
+                <input type="text" id="condicionUsuario" name ="condicionUsuario" class="form-control" disabled>
+            </div>
+ 
+            <div class="form-group" id="comboboxDA" style="display: none">
+              <label>Actividad</label>
+              <select   id="actividadEscogida" name="actividadEscogida" class="form-control form-control-user button" type="text" required>
+                  <option class="button"  value="0"   >---Escoger Actividad---</option>
+                  <%
+                      for(Map.Entry mapElement: listaTodasActividades.entrySet() ){
+                          
+                          if(listaAct.containsKey(mapElement.getKey()))
+                          { 
+                              out.write("<option class='button'  value='"+mapElement.getKey()+"'   >" +mapElement.getValue()+ "</option>");
+                          }
+                          else
+                          {
+                              out.write("<option class='button' hidden='true' value='" + mapElement.getKey()+"'   >" +mapElement.getValue()+ "</option>");
+                          }
+                          // <option class="button"  value="<%=mapElement.getKey()>"   ><%=mapElement.getValue()></option>
 
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit" class="btn btn-info" value="Guardar">
-                </div>
-            </form>
-        </div>
+                           } %>       
+              </select>
+            </div>
+            <div class="form-check" >
+                <input  type="checkbox" id="EditModalCheckboxDA" name="EditModalCheckboxDA" onclick="functionDA()" class="form-check-input"  >
+              <label class="form-check-label" > Delegado de actividad</label>
+
+            </div>
+
+          </div>
+          <div class="modal-footer">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+            <button type="submit" data-dismiss="modal" data-toggle="modal" data-target="#banP" class="btn btn-danger" value="Banear">Banear</button>
+            <input type="submit" class="btn btn-info" value="Guardar">
+          </div>
+        </form>
+      </div>
     </div>
-</div>
-<!-- Delete Modal HTML -->
-<div id="deleteEmployeeModal" class="modal fade">
+  </div>
+
+<!--delete Modal HTML -->
+  <div id="deleteP" class="modal fade">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <form>
-                <div class="modal-header">
-                    <h4 class="modal-title">Borrar miembro </h4>
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estás seguro que deseas eliminar a esta persona?</p>
-                    <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
-                </div>
-                <div class="modal-footer">
-                    <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                    <input type="submit" class="btn btn-danger" value="Borrar">
-                </div>
-            </form>
-        </div>
+      <div class="modal-content">
+        <form method="POST" action="UsuarioServlet?action=borrar">
+          <div class="modal-header">
+            <h4 class="modal-title">Borrar miembro </h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+              <input type="hidden" id="codigoPucpUsuarioBorrar"  name="codigoPucpUsuarioBorrar" >
+            <p>¿Estás seguro que deseas eliminar a esta persona?</p>
+            <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
+          </div>
+          <div class="modal-footer">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+            <input  type="submit" class="btn btn-danger" value="Borrar">
+          </div>
+        </form>
+      </div>
     </div>
-</div>
+  </div>
 
+<script src="<%=request.getContextPath()%>/https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <!-- Bootstrap core JavaScript-->
 <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -444,5 +481,55 @@
 <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
 
 </body>
+
+
+<script>
+        function functionDA() {
+      // Get the checkbox
+      var checkBox = document.getElementById("EditModalCheckboxDA");
+      // Get the output text
+      var cda = document.getElementById("comboboxDA");
+
+      // If the checkbox is checked, display the output text
+      if (checkBox.checked === true){
+          checkBox.value = "true";
+        cda.style.display = "block";
+      } else {
+          checkBox.value = "false";
+        cda.style.display = "none";
+      }
+    }
+      
+     $(document).on("click", ".editar-Persona", function () {
+
+     $(".modal-body  #codigoPucpUsuario").val(  $(this).data('id') );
+     $(".modal-body .form-group #nombreUsuario").val(  $(this).data('nombre') );
+     $(".modal-body .form-group #correoPucpUsuario").val(  $(this).data('correo') );
+     $(".modal-body .form-group #condicionUsuario").val(  $(this).data('condicion') );
+     $(".modal-body .form-check #EditModalCheckboxDA").prop("checked", false);
+     if($(this).data('condicion') === "Egresado"){
+         $(".modal-body .form-check #EditModalCheckboxDA").prop("disabled", true);
+     }
+
+    else{
+        $(".modal-body .form-check #EditModalCheckboxDA").prop("disabled", false);
+        $(".modal-body .form-group #actividadEscogida").val("0" );
+        var rol = $(this).data('rol');
+        var actividad = $(this).data('idact');
+
+        if (rol.toString()==="2"){
+            $(".modal-body .form-check #EditModalCheckboxDA").prop("checked", true);
+            $(".modal-body .form-group #actividadEscogida").val(actividad );
+        }
+        
+        functionDA(); 
+        }
+        });
+      
+      //codigoPucpUsuarioBorrar
+      $(document).on("click", ".borrar-Persona", function () {
+          $(".modal-body  #codigoPucpUsuarioBorrar").val(  $(this).data('id') );
+      });
+      </script>
 
 </html>

@@ -46,6 +46,8 @@ public class UsuarioServlet extends HttpServlet {
             case "listaUsuario":
                 
                 request.setAttribute("listaUsuario", uDao.listarUsuario());
+                request.setAttribute("listaActividad", uDao.listarActividad());
+                request.setAttribute("listaTodasActividades", uDao.listarTodasActividades());
                 view = request.getRequestDispatcher("/DG/peopleR.jsp");
                 view.forward(request, response);
                 break;
@@ -60,18 +62,37 @@ public class UsuarioServlet extends HttpServlet {
                 request.setAttribute("listaBan", uDao.listarUsuarioBaneado());
                 view = request.getRequestDispatcher("/DG/Ban.jsp");
                 view.forward(request, response);
-                
+                break;
             case "listaDA":
                 request.setAttribute("listaDA", uDao.listarDA());
+                request.setAttribute("listaActividad", uDao.listarActividad());
+                request.setAttribute("listaTodasActividades", uDao.listarTodasActividades());
                 view = request.getRequestDispatcher("/DG/peopleDA.jsp");
                 view.forward(request, response);
+                break;
                 
+            case "actualizar": 
+                boolean checkbox;
+                try{
+                    checkbox = Boolean.parseBoolean(request.getParameterValues("EditModalCheckboxDA")[0]) ;
+                }catch(NullPointerException ex){
+                    checkbox = false;
+                }
+                int idUsuario = Integer.parseInt(request.getParameter("codigoPucpUsuario"));
+                int idActividad = 0;
+                if(checkbox){
+                    idActividad = Integer.parseInt(request.getParameterValues("actividadEscogida")[0]);}
+                uDao.actualizarUsuario(idUsuario, checkbox, idActividad);
+                response.sendRedirect("UsuarioServlet?action=listaUsuario");
                 
-            case "lista2":
-                view = request.getRequestDispatcher("/DG/indexDG.jsp");
-                view.forward(request, response);
+                break;
             
-            
+            case "borrar":
+                int codigoPucpBorrar = Integer.parseInt(request.getParameter("codigoPucpUsuarioBorrar"));
+                uDao.borrarUsuario(codigoPucpBorrar);
+                response.sendRedirect("UsuarioServlet?action=listaUsuario");
+                break;
+                
         }
         
         
