@@ -102,6 +102,12 @@ public class UsuarioServlet extends HttpServlet {
                 response.sendRedirect("UsuarioServlet?action=listaUsuario");
                 break;
                 
+            case "banear":
+                uDao.banearUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioBanear")));
+                response.sendRedirect("UsuarioServlet?action=listaUsuario");
+                break;
+                
+                
         }
         
         
