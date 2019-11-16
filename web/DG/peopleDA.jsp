@@ -114,9 +114,9 @@
             <div id="collapseEstd" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Todas las estadísticas</h6>
-                    <a class="collapse-item" href="statisticsA.html">Cantidad de apoyos</a>
-                    <a class="collapse-item" href="statisticsR.html">Recaudaciones</a>
-                    <a class="collapse-item" href="statisticsP.html">Alumnos y egresados</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/EstadisticasDgServlet?action=estadisticaApoyos">Cantidad de apoyos</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/EstadisticasDgServlet?action=estadisticaRecaudaciones">Recaudaciones</a>
+                    <a class="collapse-item" href="<%=request.getContextPath()%>/EstadisticasDgServlet?action=estadisticaPersonas">Alumnos y egresados</a>
                 </div>
             </div>
         </li>
