@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author GUSTAVO
  */
-@WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet",""})
+@WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet"})
 public class UsuarioServlet extends HttpServlet {
 
     /**
@@ -36,7 +36,7 @@ public class UsuarioServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
+        String action = request.getParameter("action") == null ? "dashboard" : request.getParameter("action");
         
         UsuarioDao uDao = new UsuarioDao();
 
@@ -44,7 +44,6 @@ public class UsuarioServlet extends HttpServlet {
         
         switch(action){
             case "listaUsuario":
-                
                 request.setAttribute("listaUsuario", uDao.listarUsuario());
                 request.setAttribute("listaActividad", uDao.listarActividad());
                 request.setAttribute("listaTodasActividades", uDao.listarTodasActividades());
@@ -93,6 +92,11 @@ public class UsuarioServlet extends HttpServlet {
                 response.sendRedirect("UsuarioServlet?action=listaUsuario");
                 break;
                 
+            case "dashboard":
+                request.setAttribute("listaBan", uDao.listarUsuarioBaneado());
+                view = request.getRequestDispatcher("/DG/Ban.jsp");
+                view.forward(request, response);
+                break;
         }
         
         
