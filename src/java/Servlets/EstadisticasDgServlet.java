@@ -50,13 +50,13 @@ public class EstadisticasDgServlet extends HttpServlet {
                 
             case "estadisticaRecaudaciones":
                 request.setAttribute("estadisticas", e.estadisticaR());
-                view = request.getRequestDispatcher("/DG/statisticsP.jsp");
+                view = request.getRequestDispatcher("/DG/statisticsR.jsp");
                 view.forward(request, response);
                 break;
                 
             case "estadisticaPersonas":
                 request.setAttribute("estadisticas", e.estadisticaP());
-                view = request.getRequestDispatcher("/DG/statisticsR.jsp");
+                view = request.getRequestDispatcher("/DG/statisticsP.jsp");
                 view.forward(request, response);
                 break;
             
