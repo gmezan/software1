@@ -438,8 +438,8 @@
   <!-- Page level custom scripts -->
   <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
   <script src="<%=request.getContextPath()%>/js/demo/chart-area-demo.js"></script>
-  <script src="js/pieChartA.js"></script>
-  <script src="js/chart-bar.js"></script>
+  <script src="<%=request.getContextPath()%>/DG/js/pieChartA.js"></script>
+  <script src="<%=request.getContextPath()%>/DG/js/chart-bar.js"></script>
 
 </body>
 

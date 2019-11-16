@@ -674,7 +674,7 @@
   <!-- Page level custom scripts -->
   <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
   <script src="<%=request.getContextPath()%>/js/demo/chart-area-demo.js"></script>
-  <script src="js/pieChartR.js"></script>
+  <script src="<%=request.getContextPath()%>/DG/js/pieChartR.js"></script>
   <script src="<%=request.getContextPath()%>/js/demo/chart-bar-demo.js"></script>
 
 </body>
