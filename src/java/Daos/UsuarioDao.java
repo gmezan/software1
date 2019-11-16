@@ -34,7 +34,7 @@ public class UsuarioDao extends BaseDao{
                         "inner join Rol r on u.Rol_idRol = r.idRol\n" +
                         "inner join EstadoUsuario e on e.idEstado = u.Estado_idEstado "
                     + "left join Actividad a on u.codigoPucp = a.delegado_codigoPucp "
-                    + "where e.idEstado in (1,2)";
+                    + "where e.idEstado = 1";
             try(Connection conn = this.getConnection();
                     Statement stmt = conn.createStatement();
                     ResultSet rs = stmt.executeQuery(sql); )

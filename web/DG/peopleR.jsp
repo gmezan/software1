@@ -423,7 +423,7 @@
           </div>
           <div class="modal-footer">
             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-            <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#banP" class="btn btn-danger" value="Banear">Banear</button>
+            <button id="buttonBanPersona" type="button" data-id=0 data-dismiss="modal" data-toggle="modal" data-target="#banP" class="ban-Persona btn btn-danger" value="Banear">Banear</button>
             <input type="submit" class="btn btn-info" value="Guardar">
           </div>
         </form>
@@ -527,14 +527,15 @@
       
      $(document).on("click", ".editar-Persona", function () {
 
-     $(".modal-body  #codigoPucpUsuario").val(  $(this).data('id') );
+     var codigo = $(this).data('id');
+     $(".modal-body  #codigoPucpUsuario").val(  codigo );
      $(".modal-body .form-group #nombreUsuario").val(  $(this).data('nombre') );
      $(".modal-body .form-group #correoPucpUsuario").val(  $(this).data('correo') );
      $(".modal-body .form-group #condicionUsuario").val(  $(this).data('condicion') );
      $(".modal-body .form-check #EditModalCheckboxDA").prop("checked", false);
      
+     $('.modal-footer #buttonBanPersona').data('id',codigo);
      
-     $(".modal-body .form-group #codigoPucpUsuarioBanear").val($(this).data('id') );
      
      if($(this).data('condicion') === "Egresado"){
          $(".modal-body .form-check #EditModalCheckboxDA").prop("disabled", true);
@@ -559,6 +560,15 @@
       $(document).on("click", ".borrar-Persona", function () {
           $(".modal-body  #codigoPucpUsuarioBorrar").val(  $(this).data('id') );
       });
+      
+      $(document).on("click", ".ban-Persona", function () {
+          $(".modal-body  #codigoPucpUsuarioBanear").val($(this).data('id') );
+      });
+      
+           
+
+      
+      
       </script>
   
 
