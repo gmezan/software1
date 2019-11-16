@@ -224,6 +224,25 @@ public class UsuarioDao extends BaseDao{
         
     }
     
+    public void agregarUsuario(int codigo){
+        String sql = "update Usuarios set idEstado = 1 where (codigoPucp = ?)";
+        
+        try(Connection conn = this.getConnection();
+                    PreparedStatement pstmt = conn.prepareStatement(sql);
+                     )
+            {
+                pstmt.setInt(1, codigo);
+                pstmt.executeUpdate();
+
+            }
+            catch(SQLException ex){
+                Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+        
+        
+    }
+    
     
     public HashMap<Integer,String> listarActividad(){
         HashMap<Integer,String> dict = new HashMap<>();

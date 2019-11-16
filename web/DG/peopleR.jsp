@@ -380,10 +380,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
-
-              
               <input type="hidden" id="codigoPucpUsuario"  name="codigoPucpUsuario" >
-              
             <div class="form-group">
               <label>Nombre completo</label>
               <input type="text" id="nombreUsuario" name="nombreUsuario" class="form-control" disabled>
@@ -426,7 +423,7 @@
           </div>
           <div class="modal-footer">
             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-            <button type="submit" data-dismiss="modal" data-toggle="modal" data-target="#banP" class="btn btn-danger" value="Banear">Banear</button>
+            <button type="button" data-dismiss="modal" data-toggle="modal" data-target="#banP" class="btn btn-danger" value="Banear">Banear</button>
             <input type="submit" class="btn btn-info" value="Guardar">
           </div>
         </form>
@@ -438,12 +435,13 @@
   <div id="banP" class="modal fade">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form>
+        <form method="POST" action="UsuarioServlet?action=banear">
           <div class="modal-header">
             <h4 class="modal-title">Banear miembro </h4>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           </div>
           <div class="modal-body">
+              <input type="hidden" id="codigoPucpUsuarioBanear"  name="codigoPucpUsuarioBanear" >
             <p>¿Estás seguro que deseas banear a esta persona?</p>
             <p class="text-warning"><small>Esta acción se podrá deshacer.</small></p>
           </div>
@@ -534,6 +532,10 @@
      $(".modal-body .form-group #correoPucpUsuario").val(  $(this).data('correo') );
      $(".modal-body .form-group #condicionUsuario").val(  $(this).data('condicion') );
      $(".modal-body .form-check #EditModalCheckboxDA").prop("checked", false);
+     
+     
+     $(".modal-body .form-group #codigoPucpUsuarioBanear").val($(this).data('id') );
+     
      if($(this).data('condicion') === "Egresado"){
          $(".modal-body .form-check #EditModalCheckboxDA").prop("disabled", true);
      }

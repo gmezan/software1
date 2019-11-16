@@ -251,7 +251,7 @@
                       <div class="form-group row text-center btn-user">
                         <div class="col-sm-4 mb-2 mb-sm-0">
                           
-                          <a href="#editP" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
+                          <a href="#editP" data-id="<%=u.getCodigoPucp()%>" style="color: green" class="agregar-Persona button btn btn-success" data-toggle="modal"><i class="fas fa-plus-circle" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                         </div>
                         <div class="col-sm-4">
                           <a href="#deleteP" data-id="<%=u.getCodigoPucp()%>"  style="color: green" class="borrar-Persona button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
@@ -320,13 +320,14 @@
 <div id="editP" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form>
+            <form method="POST" action="UsuarioServlet?action=agregar">
                 <div class="modal-header">
-                    <h4 class="modal-title">Miembro añadido</h4>
+                    <h4 class="modal-title">Añadir participante</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
-                    <p>Esta persona ha sido registrada al sistema. Para mayor información de las personas registradas entrar a <a target="_blank" href="peopleR.html">Personas registradas</a></p>
+                    <input type="hidden" id="codigoPucpUsuarioAgregar"  name="codigoPucpUsuarioAgregar" >
+                    <p>¿Seguro que desea agregar esta persona?</p>
                 </div>
                 <div class="modal-footer">
                     <input type="submit" class="btn btn-success" value="OK">
@@ -381,6 +382,12 @@
 
 <script>
           //codigoPucpUsuarioBorrar
+    
+    $(document).on("click", ".agregar-Persona", function () {
+          $(".modal-body  #codigoPucpUsuarioAgregar").val(  $(this).data('id') );
+      });
+          
+          
       $(document).on("click", ".borrar-Persona", function () {
           $(".modal-body  #codigoPucpUsuarioBorrar").val(  $(this).data('id') );
       });

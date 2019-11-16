@@ -87,8 +87,7 @@ public class UsuarioServlet extends HttpServlet {
                 break;
             
             case "borrar":
-                int codigoPucpBorrar = Integer.parseInt(request.getParameter("codigoPucpUsuarioBorrar"));
-                uDao.borrarUsuario(codigoPucpBorrar);
+                uDao.borrarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioBorrar")));
                 response.sendRedirect("UsuarioServlet?action=listaUsuario");
                 break;
                 
@@ -97,6 +96,12 @@ public class UsuarioServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/DG/Ban.jsp");
                 view.forward(request, response);
                 break;
+                
+            case "agregar":
+                uDao.agregarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));
+                response.sendRedirect("UsuarioServlet?action=listaUsuario");
+                break;
+                
         }
         
         
