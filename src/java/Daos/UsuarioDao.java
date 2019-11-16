@@ -9,9 +9,7 @@ import Beans.Actividad;
 import Beans.Estado;
 import Beans.Rol;
 import Beans.Usuario;
-import Servlets.UsuarioServlet;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -67,7 +65,7 @@ public class UsuarioDao extends BaseDao{
                     usuario.add(u);
                     
                     
-                    usuario.add(u);
+
 
                 }
 
@@ -276,16 +274,19 @@ public class UsuarioDao extends BaseDao{
         if(check){
             String sql = "update Usuarios set Rol_idRol = 2 where (codigoPucp = ?)";
             String sql2 = "update Actividad set delegado_codigoPucp = ? where (idActividad = ?)";
-            
+            String sql3 = "update Actividad set delegado_codigoPucp = NULL where (delegado_codigoPucp = ?)";
             try(Connection conn = this.getConnection();
                     PreparedStatement pstmt = conn.prepareStatement(sql);
                     PreparedStatement pstmt2 = conn.prepareStatement(sql2);
-                     )
+                    PreparedStatement pstmt3 = conn.prepareStatement(sql3);)
             {
                 pstmt.setInt(1, userId);
                 pstmt.executeUpdate();
                 pstmt2.setInt(1, userId);
                 pstmt2.setInt(2, actId);
+                
+                pstmt3.setInt(1, userId);
+                pstmt3.executeUpdate();
                 pstmt2.executeUpdate();
             }
             catch(SQLException ex){
@@ -299,6 +300,7 @@ public class UsuarioDao extends BaseDao{
             String sql = "update Usuarios set Rol_idRol = 1 where codigoPucp = ?";
             
             String sql2 = "update Actividad set delegado_codigoPucp = NULL where idActividad = ?";
+            
             
             try(Connection conn = this.getConnection();
                     PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -325,25 +327,48 @@ public class UsuarioDao extends BaseDao{
     
     public int actividadDeDelegado(int userId){
         String sql = "SELECT idActividad FROM Actividad where delegado_codigoPucp = ?";
-            int id = 0;
-            try(Connection conn = this.getConnection();
-                    PreparedStatement pstmt = conn.prepareStatement(sql);
-                     )
-            {
-                pstmt.setInt(1, userId);
-                ResultSet rs = pstmt.executeQuery();
+        int id = 0;
+        try(Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                 )
+        {
+            pstmt.setInt(1, userId);
+            try (ResultSet rs = pstmt.executeQuery()) {
                 while(rs.next())
                 {
                     id = rs.getInt(1);
                 }
-                rs.close();
             }
-            catch(SQLException ex){
-                Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
+        catch(SQLException ex){
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
         return id;
     }
-            
+     
+    
+    public int validarUsuario(int userId, String password){
+        int rol = -1;
+        String sql = "SELECT Rol_idRol FROM Usuarios where (codigoPucp = ? and password = ?)";
+        try(Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);
+                 )
+        {
+            pstmt.setInt(1, userId);
+            pstmt.setString(2, password);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while(rs.next())
+                {
+                    rol = rs.getInt(1);
+                }
+            }
+        }
+        catch(SQLException ex){
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rol;
+    }
         
 }

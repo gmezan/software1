@@ -6,6 +6,7 @@
 package Servlets;
 
 import Daos.ActividadesDao;
+import Daos.EstadisticasDgDao;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -37,13 +38,25 @@ public class EstadisticasDgServlet extends HttpServlet {
         RequestDispatcher view = null;
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         
-        ActividadesDao actividadesDao = new ActividadesDao();
+        EstadisticasDgDao e = new EstadisticasDgDao();
         
         switch(action){
             
-            case "listaActividades":
-                request.setAttribute("listaActividades", actividadesDao.listarActividades());
-                view = request.getRequestDispatcher("/DG/activities.jsp");
+            case "estadisticaApoyos":
+                request.setAttribute("estadisticas", e.estadisticaA());
+                view = request.getRequestDispatcher("/DG/statisticsA.jsp");
+                view.forward(request, response);
+                break;
+                
+            case "estadisticaRecaudaciones":
+                request.setAttribute("estadisticas", e.estadisticaR());
+                view = request.getRequestDispatcher("/DG/statisticsP.jsp");
+                view.forward(request, response);
+                break;
+                
+            case "estadisticaPersonas":
+                request.setAttribute("estadisticas", e.estadisticaP());
+                view = request.getRequestDispatcher("/DG/statisticsR.jsp");
                 view.forward(request, response);
                 break;
             

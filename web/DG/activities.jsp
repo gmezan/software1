@@ -388,11 +388,11 @@
               
             <div class="form-group">
               <label>Nombre</label>
-              <input type="text" id="nombreActividad" name="nombreActividad" class="form-control" >
+              <input type="text" id="nombreActividad" name="nombreActividad" class="form-control" required>
             </div>
             <div class="form-group">
               <label>Descripción</label>
-              <input type="text" id="descripcionActividad" name="descripcionActividad" class="form-control" >
+              <input type="text" id="descripcionActividad" name="descripcionActividad" class="form-control" required>
             </div>
 
             <!--

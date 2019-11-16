@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/GUSTAVO/Documents/NetBeansProjects/sw1_web/src/java/Beans/Actividad.java</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/NetBeansProjects/sw1_web/web/DG/activities.jsp</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/NetBeansProjects/sw1_web/src/java/Servlets/UsuarioServlet.java</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/NetBeansProjects/sw1_web/web/DG/peopleDA.jsp</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/NetBeansProjects/sw1_web/src/java/Daos/UsuarioDao.java</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/NetBeansProjects/sw1_web/web/DG/indexDG.jsp</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/NetBeansProjects/sw1_web/web/DG/peopleR.jsp</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/NetBeansProjects/sw1_web/web/DG/peopleNR.jsp</file>
-            <file>file:/C:/Users/GUSTAVO/Documents/NetBeansProjects/sw1_web/web/DG/Ban.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
