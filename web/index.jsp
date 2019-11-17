@@ -19,11 +19,11 @@
   <title>Semana de ingenería</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -46,7 +46,7 @@
                   <div class="text-center">
                     <h1 class="h-25 text-gray-900 mb-5">Bienvenido</h1>
                   </div>
-                  <form class="user" method="POST" action="MainServlet?action=iniciarSesion">
+                  <form class="user" method="POST" action="<%=request.getContextPath()%>/MainServlet?action=iniciarSesion">
                     <div class="form-group">
                       <label for="username"></label><input id="username" name="usernameIniciarSesion" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Ingrese correo PUCP..." required>
                     </div>
@@ -96,14 +96,14 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+  <script src="<%=request.getContextPath()%>/js/sb-admin-2.min.js"></script>
 
   <script>
     //var attempt = 3; // Variable to count number of attempts.

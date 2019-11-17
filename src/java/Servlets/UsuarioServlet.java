@@ -6,6 +6,8 @@
 package Servlets;
 
 import Beans.Usuario;
+import Daos.ActividadesDao;
+import Daos.EstadisticasDgDao;
 import Daos.UsuarioDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author GUSTAVO
  */
-@WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet"})
+@WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet","/EstadisticasDgServlet","/ActividadDgServlet"})
 public class UsuarioServlet extends HttpServlet {
 
     /**
@@ -39,7 +41,8 @@ public class UsuarioServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "dashboard" : request.getParameter("action");
         
         UsuarioDao uDao = new UsuarioDao();
-
+        EstadisticasDgDao e = new EstadisticasDgDao();
+        ActividadesDao actividadesDao = new ActividadesDao();
         RequestDispatcher view;
         
         switch(action){
@@ -92,8 +95,8 @@ public class UsuarioServlet extends HttpServlet {
                 break;
                 
             case "dashboard":
-                request.setAttribute("listaBan", uDao.listarUsuarioBaneado());
-                view = request.getRequestDispatcher("/DG/Ban.jsp");
+                
+                view = request.getRequestDispatcher("/DG/indexDG.jsp");
                 view.forward(request, response);
                 break;
                 
@@ -106,6 +109,57 @@ public class UsuarioServlet extends HttpServlet {
                 uDao.banearUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioBanear")));
                 response.sendRedirect("UsuarioServlet?action=listaUsuario");
                 break;
+                
+                
+            //Parte de estadisticas  
+                
+                
+            case "estadisticaApoyos":
+                request.setAttribute("estadisticas", e.estadisticaA());
+                view = request.getRequestDispatcher("/DG/statisticsA.jsp");
+                view.forward(request, response);
+                break;
+                
+            case "estadisticaRecaudaciones":
+                request.setAttribute("estadisticas", e.estadisticaR());
+                view = request.getRequestDispatcher("/DG/statisticsR.jsp");
+                view.forward(request, response);
+                break;
+                
+            case "estadisticaPersonas":
+                request.setAttribute("estadisticas", e.estadisticaP());
+                view = request.getRequestDispatcher("/DG/statisticsP.jsp");
+                view.forward(request, response);
+                break;
+            
+            //Parte de actividades:
+                
+            case "listaActividades":
+                request.setAttribute("listaActividades", actividadesDao.listarActividades());
+                view = request.getRequestDispatcher("/DG/activities.jsp");
+                view.forward(request, response);
+                break;
+               
+            case "guardarActividad":
+                                
+                String descripcionNuevo = request.getParameter("descripcionActividadNuevo");
+                String nombreNuevo = request.getParameter("nombreActividadNuevo");
+                actividadesDao.nuevaActividad(nombreNuevo,descripcionNuevo);
+                response.sendRedirect("ActividadDgServlet?action=listaActividades");
+                break;
+                
+            case "actualizarActividad":
+
+                String descripcion = request.getParameter("descripcionActividad");
+                String nombre = request.getParameter("nombreActividad");
+                actividadesDao.actualizarActividad(nombre, descripcion, Integer.parseInt(request.getParameter("actividadId")));
+                response.sendRedirect("ActividadDgServlet?action=listaActividades");
+                break;
+                
+            case "borrarActividad":
+                actividadesDao.borrarActividad(Integer.parseInt(request.getParameter("actividadIdBorrar")));
+                response.sendRedirect("ActividadDgServlet?action=listaActividades");
+                break;  
                 
                 
         }

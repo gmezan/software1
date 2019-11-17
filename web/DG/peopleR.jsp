@@ -53,14 +53,14 @@
     <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexDG.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/UsuarioServlet?action=dashboard">
         <div class="sidebar-brand-icon ">
           <i class="fas fa-broadcast-tower"></i>
         </div>
         <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
       </a>
 
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexDG.html">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/UsuarioServlet?action=dashboard">
 
         <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado General</div>
       </a>
@@ -70,7 +70,7 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item">
-        <a class="nav-link" href="indexDG.html">
+        <a class="nav-link" href="<%=request.getContextPath()%>/UsuarioServlet?action=dashboard">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -86,7 +86,7 @@
       </div>
 
       <li class="nav-item">
-        <a class="nav-link" href="<%=request.getContextPath()%>/ActividadServlet?action=listaActividades">
+        <a class="nav-link" href="<%=request.getContextPath()%>/ActividadDgServlet?action=listaActividades">
           <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
           <span>Actividades</span></a>
       </li>
@@ -322,7 +322,7 @@
         <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar tu sesión actual.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="../index.html">Cerrar sesión</a>
+          <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet">Cerrar sesión</a>
         </div>
       </div>
     </div>
@@ -397,7 +397,7 @@
             <div class="form-group" id="comboboxDA" style="display: none">
               <label>Actividad</label>
               <select   id="actividadEscogida" name="actividadEscogida" class="form-control form-control-user button" type="text" required>
-                  <option class="button"  value="0"   >---Escoger Actividad---</option>
+                  <!--<option class="button"  value="0"   >---Escoger Actividad---</option>-->
                   <%
                       for(Map.Entry mapElement: listaTodasActividades.entrySet() ){
                           
@@ -539,6 +539,7 @@
      
      if($(this).data('condicion') === "Egresado"){
          $(".modal-body .form-check #EditModalCheckboxDA").prop("disabled", true);
+         functionDA(); 
      }
 
     else{
