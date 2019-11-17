@@ -446,8 +446,8 @@
             <p class="text-warning"><small>Esta acción se podrá deshacer.</small></p>
           </div>
           <div class="modal-footer">
-            <input type="button"  data-toggle="modal" class="btn btn-default" data-dismiss="modal" data-target="#editP" value="Cancelar">
-            <input  type="submit"class="btn btn-danger" data-dismiss="modal" value="Banear">
+            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+            <input  type="submit" class="btn btn-danger" value="Banear">
           </div>
         </form>
       </div>

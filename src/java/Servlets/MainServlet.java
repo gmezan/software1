@@ -78,13 +78,13 @@ public class MainServlet extends HttpServlet {
                     break;
                 }
                 switch(uDao.validarUsuario(codigo, password)){
-                    case 1:
+                    case 1: //Participante
                         
                         break;
-                    case 2:
+                    case 2: //Delegado de actividad
                         
                         break;
-                    case 3:
+                    case 3: //Delegado general
                         view = request.getRequestDispatcher("DG/indexDG.jsp");
                         view.forward(request, response);
                         break;

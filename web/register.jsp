@@ -41,7 +41,7 @@
               <div class="text-center">
                 <h1 class="h-25 text-gray-900 mb-5">Crea una cuenta!</h1>
               </div>
-              <form class="user">
+              <form class="user">                                 <!---SE necesita metodo post aqui para registrar-->
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="Nombre">
@@ -74,7 +74,7 @@
                     <!--<input type="email" class="form-control form-control-user" id="exampleInputCondition" placeholder="Ingrese condicion (Alumno/Egresado)">-->
                   </div>
                 </div>
-                <a href="register-mail.html" class="btn btn-myColor btn-user btn-block">
+                <a href="<%=request.getContextPath()%>/MainServlet?action=correoRegistrar" class="btn btn-myColor btn-user btn-block">
                   Registrar Cuenta
                 </a>
                   <!--
@@ -89,10 +89,10 @@
               </form>
               <hr>
               <div class="text-center">
-                <a class="small" href="forgot-password.html">Olvidé mi contraseña</a>
+                <a class="small" href="<%=request.getContextPath()%>/MainServlet?action=recuperar">Olvidé mi contraseña</a>
               </div>
               <div class="text-center">
-                <a class="small" href="index.html">¿Ya tienes una cuenta? Inicia sesión!</a>
+                <a class="small" href="<%=request.getContextPath()%>/MainServlet">¿Ya tienes una cuenta? Inicia sesión!</a>
               </div>
             </div>
           </div>

@@ -19,11 +19,11 @@
   <title>SB Admin 2 - Forgot Password</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="<%=request.getContextPath()%>/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin-2.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
 
 </head>
 
@@ -45,22 +45,22 @@
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-2">¿Olvidaste tu contraseña?</h1>
-                    <p class="mb-4">We get it, shit happens. Just enter your email address below and we'll send you a link to reset your password!</p>
+                    <p class="mb-4">Ingresa tu correo abajo y te enviaremos un enlace para que puedas reinicar tu contraseña</p>
                   </div>
                   <form class="user">
                     <div class="form-group">
                       <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Ingresa tu correo PUCP">
                     </div>
-                    <a href="forgot-mail.html" class="btn btn-myColor btn-user btn-block">
+                    <a href="<%=request.getContextPath()%>/MainServlet?action=correoRecuperar" class="btn btn-myColor btn-user btn-block">
                       Reiniciar contraseña
                     </a>
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="register.html" >Crear una cuenta!</a> <!--style="color: #121212"-->
+                    <a class="small" href="<%=request.getContextPath()%>/MainServlet?action=registrarse" >Crear una cuenta!</a> <!--style="color: #121212"-->
                   </div>
                   <div class="text-center">
-                    <a class="small" href="index.html" >Ya tengo una cuenta, Inicar sesión!</a>
+                    <a class="small" href="<%=request.getContextPath()%>/MainServlet" >Ya tengo una cuenta, Inicar sesión!</a>
                   </div>
                 </div>
               </div>
@@ -75,14 +75,14 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="<%=request.getContextPath()%>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+  <script src="<%=request.getContextPath()%>/js/sb-admin-2.min.js"></script>
 
 </body>
 

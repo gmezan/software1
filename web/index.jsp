@@ -76,12 +76,12 @@
 
 
                   <div class="text-center">
-                    <a class="small" href="forgot-password.html">Olvidé mi contraseña</a>
+                    <a class="small" href="<%=request.getContextPath()%>/MainServlet?action=recuperar">Olvidé mi contraseña</a>
                   </div>
 
 
                     <div class="text-center">
-                    <a class="small" href="register.html">Crear cuenta!</a>
+                    <a class="small" href="<%=request.getContextPath()%>/MainServlet?action=registrarse">Crear cuenta!</a>
                   </div>
                 </div>
               </div>
