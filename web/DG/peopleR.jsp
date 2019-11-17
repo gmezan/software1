@@ -535,9 +535,9 @@
      $(".modal-body .form-check #EditModalCheckboxDA").prop("checked", false);
      
      $('.modal-footer #buttonBanPersona').data('id',codigo);
+     var aaa = $(this).data('rol');
      
-     
-     if($(this).data('condicion') === "Egresado"){
+     if($(this).data('condicion') === "Egresado"  || (aaa.toString()==="3")){
          $(".modal-body .form-check #EditModalCheckboxDA").prop("disabled", true);
          functionDA(); 
      }
