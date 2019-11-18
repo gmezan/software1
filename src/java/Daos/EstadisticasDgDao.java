@@ -6,7 +6,7 @@
 package Daos;
 
 import Beans.Actividad;
-import Beans.EstadisticaA;
+import Dtos.EstadisticaA;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

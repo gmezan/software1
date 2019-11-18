@@ -4,7 +4,19 @@
     Author     : Gustavo_Meza
 --%>
 
+<%@page import="Beans.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Usuario u = (Usuario) session.getAttribute("usuario");
+    if(u != null)
+    {
+       //Validar si es un delegado general o no
+        response.sendRedirect(request.getContextPath()+"/UsuarioServlet");
+    }
+    
+    
+    %>
+
 <!DOCTYPE html>
 <html lang="en">
 

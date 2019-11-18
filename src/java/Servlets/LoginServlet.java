@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Gustavo_Meza
  */
-@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet", "", "/LoginServlet"})
+@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet",  "", "/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
         
         switch(action){
             case "login":
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                response.sendRedirect(request.getContextPath()+"/index.jsp");
                 break;
             
             case "inicio":
@@ -99,7 +99,7 @@ public class LoginServlet extends HttpServlet {
 
                             break;
                         case 3: //Delegado general
-                            response.sendRedirect(request.getContextPath() + "/UsuarioServlet?action=dashboard");
+                            response.sendRedirect(request.getContextPath() + "/UsuarioServlet");
                             break;
 
                     }
