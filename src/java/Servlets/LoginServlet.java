@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import Beans.Usuario;
 import Daos.UsuarioDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,13 +15,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author Gustavo_Meza
  */
-@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet", ""})
-public class MainServlet extends HttpServlet {
+@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet", "", "/LoginServlet"})
+public class LoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,17 +36,21 @@ public class MainServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action") == null ? "inicio" : request.getParameter("action");
+        String action = request.getParameter("action") == null ? "login" : request.getParameter("action");
         
         UsuarioDao uDao = new UsuarioDao();
-
+        HttpSession session;
         RequestDispatcher view;
         
         switch(action){
-        
+            case "login":
+                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                break;
+            
             case "inicio":
-                view = request.getRequestDispatcher("index.jsp");
-                view.forward(request, response);
+                session = request.getSession();
+                session.invalidate();
+                response.sendRedirect("index.jsp");
                 break;
                 
             case "registrarse":
@@ -70,28 +76,34 @@ public class MainServlet extends HttpServlet {
             case "iniciarSesion":
                 int codigo;
                 String password;
+                
                 try{
                     codigo = Integer.parseInt(request.getParameter("usernameIniciarSesion"));
                     password = request.getParameter("passwordIniciarSesion");
-                } catch (NumberFormatException e)
-                {
+                } catch (NumberFormatException e){
                     break;
                 }
-                switch(uDao.validarUsuario(codigo, password)){
-                    case 1: //Participante
-                        
-                        break;
-                    case 2: //Delegado de actividad
-                        
-                        break;
-                    case 3: //Delegado general
-                        view = request.getRequestDispatcher("DG/indexDG.jsp");
-                        view.forward(request, response);
-                        break;
-                        
-                    
+                Usuario user = uDao.validarUsuario(codigo, password);
+                if(user == null){
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
                 }
-                
+                else{
+                    
+                    session = request.getSession();
+                    session.setAttribute("usuario", user);
+                    switch(user.getRol().getId()){
+                        case 1: //Participante
+
+                            break;
+                        case 2: //Delegado de actividad
+
+                            break;
+                        case 3: //Delegado general
+                            response.sendRedirect(request.getContextPath() + "/UsuarioServlet?action=dashboard");
+                            break;
+
+                    }
+                }
                 break;
             
         }

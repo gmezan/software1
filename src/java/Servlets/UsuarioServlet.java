@@ -18,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -44,8 +45,18 @@ public class UsuarioServlet extends HttpServlet {
         EstadisticasDgDao e = new EstadisticasDgDao();
         ActividadesDao actividadesDao = new ActividadesDao();
         RequestDispatcher view;
+        HttpSession session = request.getSession();
         
-        switch(action){
+        if(session.getAttribute("usuario") == null)
+        {
+            
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+        }
+        else{
+            
+            // verficar si es de delegado general
+            
+            switch(action){
             case "listaUsuario":
                 request.setAttribute("listaUsuario", uDao.listarUsuario());
                 request.setAttribute("listaActividad", uDao.listarActividad());
@@ -162,7 +173,9 @@ public class UsuarioServlet extends HttpServlet {
                 break;  
                 
                 
+            }
         }
+        
         
         
     }

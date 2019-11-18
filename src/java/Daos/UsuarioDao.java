@@ -380,9 +380,13 @@ public class UsuarioDao extends BaseDao{
     }
      
     
-    public int validarUsuario(int userId, String password){
-        int rol = -1;
-        String sql = "SELECT Rol_idRol FROM Usuarios where (codigoPucp = ? and password = ?)";
+    public Usuario validarUsuario(int userId, String password){
+        Usuario u = null;
+        String sql = "SELECT u.codigoPucp, u.nombre, u.apellido, u.correoPucp, u.condicion, r.idRol,e.estado,r.nombre_rol,a.idActividad, a.nombreActividad  FROM Usuarios u\n" +
+                        "inner join Rol r on u.Rol_idRol = r.idRol\n" +
+                        "inner join EstadoUsuario e on e.idEstado = u.Estado_idEstado "
+                    + "left join Actividad a on u.codigoPucp = a.delegado_codigoPucp "
+                    + "where e.idEstado = 1 and (codigoPucp = ? and password = ?)";
         try(Connection conn = this.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);
                  )
@@ -390,9 +394,29 @@ public class UsuarioDao extends BaseDao{
             pstmt.setInt(1, userId);
             pstmt.setString(2, password);
             try (ResultSet rs = pstmt.executeQuery()) {
-                while(rs.next())
+                if(rs.next())
                 {
-                    rol = rs.getInt(1);
+                    u = new Usuario();
+                    u.setNombre(rs.getString(2));
+                    u.setCodigoPucp(rs.getInt(1));
+                    u.setApellido(rs.getString(3));
+                    u.setCondicion(rs.getString(5));
+                    u.setCorreoPucp(rs.getString(4));
+
+                    Rol r = new Rol();
+                    r.setId(rs.getInt(6));
+                    r.setRol(rs.getString(8));
+                    u.setRol(r);
+
+                    Estado e = new Estado();
+                    e.setEstado(rs.getString(7));
+                    u.setEstado(e);
+                    
+                    Actividad a = new Actividad();
+                    a.setIdActividad(rs.getInt(9));
+                    a.setNombreActividad(rs.getString(10));
+                    u.setActividad(a);
+                    u.setIdActividad(a.getIdActividad());
                 }
             }
         }
@@ -400,7 +424,7 @@ public class UsuarioDao extends BaseDao{
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return rol;
+        return u;
     }
         
 }
