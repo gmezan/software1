@@ -18,7 +18,8 @@ public class Actividad {
     private String descripcion;
     private String nombreDelegado;
     
-    
+    //
+    //
     /**
      * @return the nombreActividad
      */
