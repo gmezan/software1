@@ -474,8 +474,8 @@ public class UsuarioDao extends BaseDao {
     }
     
     
-    private int[] dataDashboard(){
-        int[] data={0,0,0,0};
+    public ArrayList<Integer> dataDashboard(){
+        ArrayList<Integer> data = new ArrayList<>();
 
         String sqlSolicitudes = "select count(codigoPucp) from Usuarios where Estado_idEstado = 2";
         String sqlDonacionHoy = "SELECT sum(monto) from Donacion where date(now()) = fecha ";
@@ -489,10 +489,10 @@ public class UsuarioDao extends BaseDao {
                 ResultSet rs4 = stmt.executeQuery(sqlActividadesConDelegado);
                 ) {
             
-            if(rs1.next()) data[0] = rs1.getInt(1);
-            if(rs2.next()) data[1] = rs1.getInt(1);
-            if(rs3.next()) data[2] = rs1.getInt(1);
-            if(rs4.next()) data[3] = rs1.getInt(1);
+            if(rs1.next()) data.add(rs1.getInt(1)); else data.add(0);
+            if(rs2.next()) data.add(rs1.getInt(1)); else data.add(0);
+            if(rs3.next()) data.add(rs1.getInt(1)); else data.add(0);
+            if(rs4.next()) data.add(rs1.getInt(1)); else data.add(0);
             
             
         } catch (SQLException ex) {
