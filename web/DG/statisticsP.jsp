@@ -4,9 +4,13 @@
     Author     : GUSTAVO
 --%>
 
+<%@page import="Dtos.EstadisticasP"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
+<% ArrayList<EstadisticasP> lista = (ArrayList<EstadisticasP>) request.getAttribute("estadisticas"); %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -233,325 +237,38 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                   <tr>
+                      <th>Codigo</th>
                     <th>Nombre</th>
-                    <th>¿Cumplió la cuota mínima?</th>
                     <th>Condición</th>
-                    <th>Donación (S/.)</th>
 
                   </tr>
                   </thead>
                   <tfoot>
                   <tr>
+                      <th>Codigo</th>
                     <th>Nombre</th>
-                    <th>¿Cumplió la cuota mínima?</th>
                     <th>Condición</th>
-                    <th>Donación (S/.)</th>
                   </tr>
                   </tfoot>
                   <tbody>
+                    <% for(EstadisticasP e : lista){
+                              
+                              
+                              %>  
+                      
                   <tr>
-                    <td>Tiger Nixon</td>
-                    <td>System Architect</td>
-                    <td>Egresado</td>
-                    <td>61</td>
+                      <td><%=e.getCodigo()%></td>
+                    <td><%=e.getNombre()%></td>
+                    <td><%=e.getCondicion()%></td>
+                    
 
                   </tr>
-                  <tr>
-                    <td>Garrett Winters</td>
-                    <td>Accountant</td>
-                    <td>Egresado</td>
-                    <td>63</td>
-
-                  </tr>
-                  <tr>
-                    <td>Ashton Cox</td>
-                    <td>Junior Technical Author</td>
-                    <td>Egresado</td>
-                    <td>66</td>
-
-                  </tr>
-                  <tr>
-                    <td>Cedric Kelly</td>
-                    <td>Senior Javascript Developer</td>
-                    <td>Egresado</td>
-                    <td>22</td>
-
-                  </tr>
-                  <tr>
-                    <td>Airi Satou</td>
-                    <td>Accountant</td>
-                    <td>Egresado</td>
-                    <td>33</td>
-
-                  </tr>
-                  <tr>
-                    <td>Brielle Williamson</td>
-                    <td>Integration Specialist</td>
-                    <td>Egresado</td>
-                    <td>61</td>
-
-                  </tr>
-                  <tr>
-                    <td>Herrod Chandler</td>
-                    <td>Sales Assistant</td>
-                    <td>Egresado</td>
-                    <td>59</td>
-
-                  </tr>
-                  <tr>
-                    <td>Rhona Davidson</td>
-                    <td>Integration Specialist</td>
-                    <td>Egresado</td>
-                    <td>55</td>
-
-                  </tr>
-                  <tr>
-                    <td>Colleen Hurst</td>
-                    <td>Javascript Developer</td>
-                    <td>Egresado</td>
-                    <td>39</td>
-
-                  </tr>
-                  <tr>
-                    <td>Sonya Frost</td>
-                    <td>Software Engineer</td>
-                    <td>Egresado</td>
-                    <td>23</td>
-
-                  </tr>
-                  <tr>
-                    <td>Jena Gaines</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>30</td>
-
-                  </tr>
-                  <tr>
-                    <td>Quinn Flynn</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>22</td>
-
-                  </tr>
-                  <tr>
-                    <td>Charde Marshall</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>36</td>
-
-                  </tr>
-                  <tr>
-                    <td>Haley Kennedy</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>43</td>
-
-                  </tr>
-                  <tr>
-                    <td>Tatyana Fitzpatrick</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>19</td>
-
-                  </tr>
-                  <tr>
-                    <td>Michael Silva</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>66</td>
-
-                  </tr>
-                  <tr>
-                    <td>Paul Byrd</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>64</td>
-
-                  </tr>
-                  <tr>
-                    <td>Gloria Little</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>59</td>
-
-                  </tr>
-                  <tr>
-                    <td>Bradley Greer</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>41</td>
-
-                  </tr>
-                  <tr>
-                    <td>Dai Rios</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>35</td>
-
-                  </tr>
-                  <tr>
-                    <td>Jenette Caldwell</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>30</td>
-
-                  </tr>
-                  <tr>
-                    <td>Yuri Berry</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>40</td>
-
-                  </tr>
-                  <tr>
-                    <td>Caesar Vance</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>21</td>
-
-                  </tr>
-                  <tr>
-                    <td>Doris Wilder</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>23</td>
-
-                  </tr>
-                  <tr>
-                    <td>Angelica Ramos</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>47</td>
-
-                  </tr>
-                  <tr>
-                    <td>Gavin Joyce</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>42</td>
-
-                  </tr>
-                  <tr>
-                    <td>Jennifer Chang</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>28</td>
-
-                  </tr>
-                  <tr>
-                    <td>Brenden Wagner</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>28</td>
-
-                  </tr>
-                  <tr>
-                    <td>Fiona Green</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>48</td>
-
-                  </tr>
-                  <tr>
-                    <td>Shou Itou</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>20</td>
-
-                  </tr>
-                  <tr>
-                    <td>Michelle House</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>37</td>
-
-                  </tr>
-                  <tr>
-                    <td>Suki Burks</td>
-                    <td>Developer</td>
-                    <td>Egresado</td>
-                    <td>53</td>
-
-                  </tr>
-                  <tr>
-                    <td>Prescott Bartlett</td>
-                    <td>Technical Author</td>
-                    <td>Egresado</td>
-                    <td>27</td>
-
-                  </tr>
-                  <tr>
-                    <td>Gavin Cortez</td>
-                    <td>Team Leader</td>
-                    <td>Egresado</td>
-                    <td>22</td>
-
-
-                  </tr>
-                  <tr>
-                    <td>Martena Mccray</td>
-                    <td>Post-Sales support</td>
-                    <td>Egresado</td>
-                    <td>46</td>
-
-
-                  </tr>
-                  <tr>
-                    <td>Unity Butler</td>
-                    <td>Marketing Designer</td>
-                    <td>Egresado</td>
-                    <td>47</td>
-
-
-                  </tr>
-                  <tr>
-                    <td>Howard Hatfield</td>
-                    <td>Office Manager</td>
-                    <td>Egresado</td>
-                    <td>51</td>
-
-
-                  </tr>
-                  <tr>
-                    <td>Hope Fuentes</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>41</td>
-
-
-                  </tr>
-                  <tr>
-                    <td>Vivian Harrell</td>
-                    <td>-</td>
-                    <td>Alumno</td>
-                    <td>62</td>
-
-
-                  </tr>
-                  <tr>
-                    <td>Timothy Mooney</td>
-                    <td>Office Manager</td>
-                    <td>Egresado</td>
-                    <td>37</td>
-
-
-                  </tr>
-                  <tr>
-                    <td>Jackson Bradshaw</td>
-                    <td>Director</td>
-                    <td>Egresado</td>
-                    <td>65</td>
-
-
-                  </tr>
-                  <tr>
-                    <td>Olivia Liang</td>
-                    <td>Support Engineer</td>
-                    <td>Egresado</td>
-                    <td>64</td>
-
-
-                  </tr>
+                  <%
+                        }
+                        
+                        %>
+                  
+                 
                   </tbody>
                 </table>
               </div>
