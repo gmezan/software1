@@ -47,7 +47,7 @@
 
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
 
-                    <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de actividad</div>
+                    <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de <%= usuario.getActividad().getNombreActividad()%></div>
                 </a>
 
                 <hr class="sidebar-divider my-0">
