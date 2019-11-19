@@ -5,6 +5,8 @@
  */
 package Dtos;
 
+import java.sql.Date;
+
 /**
  *
  * @author Gustavo_Meza
@@ -16,6 +18,7 @@ public class EstadisticaR {
     private String condicion;
     private int cantidad ;
     private String cuota;
+    private Date date ;
 
     /**
      * @return the codigoPucp
@@ -85,6 +88,20 @@ public class EstadisticaR {
      */
     public void setCuota(String cuota) {
         this.cuota = cuota;
+    }
+
+    /**
+     * @return the date
+     */
+    public Date getDate() {
+        return date;
+    }
+
+    /**
+     * @param date the date to set
+     */
+    public void setDate(Date date) {
+        this.date = date;
     }
     
     

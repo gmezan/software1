@@ -60,7 +60,7 @@ public class EstadisticasDgDao extends BaseDao {
         
         ArrayList<EstadisticaR> estadisticas = new ArrayList<>();
         
-        String sql = "SELECT u.codigoPucp, concat(u.nombre, \" \", u.apellido), u.condicion, sum(d.monto)\n" +
+        String sql = "SELECT u.codigoPucp, concat(u.nombre, \" \", u.apellido), u.condicion, sum(d.monto), d.fecha\n" +
                     "FROM Usuarios u inner join Donacion d on u.codigoPucp = d.contribuyente_codigoPucp\n" +
                     "group by u.codigoPucp";
         
@@ -74,6 +74,7 @@ public class EstadisticasDgDao extends BaseDao {
                 e.setNombre(rs.getString(2));
                 e.setCondicion(rs.getString(3));
                 e.setCantidad(rs.getInt(4));
+                e.setDate(rs.getDate(5));
                 
                 if(e.getCondicion().equalsIgnoreCase("Alumno")){
                     e.setCuota("-");}
