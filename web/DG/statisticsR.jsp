@@ -285,7 +285,7 @@
                       <td><%=e.getCuota()%></td>
                       <td><%=e.getCondicion()%></td>
                       <td><%=e.getCantidad()%></td>
-                      <td>2011/04/25</td>
+                      <td><%=e.getDate().toString()%></td>
 
                     </tr>
                     <%
