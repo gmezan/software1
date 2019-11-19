@@ -77,8 +77,8 @@
                     </a>
                     <div id="collapsePers" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item active" href="peopleNR.jsp">Personas no registradas</a>
-                            <a class="collapse-item" href="revisarParticipantes.jsp">Revisar participantes</a>
+                            <a class="collapse-item active" href="<%=request.getContextPath()%>/DA?action=listarEsperas">Personas no registradas</a>
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarBarrEq">Revisar participantes</a>
                         </div>
                     </div>
                 </li>
