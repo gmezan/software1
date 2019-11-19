@@ -94,6 +94,38 @@ public class EstadisticasDgDao extends BaseDao {
         return estadisticas;
     }
     
+    public ArrayList<EstadisticaR> estadisticaR2(){
+        
+        ArrayList<EstadisticaR> estadisticas = new ArrayList<>();
+        
+        String sql = "SELECT d.fecha, sum(d.monto)\n" +
+                        "FROM Usuarios u inner join Donacion d on u.codigoPucp = d.contribuyente_codigoPucp\n" +
+                        "group by d.fecha"
+                            + " order by fecha asc";
+
+        try (Connection conn = this.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);){
+            
+            while(rs.next()){
+                EstadisticaR e = new EstadisticaR();
+                e.setCantidad(rs.getInt(2));
+                e.setDate(rs.getDate(1));
+                
+               
+                estadisticas.add(e);
+                
+            }
+        }
+        catch(SQLException ex){
+                Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return estadisticas;
+    }
+    
+    
+    
     
     public ArrayList<EstadisticasP> estadisticaP(){
         
@@ -124,5 +156,7 @@ public class EstadisticasDgDao extends BaseDao {
         
         return estadisticas;
     }
+    
+    
     
 }

@@ -10,6 +10,8 @@
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
 <% ArrayList<EstadisticaR> listaR = (ArrayList<EstadisticaR>) request.getAttribute("estadisticas"); %>
+<% ArrayList<EstadisticaR> listaR2 = (ArrayList<EstadisticaR>) request.getAttribute("estadisticasR"); %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -271,7 +273,7 @@
                       <th>¿Cumplió la cuota mínima?</th>
                       <th>Condición</th>
                       <th>Donación (S/.)</th>
-                      <th>Fecha de donación</th>
+                      <th>Ultima fecha de donación</th>
                     </tr>
                   </tfoot>
                   <tbody>
@@ -303,6 +305,44 @@
         </div>
         <!-- /.container-fluid -->
 
+        <table id="TablaRecaudaciones" style="display: none" >
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      
+                      <th>Donación (S/.)</th>
+
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Nombre</th>
+                      
+                      <th>Donación (S/.)</th>
+                    </tr>
+                  </tfoot>
+                  <tbody >
+                  <% for(EstadisticaR e : listaR2){
+                              %>    
+                      
+                    <tr>
+                      <td><%=e.getDate().toString()%></td>
+                      <td><%=e.getCantidad()%></td>
+                      
+
+                    </tr>
+                    
+                    <%
+                        }
+                        
+                        %>
+                    
+                    
+                  </tbody>
+                </table>
+        
+        
+        
       </div>
       <!-- End of Main Content -->
 
@@ -365,9 +405,9 @@
 
   <!-- Page level custom scripts -->
   <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
-  <script src="<%=request.getContextPath()%>/js/demo/chart-area-demo.js"></script>
   <script src="<%=request.getContextPath()%>/DG/js/pieChartR.js"></script>
   <script src="<%=request.getContextPath()%>/js/demo/chart-bar-demo.js"></script>
+  <script src="<%=request.getContextPath()%>/DG/js/recaudacionesTiempo.js"></script>
 
 </body>
 

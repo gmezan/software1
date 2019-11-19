@@ -106,6 +106,8 @@ public class UsuarioServlet extends HttpServlet {
                 break;
                 
             case "dashboard":
+                request.setAttribute("estadisticasP",e.estadisticaP());
+                request.setAttribute("estadisticasR",e.estadisticaR2());
                 request.setAttribute("datos", uDao.dataDashboard());
                 view = request.getRequestDispatcher("/DG/indexDG.jsp");
                 view.forward(request, response);
@@ -129,6 +131,7 @@ public class UsuarioServlet extends HttpServlet {
                 
             case "estadisticaRecaudaciones":
                 request.setAttribute("estadisticas", e.estadisticaR());
+                request.setAttribute("estadisticasR",e.estadisticaR2());
                 view = request.getRequestDispatcher("/DG/statisticsR.jsp");
                 view.forward(request, response);
                 break;

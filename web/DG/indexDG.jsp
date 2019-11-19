@@ -4,11 +4,16 @@
     Author     : GUSTAVO
 --%>
 
+<%@page import="Dtos.EstadisticaR"%>
+<%@page import="Dtos.EstadisticasP"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
 <% ArrayList<Integer> lista = (ArrayList<Integer>) request.getAttribute("datos"); %>
+<% ArrayList<EstadisticasP> listaP = (ArrayList<EstadisticasP>) request.getAttribute("estadisticasP"); %>
+<% ArrayList<EstadisticaR> listaR = (ArrayList<EstadisticaR>) request.getAttribute("estadisticasR"); %>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -328,7 +333,7 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Acumulado de recaudaciones</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Recaudaciones</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -462,6 +467,80 @@
               </div>-->
 
             </div>
+           
+            
+            
+            <table id="TablaRecaudaciones" style="display: none" >
+                  <thead>
+                    <tr>
+                      <th>Nombre</th>
+                      
+                      <th>Donación (S/.)</th>
+
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Nombre</th>
+                      
+                      <th>Donación (S/.)</th>
+                    </tr>
+                  </tfoot>
+                  <tbody >
+                  <% for(EstadisticaR e : listaR){
+                              %>    
+                      
+                    <tr>
+                      <td><%=e.getDate().toString()%></td>
+                      <td><%=e.getCantidad()%></td>
+                      
+
+                    </tr>
+                    
+                    <%
+                        }
+                        
+                        %>
+                    
+                    
+                  </tbody>
+                </table>
+                        
+                        
+            <table id="TablaPersonas" style="display: none">
+                  <thead>
+                  <tr>
+                    <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Condición</th>
+
+                  </tr>
+                  </thead>
+                  <tfoot>
+                  <tr>
+                      <th>Codigo</th>
+                    <th>Nombre</th>
+                    <th>Condición</th>
+                  </tr>
+                  </tfoot>
+                  <tbody>
+                    <% for(EstadisticasP e : listaP){
+                              %>  
+                      
+                  <tr>
+                    <td><%=e.getCondicion()%></td>
+                    
+                  </tr>
+                  <%
+                        }
+                        
+                        %>
+                  
+                 
+                  </tbody>
+                </table>
+            
+            
 
             <div class="col-lg-6 mb-4">
 
@@ -472,7 +551,7 @@
                 </div>
                 <div class="card-body">
                   <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="../img/undraw_posting_photo.svg" alt="">
+                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="<%=request.getContextPath()%>/img/undraw_posting_photo.svg" alt="">
                   </div>
                   <p> Puedes ingresar a esta página desde cualquier dispositivo y asegurarte de que todo vaya en orden en esta semana de ingeniería.</p>
                   <a target="_blank" rel="nofollow" href="https://blog.telecom.pucp.edu.pe/">Blog telecom &rarr;</a>
@@ -553,8 +632,8 @@
   <script src="<%=request.getContextPath()%>/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="<%=request.getContextPath()%>/js/demo/chart-area-demo.js"></script>
-  <script src="<%=request.getContextPath()%>/js/demo/chart-pie-demo.js"></script>
+  <script src="<%=request.getContextPath()%>/DG/js/personasTabla.js"></script>
+  <script src="<%=request.getContextPath()%>/DG/js/recaudacionesTiempo.js"></script>
 
 </body>
 
