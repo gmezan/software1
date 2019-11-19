@@ -1,10 +1,12 @@
 <%-- 
     Document   : misEventos
     Created on : 16-nov-2019, 16:58:47
-    Author     : Labtel
+    Author     : ALLISON
 --%>
-
+<%@page import="Beans.Evento"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% ArrayList<Evento> listaEventos = (ArrayList<Evento>) request.getAttribute("listaEventos"); %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,7 +20,7 @@
 
         <!-- Custom fonts for this template -->
         <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="<%=request.getContextPath()%>https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
@@ -35,14 +37,14 @@
             <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexA.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet?action=PaginaPrincipal">
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
                 </a>
 
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexA.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/AlumnoServlet?action=PaginaPrincipal">
 
                     <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Alumno</div>
                 </a>
@@ -52,7 +54,7 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item">
-                    <a class="nav-link" href="indexA.html">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=PaginaPrincipal">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Actividades</span></a>
                 </li>
@@ -68,16 +70,17 @@
                 </div>
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="misEventos.html">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=listaEventos">
                         <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
                         <span>Mis eventos</span></a>
                 </li>
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="donaciones.html">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=agregarDonacion">
                         <i class="fas fa-fw fa-dollar-sign"></i> <!--icono!!!!!-->
-                        <span>Donaciones</span></a>
+                        <span>Donaciones</span>
+                    </a>
                 </li>
 
 
@@ -178,7 +181,7 @@
                         <p class="mb-4">Acá encontrarás los eventos en los que estás participando. Si aun no has sido aceptado en un evento, puedes observarlo en la segunda lista.</p>
 
                         <div class="row justify-content-end">
-                            <a href="anadirevento.html" class="btn btn-success" ><span>Inscribirse</span></a>
+                            <a href="#inscribirse" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus"></i> <span>Inscribirse</span></a>
                         </div>
 
                         <br>
@@ -198,9 +201,7 @@
                                                 <th>Actividad</th>
                                                 <th>Lugar</th>
                                                 <th>Fecha</th>
-                                                <th>Imagen</th>
-
-
+                                                <th>Hora</th>
                                             </tr>
                                         </thead>
 
@@ -213,15 +214,9 @@
                                                 <td>Actividad A</td>
                                                 <td>Lugar A</td>
                                                 <td>DD/MM/AA</td>
-                                                <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
-                                                </td>
+                                                <td>00:00</td>
+                                                
                                             </tr>
-
-
-
-
-
-
 
 
                                             <tr>
@@ -229,17 +224,9 @@
                                                 <td>Actividad B</td>
                                                 <td>Lugar B</td>
                                                 <td>DD/MM/AA</td>
-                                                <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
+                                                <td>00:00</td>
+                                                
                                             </tr>
-
-
-
-
-
-
-
-
-
 
 
                                             <tr>
@@ -247,22 +234,11 @@
                                                 <td>Actividad C</td>
                                                 <td>Lugar C</td>
                                                 <td>DD/MM/AA</td>
-                                                <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                </td>
+                                                <td>00:00</td>
                                             </tr>
-
-
-
-
-
-
 
                                         </tbody>
                                     </table>
-
-
-
-
 
                                 </div>
                             </div>
@@ -286,7 +262,8 @@
                                                 <th>Actividad</th>
                                                 <th>Lugar</th>
                                                 <th>Fecha</th>
-                                                <th>Imagen</th>
+                                                <th>Hora</th>
+                                               
 
 
                                             </tr>
@@ -299,39 +276,30 @@
                                                 <td>Actividad D</td>
                                                 <td>Lugar D</td>
                                                 <td>DD/MM/AA</td>
-                                                <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-
+                                                <td>00:00</td>
+                                              
                                             </tr>
-
-
-
 
                                             <tr>
                                                 <td>Fibra vs Memoria Cache</td>
                                                 <td>Actividad E</td>
                                                 <td>Lugar E</td>
                                                 <td>DD/MM/AA</td>
-                                                <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-
+                                                <td>00:00</td>
+                                            
                                             </tr>
-
-
 
                                             <tr>
                                                 <td>Fibra vs Memoria Cache</td>
                                                 <td>Actividad F</td>
                                                 <td>Lugar F</td>
                                                 <td>DD/MM/AA</td>
-                                                <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-
+                                                <td>00:00</td>
+                                              
                                             </tr>
 
                                         </tbody>
                                     </table>
-
-
-
-
 
                                 </div>
                             </div>
@@ -377,7 +345,7 @@
                     <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar tu sesión actual.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="../index.html">Cerrar sesión</a>
+                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesión</a>
                     </div>
                 </div>
             </div>
