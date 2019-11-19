@@ -4,7 +4,11 @@
     Author     : Labtel
 --%>
 
+<%@page import="Beans.PartiEvento"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="Beans.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% ArrayList<PartiEvento> listaBarrEq = (ArrayList<PartiEvento>) request.getAttribute("listaUsuariosBarrsOEq"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -211,18 +215,32 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Nombre</th>
-                                                <th>Participación</th>
+                                                <th>Codigo</th>
+                                                <th>Nombre </th>
+                                                <th>Tipo de Apoyo</th>
                                                 <th>Condición</th>
+                                                <th>Evento</th>
                                                 <th>Modificar participación</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
+                                            
+                                            
+                                            <%
+                                                for (PartiEvento par : listaBarrEq){
+                                            
+                                            %>
+                                            
+                                            
                                             <tr>
-                                                <td>Tiger Nixon</td>
-                                                <td>Equipo</td>
-                                                <td>Egresado</td>
+                                                
+                                                <td><%=par.getCodigo()%></td>
+                                                <td><%=par.getNombre()%> <%=par.getApellido()%></td>
+                                                
+                                                <td><%=par.getTipoApoyo()%></td>
+                                                <td><%=par.getCondicion()%></td>
+                                                <td><%=par.getEvento()%></td>
                                                 <td>
                                                     <div class="form-group row text-center btn-user">
                                                         <div class="col-sm-4 mb-2 mb-sm-0">
@@ -235,293 +253,9 @@
                                                 </td>
                                             </tr>
 
-                                            <tr>
-                                                <td>Garrett Winters</td>
-                                                <td>Equipo</td>
-                                                <td>Egresado</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Ashton Cox</td>
-                                                <td>Equipo</td>
-                                                <td>Egresado</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Michael Silva</td>
-                                                <td>Equipo</td>
-                                                <td>Alumno</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Paul Byrd</td>
-                                                <td>Equipo</td>
-                                                <td>Alumno</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Gloria Little</td>
-                                                <td>Equipo</td>
-                                                <td>Alumno</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Bradley Greer</td>
-                                                <td>Equipo</td>
-                                                <td>Alumno</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Cedric Kelly</td>
-                                                <td>Barras</td>
-                                                <td>Egresado</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Airi Satou</td>
-                                                <td>Barras</td>
-                                                <td>Egresado</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Brielle Williamson</td>
-                                                <td>Barras</td>
-                                                <td>Egresado</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Herrod Chandler</td>
-                                                <td>Barras</td>
-                                                <td>Egresado</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Rhona Davidson</td>
-                                                <td>Barras</td>
-                                                <td>Egresado</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Colleen Hurst</td>
-                                                <td>Barras</td>
-                                                <td>Egresado</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Sonya Frost</td>
-                                                <td>Barras</td>
-                                                <td>Egresado</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Jena Gaines</td>
-                                                <td>Equipo</td>
-                                                <td>Alumno</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Quinn Flynn</td>
-                                                <td>Equipo</td>
-                                                <td>Alumno</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Charde Marshall</td>
-                                                <td>Equipo</td>
-                                                <td>Alumno</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Haley Kennedy</td>
-                                                <td>ejemplopucp@pucp.edu.pe</td>
-                                                <td>Alumno</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Tatyana Fitzpatrick</td>
-                                                <td>Barras</td>
-                                                <td>Alumno</td>
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            <%
+                                                }%>
+                                          
 
                                         </tbody>
                                     </table>

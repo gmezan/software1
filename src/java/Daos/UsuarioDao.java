@@ -7,6 +7,7 @@ package Daos;
 
 import Beans.Actividad;
 import Beans.Estado;
+import Beans.PartiEvento;
 import Beans.Rol;
 import Beans.Usuario;
 import java.sql.Connection;
@@ -99,7 +100,6 @@ public class UsuarioDao extends BaseDao {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
         return usuario;
     }
 
@@ -128,8 +128,7 @@ public class UsuarioDao extends BaseDao {
                 e.setEstado(rs.getString(7));
                 u.setEstado(e);
                 usuario.add(u);
-                
-                
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -140,8 +139,71 @@ public class UsuarioDao extends BaseDao {
 
     //////////////////////////////////////////
     //////////////////////////////////////////
-    
-    public ArrayList<Usuario> listaUsuariosBarrsOEq() {
+    public ArrayList<PartiEvento> listaUsuariosBarrsOEq() {
+
+        ArrayList<PartiEvento> partis = new ArrayList<>();
+
+        String sql = "SELECT p.Participante_codigoPucp, u.nombre, u.apellido, estEv.estado, u.condicion, e.descripcion , p.EstadoEvento_idEstadoEvento, p.observaciones, e.Actividad_idActividad, a.nombreActividad\n"
+                + "FROM Participante_a_Evento p, Evento e, Usuarios u, Actividad a, EstadoEvento estEv\n"
+                + "WHERE e.idEvento = p.Evento_idEvento AND p.EstadoEvento_idEstadoEvento <> 3 AND u.codigoPucp = p.Participante_codigoPucp AND e.Actividad_idActividad = a.idActividad AND p.EstadoEvento_idEstadoEvento = estEv.idEstadoEvento;";
+
+        try (Connection conn = this.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);) {
+            while (rs.next()) {
+                PartiEvento partiEvento = new PartiEvento();
+
+                partiEvento.setCodigo(rs.getInt(1));
+                partiEvento.setNombre(rs.getString(2));
+                partiEvento.setApellido(rs.getString(3));
+                partiEvento.setTipoApoyo(rs.getString(4));
+                partiEvento.setCondicion(rs.getString(5));
+                partiEvento.setEvento(rs.getString(6));
+
+                partis.add(partiEvento);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return partis;
+
+    }
+
+    public ArrayList<PartiEvento> listaUsuariosEnEsperaEventos() {
+
+        ArrayList<PartiEvento> partis = new ArrayList<>();
+
+        String sql = "SELECT p.Participante_codigoPucp, u.nombre, u.apellido, estEv.estado, u.condicion, e.descripcion , p.EstadoEvento_idEstadoEvento, p.observaciones, e.Actividad_idActividad, a.nombreActividad\n"
+                + "FROM Participante_a_Evento p, Evento e, Usuarios u, Actividad a, EstadoEvento estEv\n"
+                + "WHERE e.idEvento = p.Evento_idEvento AND p.EstadoEvento_idEstadoEvento = 3 AND u.codigoPucp = p.Participante_codigoPucp AND e.Actividad_idActividad = a.idActividad AND p.EstadoEvento_idEstadoEvento = estEv.idEstadoEvento;";
+
+        try (Connection conn = this.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);) {
+            while (rs.next()) {
+                PartiEvento partiEvento = new PartiEvento();
+
+                partiEvento.setCodigo(rs.getInt(1));
+                partiEvento.setNombre(rs.getString(2));
+                partiEvento.setApellido(rs.getString(3));
+                partiEvento.setTipoApoyo(rs.getString(4));
+                partiEvento.setCondicion(rs.getString(5));
+                partiEvento.setEvento(rs.getString(6));
+
+                partis.add(partiEvento);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return partis;
+
+    }
+
+    public ArrayList<Usuario> listaUsuariosBarrsOEq2() {
 
         ArrayList<Usuario> usuario = new ArrayList<>();
 
@@ -149,20 +211,19 @@ public class UsuarioDao extends BaseDao {
                 + "WHERE u.codigoPucp IN (SELECT DISTINCT(Participante_codigoPucp)\n"
                 + "FROM mydb.Participante_a_Evento\n"
                 + "WHERE EstadoEvento_idEstadoEvento = 1 OR EstadoEvento_idEstadoEvento = 2);";
-        
+
         try (Connection conn = this.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);) {
             while (rs.next()) {
                 Usuario u = new Usuario();
-                
+
                 u.setNombre(rs.getString(2));
                 u.setCodigoPucp(rs.getInt(1));
                 u.setApellido(rs.getString(3));
                 u.setCondicion(rs.getString(6));
                 u.setCorreoPucp(rs.getString(4));
 
-                
                 usuario.add(u);
 
             }
@@ -173,11 +234,10 @@ public class UsuarioDao extends BaseDao {
         return usuario;
 
     }
-    
-    //////////////////////////////////////////////
-    //////////////////////////////////////////////
-    //////////////////////////////////////////////
 
+    //////////////////////////////////////////////
+    //////////////////////////////////////////////
+    //////////////////////////////////////////////
     public ArrayList<Usuario> listarDA() {
 
         ArrayList<Usuario> usuario = new ArrayList<>();
@@ -214,8 +274,6 @@ public class UsuarioDao extends BaseDao {
                 u.setIdActividad(a.getIdActividad());
                 usuario.add(u);
 
-                
-                
             }
 
         } catch (SQLException ex) {
