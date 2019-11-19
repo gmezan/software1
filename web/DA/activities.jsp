@@ -4,7 +4,10 @@
     Author     : Labtel
 --%>
 
+<%@page import="Beans.Evento"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<% ArrayList<Evento> listaEventos = (ArrayList<Evento>) request.getAttribute("lista");%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,21 +33,21 @@
 
             <!--BARRA IZQUIERDA-->
             <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexDA.jsp">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/indexDA.jsp">
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
                 </a>
 
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexDA.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/indexDA.jsp">
                     <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de Actividad</div>
                 </a>
 
                 <hr class="sidebar-divider my-0">
 
                 <li class="nav-item">
-                    <a class="nav-link" href="indexDA.html">
+                    <a class="nav-link" href="<%=request.getContextPath()%>indexDA.jsp">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Menú Principal</span></a>
                 </li>
@@ -56,7 +59,7 @@
                 </div>
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="activities.html">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/activities.jsp">
                         <i class="fas fa-fw fa-running"></i>
                         <span>Eventos</span></a>
                 </li>
@@ -68,8 +71,8 @@
                     </a>
                     <div id="collapsePers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="peopleNR.html">Personas no registradas</a>
-                            <a class="collapse-item" href="revisarParticipantes.html">Revisar participantes</a>
+                            <a class="collapse-item" href="peopleNR.jsp">Personas no registradas</a>
+                            <a class="collapse-item" href="revisarParticipantes.jsp">Revisar participantes</a>
                         </div>
                     </div>
                 </li>
@@ -82,13 +85,13 @@
                     <div id="collapseEstd" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Todas las estadísticas</h6>
-                            <a class="collapse-item" href="statisticsA.html">Cantidad de apoyos</a>
+                            <a class="collapse-item" href="statisticsA.jsp">Cantidad de apoyos</a>
                         </div>
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="donaciones.html">
+                    <a class="nav-link" href="donaciones.jsp">
                         <i class="fas fa-fw fa-dollar-sign"></i>
                         <span>Donaciones</span></a>
                 </li>
@@ -175,36 +178,20 @@
                                                 <th>Lugar</th>
                                                 <th>Fecha</th>
                                                 <th>Hora</th>
-                                                
                                                 <th></th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
+                                            <%
+                                                for (Evento e : listaEventos) {
+                                            %>
                                             <tr>
-                                                <td>Fibra vs Hormigon Armado</td>
-                                                <td>Lugar A</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>hora1</td>
-                                                
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="editarActividad.html" style="color: green" class="button btn btn-success"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Editar"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Eliminar"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                                <td><%=e.getDescripcion()%></td>
+                                                <td><%=e.getLugar()%></td>
+                                                <td><%=e.getFecha()%></td>
+                                                <td><%=e.getHora()%></td>
 
-                                            <tr>
-                                                <td>Erectroshock vs Fibra</td>
-                                                <td>Lugar B</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>hora2</td>
-                                                
                                                 <td>
                                                     <div class="form-group row text-center btn-user">
                                                         <div class="col-sm-4 mb-2 mb-sm-0">
@@ -215,43 +202,10 @@
                                                         </div>
                                                     </div>
                                                 </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Fibra vs Memoria Cache</td>
-                                                <td>Lugar C</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>hora3</td>
-                                                
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="editarActividad.html" style="color: green" class="button btn btn-success"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Editar"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Eliminar"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td>Fibra vs Erectroshock</td>
-                                                <td>Lugar D</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>hora4</td>
-                                                
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="editarActividad.html" style="color: green" class="button btn btn-success"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Editar"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Eliminar"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            </tr> 
+                                            <%                                                   
+                                                }
+                                            %>
                                         </tbody>
                                     </table>
                                     <!--FIN DE TABLA-->
@@ -334,7 +288,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!--Botón para editar-->
         <div id="editEmployeeModal" class="modal fade">
             <div class="modal-dialog">
@@ -370,7 +324,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!--Botón para borrar-->
         <div id="deleteEmployeeModal" class="modal fade">
             <div class="modal-dialog">
@@ -392,7 +346,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Bootstrap core JavaScript-->
         <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
         <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -409,6 +363,6 @@
 
         <!-- Page level custom scripts -->
         <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
-        
+
     </body>
 </html>

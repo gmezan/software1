@@ -21,7 +21,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
         <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
-        <link href="<%=request.getContextPath()%>/DA/css/da_css.css" crel="stylesheet" type="text/css" >
+        <link href="<%=request.getContextPath()%>/DA/css/da_css.css" rel="stylesheet" type="text/css" >
     </head>
 
     <body id="page-top">
@@ -57,7 +57,7 @@
                 </div>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="activities.jsp">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listar">
                         <i class="fas fa-fw fa-running"></i>
                         <span>Eventos</span></a>
                 </li>
@@ -69,7 +69,7 @@
                     </a>
                     <div id="collapsePers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="peopleNR.jsp">Personas no registradas</a>
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/peopleNR.jsp">Personas no registradas</a>
                             <a class="collapse-item" href="revisarParticipantes.jsp">Revisar participantes</a>
                         </div>
                     </div>
