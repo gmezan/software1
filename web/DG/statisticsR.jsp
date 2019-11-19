@@ -220,7 +220,7 @@
           <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Acumulado recaudaciones</h6>
+              <h6 class="m-0 font-weight-bold text-primary">Recaudaciones</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
