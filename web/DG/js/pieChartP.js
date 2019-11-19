@@ -14,14 +14,8 @@ var donacion_alumnos = 0 ;
 // dataTable[][2] = condicion
 // dataTable[][3] = donacion
 for(i = 0; i < document.getElementById("dataTable").rows.length -2; i++ ){
-  document.getElementById("dataTable").rows[i+1].cells[3].innerHTML = parseInt(document.getElementById("dataTable").rows[i+1].cells[3].innerHTML) + 50;
   if (document.getElementById("dataTable").rows[i+1].cells[2].innerHTML.toLowerCase() ==='egresado'){
-    if (parseInt(document.getElementById("dataTable").rows[i+1].cells[3].innerHTML)<100){
-      document.getElementById("dataTable").rows[i+1].cells[1].innerHTML = 'NO';
-    }
-    else{
-      document.getElementById("dataTable").rows[i+1].cells[1].innerHTML = 'SI';
-    }
+    
     donacion_egresados += 1;
   }
   else{
