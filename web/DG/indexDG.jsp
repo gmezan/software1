@@ -4,9 +4,11 @@
     Author     : GUSTAVO
 --%>
 
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
+<% ArrayList<Integer> lista = (ArrayList<Integer>) request.getAttribute("datos"); %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -246,7 +248,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Recaudado hoy</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">S/. 40</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">S/. <%=lista.get(1)%></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -263,7 +265,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total recaudado</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">S/. 2048</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">S/. <%=lista.get(2)%></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
@@ -282,11 +284,11 @@
                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Actividades con delegado</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><%=lista.get(3)%>%</div>
                         </div>
                         <div class="col">
                           <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-info" role="progressbar" style="width: <%=lista.get(3)%>%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
                         </div>
                       </div>
@@ -306,7 +308,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Solicitudes pendientes</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800"><%=lista.get(0)%></div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-comments fa-2x text-gray-300"></i>
