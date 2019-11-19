@@ -71,11 +71,6 @@ public class LoginServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
 
-            case "correoRegistrar":
-                view = request.getRequestDispatcher("register-mail.jsp");
-                view.forward(request, response);
-                break;
-
             case "iniciarSesion":
                 int codigo;
                 String password;
@@ -106,6 +101,22 @@ public class LoginServlet extends HttpServlet {
 
                     }
                 }
+                break;
+            case "agregar":
+                Usuario u =new Usuario();
+                    String cod=request.getParameter("cod");
+//                u.setCodigoPucp(Integer.parseInt(request.getParameter("cod")));
+                u.setNombre(request.getParameter("nombre"));
+                u.setApellido(request.getParameter("ap"));
+                u.setPassword(request.getParameter("pass"));
+                u.setCorreoPucp(request.getParameter("correo"));
+                u.setCondicion(request.getParameter("cond"));
+                uDao.agregarUsuario(u);
+                response.sendRedirect("/MainServlet/?action=registrado");
+                break;
+            case "registrado":
+                view = request.getRequestDispatcher("register-mail.jsp");
+                view.forward(request, response);
                 break;
 
         }

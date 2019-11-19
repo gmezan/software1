@@ -111,11 +111,7 @@ public class UsuarioServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
                 
-            case "agregar":
-                uDao.agregarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));
-                response.sendRedirect("UsuarioServlet?action=listaUsuario");
-                break;
-                
+            
             case "banear":
                 uDao.banearUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioBanear")));
                 response.sendRedirect("UsuarioServlet?action=listaUsuario");
