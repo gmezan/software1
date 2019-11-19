@@ -52,7 +52,8 @@ public class LoginServlet extends HttpServlet {
             case "inicio":
                 session = request.getSession();
                 session.invalidate();
-                response.sendRedirect("index.jsp");
+                view = request.getRequestDispatcher("index.jsp");
+                view.forward(request, response);
                 break;
 
             case "registrarse":
@@ -87,7 +88,7 @@ public class LoginServlet extends HttpServlet {
                 }
                 Usuario user = uDao.validarUsuario(codigo, password);
                 if (user == null) {
-                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                    response.sendRedirect(request.getContextPath());
                 } else {
 
                     session = request.getSession();
@@ -97,10 +98,10 @@ public class LoginServlet extends HttpServlet {
 
                             break;
                         case 2: //Delegado de actividad
-
+                            response.sendRedirect(request.getContextPath() + "/DA");
                             break;
                         case 3: //Delegado general
-                            response.sendRedirect(request.getContextPath() + "/UsuarioServlet");
+                            response.sendRedirect(request.getContextPath() + "/DG");
                             break;
 
                     }

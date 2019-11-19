@@ -9,8 +9,19 @@
 <%
     Usuario u = (Usuario) session.getAttribute("usuario");
     if (u != null) {
-        //Validar si es un delegado general o no
-        response.sendRedirect(request.getContextPath() + "/UsuarioServlet");
+        switch (u.getRol().getId()) {
+            case 1: //Participante
+
+                break;
+            case 2: //Delegado de actividad
+                response.sendRedirect(request.getContextPath() + "/DA");
+                break;
+            case 3: //Delegado general
+                response.sendRedirect(request.getContextPath() + "/DG");
+                break;
+
+        }
+
     }
 
 
@@ -148,7 +159,7 @@
                  document.getElementById("password").disabled = true;
                  document.getElementById("submit").disabled = true;
                  return false;
-           
+                 
                  }*/
             }
 
