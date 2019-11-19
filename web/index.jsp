@@ -7,12 +7,12 @@
 <%@page import="Beans.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    
+
     Usuario u = (Usuario) session.getAttribute("usuario");
     if (u != null) {
         switch (u.getRol().getId()) {
             case 1: //Participante
-
+                response.sendRedirect(request.getContextPath() + "/AL");
                 break;
             case 2: //Delegado de actividad
                 response.sendRedirect(request.getContextPath() + "/DA");
@@ -51,7 +51,7 @@
     </head>
 
     <body class="bg-myColor">
-        
+
 
         <div class="container">
 
