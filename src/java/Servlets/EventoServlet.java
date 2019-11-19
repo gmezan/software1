@@ -51,6 +51,21 @@ public class EventoServlet extends HttpServlet {
                 rd.forward(request, response);
                 break;
                 
+            case "crear":
+                int idEvento = Integer.parseInt(request.getParameter("idEvento"));
+                String descripcion = request.getParameter("descripcion");
+                String hora = request.getParameter("hora");
+                String fecha = request.getParameter("fecha");
+                String lugar = request.getParameter("lugar");                
+                int idActividad = Integer.parseInt(request.getParameter("idActividad"));
+                
+                eveDao.crearEvento(idEvento, descripcion, lugar, fecha, hora, idActividad);
+                
+                response.sendRedirect(request.getContextPath() + "EventoServlet?action=listar");
+                rd = request.getRequestDispatcher("/DA/anadirActividad.jsp");
+                rd.forward(request, response);
+                break;    
+                
                 
                 /*
             case "crearTrabajo":

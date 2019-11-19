@@ -32,8 +32,7 @@ public class EventoDao extends BaseDao {
         } catch (ClassNotFoundException ex) {
             System.err.println(ex);
         }
-
-        /////////esta weaa es lo de siempre asi q no pienses xq esta ahi, solo avanza
+        
         String sql = "SELECT *\n"
                 + "FROM Evento e, Actividad a \n"
                 + "WHERE e.Actividad_idActividad=a.idActividad AND a.delegado_codigoPucp=20160618;";
@@ -70,5 +69,31 @@ public class EventoDao extends BaseDao {
 
         return listaEventos;
     }
+    
+    public void crearEvento(int idEvento, String descripcion, String lugar, String fecha, String hora, int idActividad) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException ex) {
+            System.err.println(ex);
+        }
+        
+         try(Connection conn = this.getConnection();){
+                String sql = "INSERT INTO mydb.Evento "
+                + "(idEvento, descripcion, lugar, fecha, hora, Actividad_idActividad)"
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+                
+                try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+                    pstmt.setInt(1, idEvento);
+                    pstmt.setString(2, descripcion);
+                    pstmt.setString(3, lugar);
+                    pstmt.setString(4, fecha);
+                    pstmt.setString(5, hora);
+                    pstmt.setInt(6, idActividad);
+                    pstmt.executeUpdate();
+                }                
+            }  catch (SQLException ex) {
+            Logger.getLogger(EventoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+    }
 }
