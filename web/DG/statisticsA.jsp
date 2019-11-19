@@ -4,7 +4,7 @@
     Author     : GUSTAVO
 --%>
 
-<%@page import="DTOs.EstadisticaA"%>
+<%@page import="Dtos.EstadisticaA"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
