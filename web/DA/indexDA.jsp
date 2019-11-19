@@ -37,21 +37,21 @@
             <!--BARRA IZQUIERDA-->
             <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexDA.jsp">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
                 </a>
 
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexDA.jsp">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
                     <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de actividad</div>
                 </a>
 
                 <hr class="sidebar-divider my-0">
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="indexDA.jsp">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/DA?action=main">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Menú Principal</span></a>
                 </li>
