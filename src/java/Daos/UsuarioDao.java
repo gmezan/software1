@@ -480,24 +480,32 @@ public class UsuarioDao extends BaseDao {
         String sqlSolicitudes = "select count(codigoPucp) from Usuarios where Estado_idEstado = 2";
         String sqlDonacionHoy = "SELECT sum(monto) from Donacion where date(now()) = fecha ";
         String sqlDonacionTotal = "SELECT sum(monto) FROM Donacion";
-        String sqlActividadesConDelegado = "SELECT count(delegado_codigoPucp) FROM Actividad where delegado_codigoPucp is not null";
+        String sqlActividadesConDelegado = "select floor( 100*(SELECT count(delegado_codigoPucp) FROM Actividad where delegado_codigoPucp is not null)/(SELECT count(*) FROM Actividad ))";
         try(Connection con = this.getConnection();
-                Statement stmt = con.createStatement();
-                ResultSet rs1 = stmt.executeQuery(sqlSolicitudes);
-                ResultSet rs2 = stmt.executeQuery(sqlDonacionHoy);
-                ResultSet rs3 = stmt.executeQuery(sqlDonacionTotal);
-                ResultSet rs4 = stmt.executeQuery(sqlActividadesConDelegado);
+                Statement stmt1 = con.createStatement();
+                Statement stmt2 = con.createStatement();
+                Statement stmt3 = con.createStatement();
+                Statement stmt4 = con.createStatement();
+                ResultSet rs1 = stmt1.executeQuery(sqlSolicitudes);
+                ResultSet rs2 = stmt2.executeQuery(sqlDonacionHoy);
+                ResultSet rs3 = stmt3.executeQuery(sqlDonacionTotal);
+                ResultSet rs4 = stmt4.executeQuery(sqlActividadesConDelegado);
                 ) {
             
             if(rs1.next()) data.add(rs1.getInt(1)); else data.add(0);
-            if(rs2.next()) data.add(rs1.getInt(1)); else data.add(0);
-            if(rs3.next()) data.add(rs1.getInt(1)); else data.add(0);
-            if(rs4.next()) data.add(rs1.getInt(1)); else data.add(0);
+            if(rs2.next()) data.add(rs2.getInt(1)); else data.add(0);
+            if(rs3.next()) data.add(rs3.getInt(1)); else data.add(0);
+            if(rs4.next()) data.add(rs4.getInt(1)); else data.add(0);
+            //data.add(0);
+            //data.add(1);
+            //data.add(2);
+            //data.add(3);
             
             
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
 
         return data;
