@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Gustavo_Meza
  */
-@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet",  "", "/LoginServlet"})
+@WebServlet(name = "MainServlet", urlPatterns = {"/MainServlet", "", "/LoginServlet"})
 public class LoginServlet extends HttpServlet {
 
     /**
@@ -37,61 +38,61 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action") == null ? "login" : request.getParameter("action");
-        
+
         UsuarioDao uDao = new UsuarioDao();
         HttpSession session;
         RequestDispatcher view;
-        
-        switch(action){
+
+        switch (action) {
             case "login":
-                response.sendRedirect(request.getContextPath()+"/index.jsp");
+                view = request.getRequestDispatcher("index.jsp");
+                view.forward(request, response);
                 break;
-            
+
             case "inicio":
                 session = request.getSession();
                 session.invalidate();
                 response.sendRedirect("index.jsp");
                 break;
-                
+
             case "registrarse":
                 view = request.getRequestDispatcher("register.jsp");
                 view.forward(request, response);
                 break;
-                
+
             case "recuperar":
                 view = request.getRequestDispatcher("forgot-password.jsp");
                 view.forward(request, response);
                 break;
-                
+
             case "correoRecuperar":
                 view = request.getRequestDispatcher("forgot-mail.jsp");
                 view.forward(request, response);
                 break;
-        
+
             case "correoRegistrar":
                 view = request.getRequestDispatcher("register-mail.jsp");
                 view.forward(request, response);
                 break;
-            
+
             case "iniciarSesion":
                 int codigo;
                 String password;
-                
-                try{
+
+                try {
                     codigo = Integer.parseInt(request.getParameter("usernameIniciarSesion"));
                     password = request.getParameter("passwordIniciarSesion");
-                } catch (NumberFormatException e){
+                } catch (NumberFormatException e) {
                     break;
                 }
                 Usuario user = uDao.validarUsuario(codigo, password);
-                if(user == null){
+                if (user == null) {
                     response.sendRedirect(request.getContextPath() + "/index.jsp");
-                }
-                else{
-                    
+                } else {
+
                     session = request.getSession();
                     session.setAttribute("usuario", user);
-                    switch(user.getRol().getId()){
+                    switch (user.getRol().getId()) {
                         case 1: //Participante
 
                             break;
@@ -105,12 +106,9 @@ public class LoginServlet extends HttpServlet {
                     }
                 }
                 break;
-            
+
         }
-        
-        
-        
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
