@@ -37,10 +37,9 @@ public class EventoDao extends BaseDao {
         String sql = "SELECT *\n"
                 + "FROM Evento e, Actividad a \n"
                 + "WHERE e.Actividad_idActividad=a.idActividad AND a.delegado_codigoPucp=20160618;";
-        String url = "jdbc:mysql://localhost:3306/mydb"; ////////esto hace falta cambiar puesto q estamos en otra base de datos, ya no estamos en HR
-        ArrayList<Evento> listaEventos = new ArrayList<>();
+         ArrayList<Evento> listaEventos = new ArrayList<>();
 
-        try (Connection conn = DriverManager.getConnection(url, "root", "root");
+        try (Connection conn = this.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);) {
 

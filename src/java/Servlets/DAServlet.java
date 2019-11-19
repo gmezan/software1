@@ -53,7 +53,6 @@ public class DAServlet extends HttpServlet {
 
                 ////////////////////////////////////////
                 case "main":
-
                     view = request.getRequestDispatcher("/DA/indexDA.jsp");
                     view.forward(request, response);
                     break;

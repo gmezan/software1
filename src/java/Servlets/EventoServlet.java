@@ -47,7 +47,7 @@ public class EventoServlet extends HttpServlet {
             case "listar":
                 ArrayList<Evento> listaEventos = eveDao.listarEventos();
                 request.setAttribute("lista", listaEventos);
-                rd = request.getRequestDispatcher("/listaEventos.jsp");
+                rd = request.getRequestDispatcher("/DA/activities.jsp");
                 rd.forward(request, response);
                 break;
                 
