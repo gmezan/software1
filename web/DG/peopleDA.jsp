@@ -44,6 +44,9 @@
 </head>
 
 <body id="page-top">
+  <%
+    response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+    %>
 
 <!-- Page Wrapper -->
 <div id="wrapper">

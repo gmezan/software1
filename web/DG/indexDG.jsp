@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +30,10 @@
 </head>
 
 <body id="page-top">
+    
+    <%
+    response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
+    %>
 
   <!-- Page Wrapper -->
   <div id="wrapper">
