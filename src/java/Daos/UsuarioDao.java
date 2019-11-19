@@ -472,5 +472,36 @@ public class UsuarioDao extends BaseDao {
 
         return u;
     }
+    
+    
+    private int[] dataDashboard(){
+        int[] data={0,0,0,0};
+
+        String sqlSolicitudes = "select count(codigoPucp) from Usuarios where Estado_idEstado = 2";
+        String sqlDonacionHoy = "SELECT sum(monto) from Donacion where date(now()) = fecha ";
+        String sqlDonacionTotal = "SELECT sum(monto) FROM Donacion";
+        String sqlActividadesConDelegado = "SELECT count(delegado_codigoPucp) FROM Actividad where delegado_codigoPucp is not null";
+        try(Connection con = this.getConnection();
+                Statement stmt = con.createStatement();
+                ResultSet rs1 = stmt.executeQuery(sqlSolicitudes);
+                ResultSet rs2 = stmt.executeQuery(sqlDonacionHoy);
+                ResultSet rs3 = stmt.executeQuery(sqlDonacionTotal);
+                ResultSet rs4 = stmt.executeQuery(sqlActividadesConDelegado);
+                ) {
+            
+            if(rs1.next()) data[0] = rs1.getInt(1);
+            if(rs2.next()) data[1] = rs1.getInt(1);
+            if(rs3.next()) data[2] = rs1.getInt(1);
+            if(rs4.next()) data[3] = rs1.getInt(1);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+        return data;
+    }
+    
 
 }
