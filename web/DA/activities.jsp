@@ -169,7 +169,7 @@
 
                             <div class="container-fluid"style="padding-top: 10px">
                                 <div class="col-sm-10 mb-3 mb-sm-0">
-                                    <a href="<%=request.getContextPath()%>/EventoServlet?action=crear" class="btn btn-success" ><span>Añadir Evento</span></a>
+                                    <a href="<%=request.getContextPath()%>/EventoServlet?action=crearview" class="btn btn-success" ><span>Añadir Evento</span></a>
                                 </div>                                
                             </div>
 

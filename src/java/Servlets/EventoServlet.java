@@ -6,6 +6,7 @@
 package Servlets;
 
 import Beans.Evento;
+import Beans.Usuario;
 import Daos.EventoDao;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,37 +39,47 @@ public class EventoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String action = request.getParameter("accion") == null
-                ? "listar" : request.getParameter("accion");
+        String action = request.getParameter("action") == null
+                ? "listar" : request.getParameter("action");
 
         EventoDao eveDao = new EventoDao();
         RequestDispatcher rd = null;
-
+        HttpSession session = request.getSession();
+        
+        Usuario u = (Usuario) session.getAttribute("usuario");
+        
         switch (action) {
-            case "listar":
-                ArrayList<Evento> listaEventos = eveDao.listarEventos();
+            case "listar":                
+                int cod=u.getCodigoPucp();
+                ArrayList<Evento> listaEventos = eveDao.listarEventos(cod);
                 request.setAttribute("lista", listaEventos);
                 rd = request.getRequestDispatcher("/DA/activities.jsp");
                 rd.forward(request, response);
                 break;
-                
+
+            case "crearview":                
+                int idAct = u.getIdActividad();
+                ArrayList<Evento> listaEve = eveDao.listarEventos(idAct);
+                request.setAttribute("idAct", listaEve);
+                rd = request.getRequestDispatcher("/DA/anadirActividad.jsp");
+                rd.forward(request, response);
+                break;
+
             case "crear":
-                int idEvento = Integer.parseInt(request.getParameter("idEvento"));
                 String descripcion = request.getParameter("descripcion");
                 String hora = request.getParameter("hora");
                 String fecha = request.getParameter("fecha");
-                String lugar = request.getParameter("lugar");                
-                int idActividad = Integer.parseInt(request.getParameter("idActividad"));
-                
-                eveDao.crearEvento(idEvento, descripcion, lugar, fecha, hora, idActividad);
-                
+                String lugar = request.getParameter("lugar");
+                int idActividad = u.getIdActividad();
+
+                eveDao.crearEvento(descripcion, lugar, fecha, hora, idActividad);
+
                 response.sendRedirect(request.getContextPath() + "EventoServlet?action=listar");
-                rd = request.getRequestDispatcher("/DA/anadirActividad.jsp");
-                rd.forward(request, response);
-                break;    
+                break;
                 
-                
-                /*
+               
+
+            /*
             case "crearTrabajo":
                 rd = request.getRequestDispatcher("/CrearTrabajo.jsp");
                 rd.forward(request, response);
@@ -98,7 +110,7 @@ public class EventoServlet extends HttpServlet {
                 break;
                 
                 
-                */
+             */
         }
 
     }

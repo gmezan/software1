@@ -5,8 +5,9 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
+<%@page import="Beans.Evento"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
-<!DOCTYPE html>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -31,7 +32,7 @@
 
         <!--INICIO DE PÁGINA-->
         <div id="wrapper">
-            
+
             <!--BARRA IZQUIERDA-->
             <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -45,7 +46,7 @@
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexDA.jsp">
                     <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de actividad </div>
                 </a>
-                
+
                 <hr class="sidebar-divider my-0">
 
                 <li class="nav-item active">
@@ -53,7 +54,7 @@
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Menú Principal</span></a>
                 </li>
-                
+
                 <hr class="sidebar-divider">
 
                 <div class="sidebar-heading">
@@ -97,7 +98,7 @@
                         <i class="fas fa-fw fa-dollar-sign"></i>
                         <span>Donaciones</span></a>
                 </li>
-                
+
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
@@ -117,12 +118,12 @@
                         <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"></form>
 
                         <ul class="navbar-nav ml-auto">
-                            
+
                             <li class="nav-item dropdown no-arrow d-sm-none">
                                 <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-search fa-fw"></i>
                                 </a>
-                                
+
                                 <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
                                     <form class="form-inline mr-auto w-100 navbar-search">
                                         <div class="input-group">
@@ -136,7 +137,7 @@
                                     </form>
                                 </div>
                             </li>
-                            
+
                             <div class="topbar-divider d-none d-sm-block"></div>
 
                             <li class="nav-item dropdown no-arrow">
@@ -144,7 +145,7 @@
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
                                     <img class="img-profile rounded-circle" src="https://placekitten.com/60/60">
                                 </a>
-                                
+
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -158,101 +159,78 @@
 
                     <!-- CONTENIDO -->
                     <div class="container">
-                        
+
                         <h1 class="my-4">NUEVO EVENTO
                             <br></br>Ingrese los datos del nuevo evento
                         </h1>
-                        
+
                         <div class="container-full " >                            
                             <div class='container-full'>                                
                                 <div class='panel-body'>
-                                    
-                                    <form class='form-horizontal' role='form'>
-                                        
+
+                                    <form class='form-horizontal' role='form' method="POST" action="<%=request.getContextPath()%>/EventoServlet?action=crear">
+
                                         <div class='form-group'>
-                                            <label class='control-label col-md-2 col-md-offset-2' >Nombre del evento </label>
+                                            <label class='control-label col-md-2 col-md-offset-2'>Descripción del evento </label>
                                             <div class='col-md-8'>
                                                 <div class='col-md-3 indent-small'>
                                                     <div class='form-group internal'>
-                                                        <input class='form-control' id='id_first_name' value="  " type='text'>
+                                                        <input class='form-control'  type='text' name='descripcion' required>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class='form-group'>
                                             <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Hora del evento</label>
-                                            <div class='col-md-2'>
-                                                <select  class='form-control' id='id_accomodation'>
-                                                    <option>Escoja Horario</option>
-                                                    <option>10:00 - 12:00</option>
-                                                    <option>12:00 - 14:00</option>
-                                                    <option>14:00 - 16:00</option>
-                                                    <option>16:00 - 18:00</option>
-                                                    <option>18:00 - 20:00</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class='form-group'>
-                                            <label class='control-label col-md-2 col-md-offset-2' for='id_comments'>Apoyos</label>
-                                            <div class='col-md-6'>
-                                                <textarea class='form-control' id='id_comments'  rows='3'></textarea>
+                                            <div class='col-md-8'>
+                                                <div class='col-md-3 indent-small'>
+                                                    <div class='form-group internal'>
+                                                        <input class='form-control'  type='time' name='hora' required>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div class='form-group'>
                                             <label class='control-label col-md-2 col-md-offset-2' for='id_accomodation'>Lugar del Evento</label>
-                                            <div class='col-md-2'>
-                                                <select  class='form-control' id='id_accomodation'>
-
-                                                    <option>Escoja Lugar</option>
-                                                    <option>Lugar A</option>
-                                                    <option>Lugar B</option>
-                                                    <option>Lugar C</option>
-                                                    <option>Lugar D</option>
-                                                    <option>Lugar E</option>
-                                                    <option>Otro</option>
-
-                                                </select>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class='form-group'>
-                                            <label class='control-label col-md-2 col-md-offset-2' >Fecha del Evento </label>
                                             <div class='col-md-8'>
                                                 <div class='col-md-3 indent-small'>
                                                     <div class='form-group internal'>
-                                                        <input class='form-control' id='id_first_name' value="   " type='text'>
+                                                        <input class='form-control'  type='text' name='lugar' required>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class='form-group'>
-                                            <label class='control-label col-md-2 col-md-offset-2' for='id_comments'>Descripción</label>
-                                            <div class='col-md-6'>
-                                                <textarea class='form-control' id='id_comments'  rows='3'></textarea>
+                                            <label class='control-label col-md-2 col-md-offset-2' >Fecha del Evento </label>
+                                            <div class='col-md-8'>
+                                                <div class='col-md-3 indent-small'>
+                                                    <div class='form-group internal'>
+                                                        <input class='form-control'  type='date' name='fecha' required>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-
                                         
+                                        <input class='form-control'  type='hidden' name='idActividad'>
+
+                                        <div class='form-group'>
+                                            <div class='col-md-offset-4 col-md-3'>
+                                                <button class='btn-lg btn-primary' type='submit'>Guardar</button>
+                                            </div>
+                                        </div>
+                                    </form>   
                                             
                                         <div class='form-group'>
                                             <div class='col-md-offset-4 col-md-3'>
-                                                <button class='btn-lg btn-primary' type='button' onclick="location.href = 'DG_verActividades.jsp'">Guardar</button>
+                                                <button class='btn-lg btn-danger'  type='button' onclick="location.href = '<%=request.getContextPath()%>/EventoServlet?action=listar'">Cancelar</button>
                                             </div>
                                         </div>
-                                        <div class='form-group'>
-                                            <div class='col-md-offset-4 col-md-3'>
-                                                <button class='btn-lg btn-danger'  type='button' onclick="location.href = 'DG_verActividades.jsp'">Eliminar</button>
-                                            </div>
-                                        </div>
-                                            
-                                    </form>
                                 </div>
                             </div>
-                                            
+
                         </div>
                     </div>
                     <!--FIN DE CONTENIDO-->
@@ -315,6 +293,6 @@
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-        
+
     </body>
 </html>

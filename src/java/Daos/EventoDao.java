@@ -18,6 +18,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,73 +26,73 @@ import java.util.logging.Logger;
  */
 public class EventoDao extends BaseDao {
 
-    public ArrayList<Evento> listarEventos() {
+    public ArrayList<Evento> listarEventos(int cod) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             System.err.println(ex);
         }
-        
+
         String sql = "SELECT *\n"
                 + "FROM Evento e, Actividad a \n"
-                + "WHERE e.Actividad_idActividad=a.idActividad AND a.delegado_codigoPucp=20160618;";
-         ArrayList<Evento> listaEventos = new ArrayList<>();
+                + "WHERE e.Actividad_idActividad=a.idActividad AND a.delegado_codigoPucp=?;";
+        ArrayList<Evento> listaEventos = new ArrayList<>();
 
         try (Connection conn = this.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql);) {
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, cod);
 
+             try (ResultSet rs = pstmt.executeQuery();){
             /////////////esto igual es lo de siempre
             while (rs.next()) {
 
                 Evento eve = new Evento();
-                
+
                 eve.setIdEvento(rs.getInt(1));
                 eve.setDescripcion(rs.getString(2));
-                eve.setFecha(rs.getString(3));
-                eve.setHora(rs.getString(4));
-                
-                
-                Actividad act= new Actividad();
+                eve.setLugar(rs.getString(3));
+                eve.setFecha(rs.getString(4));
+                eve.setHora(rs.getString(5));
+
+                Actividad act = new Actividad();
                 act.setDelegado_codigoPucp(rs.getInt(9));
-                act.setIdActividad(rs.getInt(5));
+                act.setIdActividad(rs.getInt(7));
                 act.setNombreActividad(rs.getString(8));
-                
+
                 eve.setAct(act);
-                eve.setLugar(rs.getString(6));
-                
+
                 listaEventos.add(eve);
             }
+             }
         } catch (SQLException ex) {
             Logger.getLogger(EventoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return listaEventos;
     }
-    
-    public void crearEvento(int idEvento, String descripcion, String lugar, String fecha, String hora, int idActividad) {
+
+    public void crearEvento( String descripcion, String lugar, String fecha, String hora, int idActividad) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
             System.err.println(ex);
         }
-        
-         try(Connection conn = this.getConnection();){
-                String sql = "INSERT INTO mydb.Evento "
-                + "(idEvento, descripcion, lugar, fecha, hora, Actividad_idActividad)"
-                + "VALUES (?, ?, ?, ?, ?, ?)";
-                
-                try(PreparedStatement pstmt = conn.prepareStatement(sql)){
-                    pstmt.setInt(1, idEvento);
-                    pstmt.setString(2, descripcion);
-                    pstmt.setString(3, lugar);
-                    pstmt.setString(4, fecha);
-                    pstmt.setString(5, hora);
-                    pstmt.setInt(6, idActividad);
-                    pstmt.executeUpdate();
-                }                
-            }  catch (SQLException ex) {
+
+        try (Connection conn = this.getConnection();) {
+            String sql = "INSERT INTO mydb.Evento "
+                    + "(descripcion, lugar, fecha, hora, Actividad_idActividad)"
+                    + "VALUES ( ?, ?, ?, ?, ?)";
+
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, descripcion);
+                pstmt.setString(2, lugar);
+                pstmt.setString(3, fecha);
+                pstmt.setString(4, hora);
+                pstmt.setInt(5, idActividad);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
             Logger.getLogger(EventoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
