@@ -8,6 +8,7 @@ package Daos;
 import Beans.Actividad;
 import Dtos.EstadisticaA;
 import Dtos.EstadisticaR;
+import Dtos.EstadisticasP;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -93,29 +94,26 @@ public class EstadisticasDgDao extends BaseDao {
     }
     
     
-    public ArrayList<EstadisticaA> estadisticaP(){
+    public ArrayList<EstadisticasP> estadisticaP(){
         
-        ArrayList<EstadisticaA> estadisticas = new ArrayList<>();
+        ArrayList<EstadisticasP> estadisticas = new ArrayList<>();
         
-        String sql = "select a.idActividad, a.nombreActividad, a.Descripcion, concat(u.nombre,' ',u.apellido), count(p.Participante_codigoPucp)\n" +
-                    "from Participante_a_Evento p \n" +
-                    "left join Evento e on (e.idEvento = p.Evento_idEvento)\n" +
-                    "left join Actividad a on (a.idActividad = e.Actividad_idActividad)\n" +
-                    "left join Usuarios u on (u.codigoPucp = a.delegado_codigoPucp)\n" +
-                    "group by a.idActividad";
+        String sql = "SELECT u.codigoPucp, concat(u.nombre, \" \", u.apellido), u.condicion\n" +
+                    "FROM Usuarios u \n";
         
         try (Connection conn = this.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);){
             
             while(rs.next()){
-                EstadisticaA a = new EstadisticaA();
-                a.setIdActividad(rs.getInt(1));
-                a.setNombreActividad(rs.getString(2));
-                a.setDescripcion(rs.getString(3));
-                a.setNombreDelegado(rs.getString(4));
-                a.setCantidad(rs.getInt(5));
-                estadisticas.add(a);
+                EstadisticasP e = new EstadisticasP();
+                e.setCodigo(rs.getInt(1));
+                e.setNombre(rs.getString(2));
+                e.setCondicion(rs.getString(3));
+                
+                
+                
+                estadisticas.add(e);
                 
             }
         }
