@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Beans.Usuario"%>
+<jsp:useBean id="usuario" type="Usuario" scope="session" />
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -28,6 +30,9 @@
     </head>
 
     <body id="page-top">
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        %>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -102,7 +107,7 @@
                             <i class="fa fa-bars"></i>
                         </button>
 
-                        
+
 
 
                         <!-- Topbar Navbar -->
@@ -138,13 +143,13 @@
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Allison Velarde</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
                                     <img class="img-profile rounded-circle" src="<%=request.getContextPath()%>/AL/indexA_files/60">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                    
-                                    
+
+
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                         Cerrar sesión
@@ -164,11 +169,6 @@
                         <h1 class="my-4">NUEVO EVENTO:
                             <small>¡Inscribete a un evento!</small>
                         </h1>
-
-
-
-
-
 
                         <div class="container-full " >
 

@@ -7,6 +7,7 @@
 <%@page import="Beans.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
+    
     Usuario u = (Usuario) session.getAttribute("usuario");
     if (u != null) {
         switch (u.getRol().getId()) {
@@ -50,6 +51,7 @@
     </head>
 
     <body class="bg-myColor">
+        
 
         <div class="container">
 

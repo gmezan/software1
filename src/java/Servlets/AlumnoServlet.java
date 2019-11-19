@@ -21,7 +21,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Labtel
  */
-@WebServlet(name = "AlumnoServlet", urlPatterns = {"/AlumnoServlet"})
+@WebServlet(name = "AlumnoServlet", urlPatterns = {"/AlumnoServlet","/AL"})
 public class AlumnoServlet extends HttpServlet {
 
     /**
@@ -37,13 +37,13 @@ public class AlumnoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String action = request.getParameter("action") == null ? "dashboard" : request.getParameter("action");
+        String action = request.getParameter("action") == null ? "main" : request.getParameter("action");
         RequestDispatcher view;
         HttpSession session = request.getSession();
         EventosAluDao EvAlDao = new EventosAluDao();
 //        InscripcionEventoDao InEvDao = new InscripcionEventoDao();
         if (session.getAttribute("usuario") == null) {
-            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            response.sendRedirect(request.getContextPath());
         } else {
 
             switch (action) {
@@ -52,7 +52,7 @@ public class AlumnoServlet extends HttpServlet {
                     view = request.getRequestDispatcher("/DG/misEventos.jsp");
                     view.forward(request, response);
                     break;
-                case "PaginaPrincipal":
+                case "main":
                     view = request.getRequestDispatcher("/AL/indexA.jsp");
                     view.forward(request, response);
                     break;

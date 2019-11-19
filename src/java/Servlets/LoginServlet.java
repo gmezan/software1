@@ -90,7 +90,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("usuario", user);
                     switch (user.getRol().getId()) {
                         case 1: //Participante
-
+                            response.sendRedirect(request.getContextPath() + "/AL");
                             break;
                         case 2: //Delegado de actividad
                             response.sendRedirect(request.getContextPath() + "/DA");
@@ -103,8 +103,8 @@ public class LoginServlet extends HttpServlet {
                 }
                 break;
             case "agregar":
-                Usuario u =new Usuario();
-                    String cod=request.getParameter("cod");
+                Usuario u = new Usuario();
+                String cod = request.getParameter("cod");
 //                u.setCodigoPucp(Integer.parseInt(request.getParameter("cod")));
                 u.setNombre(request.getParameter("nombre"));
                 u.setApellido(request.getParameter("ap"));

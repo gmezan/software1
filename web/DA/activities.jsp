@@ -7,6 +7,8 @@
 <%@page import="Beans.Evento"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Beans.Usuario"%>
+<jsp:useBean id="usuario" type="Usuario" scope="session" />
 <% ArrayList<Evento> listaEventos = (ArrayList<Evento>) request.getAttribute("lista");%>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,6 +30,10 @@
     </head>
 
     <body id="page-top">
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        %>
+
         <!--INICIO DE PÁGINA-->
         <div id="wrapper">
 
@@ -138,7 +144,7 @@
 
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Fernando Guzman</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
                                     <img class="img-profile rounded-circle" src="https://placekitten.com/60/60">
                                     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
@@ -247,7 +253,7 @@
                     <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar tu sesión actual.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="../index.html">Cerrar sesión</a>
+                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesión</a>
                     </div>
                 </div>
             </div>

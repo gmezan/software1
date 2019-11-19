@@ -38,32 +38,33 @@ public class DAServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action") == null ? "main" : request.getParameter("action");
-        
-        
+
         UsuarioDao uDao = new UsuarioDao();
         EstadisticasDgDao e = new EstadisticasDgDao();
         ActividadesDao actividadesDao = new ActividadesDao();
         RequestDispatcher view;
         HttpSession session = request.getSession();
 
-        switch (action) {
-            
-            ////////////////////////////////////////
-            case "main":
-                
-                view = request.getRequestDispatcher("/DA/indexDA.jsp");
-                view.forward(request, response);
-                break;
-            
-            
-            case "listarBarrEq":
-                request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq());
-                view = request.getRequestDispatcher("/DA/revisarParticipantes.jsp");
-                view.forward(request, response);
-                break;
+        if (session.getAttribute("usuario") == null) {
 
-            
+            response.sendRedirect(request.getContextPath());
+        } else {
+            switch (action) {
 
+                ////////////////////////////////////////
+                case "main":
+
+                    view = request.getRequestDispatcher("/DA/indexDA.jsp");
+                    view.forward(request, response);
+                    break;
+
+                case "listarBarrEq":
+                    request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq());
+                    view = request.getRequestDispatcher("/DA/revisarParticipantes.jsp");
+                    view.forward(request, response);
+                    break;
+
+            }
         }
 
     }

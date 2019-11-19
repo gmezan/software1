@@ -5,6 +5,8 @@
 --%>
 <%@page import="Beans.Evento"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="Beans.Usuario"%>
+<jsp:useBean id="usuario" type="Usuario" scope="session" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <% ArrayList<Evento> listaEventos = (ArrayList<Evento>) request.getAttribute("listaEventos"); %>
 <!DOCTYPE html>
@@ -29,6 +31,9 @@
         <link href="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     </head>
     <body id="page-top">
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        %>
 
         <!-- Page Wrapper -->
         <div id="wrapper">
@@ -155,7 +160,7 @@
                             <!-- Nav Item - User Information -->
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">Allison Velarde</span>
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
                                     <img class="img-profile rounded-circle" src="<%=request.getContextPath()%>/AL/indexA_files/60">
                                 </a>
                                 <!-- Dropdown - User Information -->

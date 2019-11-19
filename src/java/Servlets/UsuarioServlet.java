@@ -50,7 +50,7 @@ public class UsuarioServlet extends HttpServlet {
         if(session.getAttribute("usuario") == null)
         {
             
-            response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            response.sendRedirect(request.getContextPath());
         }
         else{
             
