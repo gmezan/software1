@@ -106,7 +106,7 @@ public class UsuarioServlet extends HttpServlet {
                 break;
                 
             case "dashboard":
-                
+                request.setAttribute("datos", uDao.dataDashboard());
                 view = request.getRequestDispatcher("/DG/indexDG.jsp");
                 view.forward(request, response);
                 break;
