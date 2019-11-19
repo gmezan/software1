@@ -57,6 +57,12 @@ public class DAServlet extends HttpServlet {
                     view.forward(request, response);
                     break;
 
+                case "listarEsperas":
+                    request.setAttribute("listaUsuariosEspera", uDao.listaUsuariosEnEsperaEventos());
+                    view = request.getRequestDispatcher("/DA/peopleNR.jsp");
+                    view.forward(request, response);
+                    break;
+
                 case "listarBarrEq":
                     request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq());
                     view = request.getRequestDispatcher("/DA/revisarParticipantes.jsp");
