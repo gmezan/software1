@@ -272,105 +272,22 @@
                     </tr>
                   </tfoot>
                   <tbody>
+                      <% for(EstadisticaA e : lista){
+                              
+                              
+                              %>
                     <tr>
-                      <td>Futsal</td>
-                      <td>Deporte</td>
-                      <td>Garrett Winters</td>
+                      <td><%=e.getNombreActividad()%></td>
+                      <td><%=e.getDescripcion()%></td>
+                      <td><%=e.getNombreDelegado()%></td>
                       <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
                       </td>
-                      <td>5</td>
+                      <td><%=e.getCantidad()%></td>
                     </tr>
-                    <tr>
-                      <td>Voley</td>
-                      <td>Deporte</td>
-                      <td>Ashton Cox</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Basquet</td>
-                      <td>Deporte</td>
-                      <td>Cedric Kelly</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>20</td>
-                    </tr>
-                    <tr>
-                      <td>Atletismo</td>
-                      <td>Deporte</td>
-                      <td>Airi Satou</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>5</td>
-                    </tr>
-                    <tr>
-                      <td>Bebé crece</td>
-                      <td>Gymkhana</td>
-                      <td>Brielle Williamson</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>8</td>
-                    </tr>
-                    <tr>
-                      <td>Huevitos</td>
-                      <td>Gymkhana</td>
-                      <td>Herrod Chandler</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Vueltitas</td>
-                      <td>Gymkhana</td>
-                      <td>Rhona Davidson</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>3</td>
-                    </tr>
-                    <tr>
-                      <td>4xjonca</td>
-                      <td>Gymkhana</td>
-                      <td>Colleen Hurst</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Bailetón</td>
-                      <td>Bailetón</td>
-                      <td>Sonya Frost</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>9</td>
-                    </tr>
-                    <tr>
-                      <td>Cacería</td>
-                      <td>Cacería</td>
-                      <td>Jena Gaines</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>10</td>
-                    </tr>
-                    <tr>
-                      <td>Sketch</td>
-                      <td>Inauguración</td>
-                      <td>Quinn Flynn</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>12</td>
-                    </tr>
-                    <tr>
-                      <td>Danza</td>
-                      <td>Inauguración</td>
-                      <td>Charde Marshall</td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                      </td>
-                      <td>21</td>
-                    </tr>
-
-
-
-
+                    <%
+                        }
+                        
+                        %>
                   </tbody>
                 </table>
               </div>

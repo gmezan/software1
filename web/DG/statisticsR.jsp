@@ -4,9 +4,13 @@
     Author     : GUSTAVO
 --%>
 
+<%@page import="Dtos.EstadisticaR"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
+<% ArrayList<EstadisticaR> listaR = (ArrayList<EstadisticaR>) request.getAttribute("estadisticas"); %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -271,342 +275,25 @@
                     </tr>
                   </tfoot>
                   <tbody>
+                  <% for(EstadisticaR e : listaR){
+                              
+                              
+                              %>    
+                      
                     <tr>
-                      <td>Tiger Nixon</td>
-                      <td>System Architect</td>
-                      <td>Egresado</td>
-                      <td>61</td>
+                      <td><%=e.getNombre()%></td>
+                      <td><%=e.getCuota()%></td>
+                      <td><%=e.getCondicion()%></td>
+                      <td><%=e.getCantidad()%></td>
                       <td>2011/04/25</td>
 
                     </tr>
-                    <tr>
-                      <td>Garrett Winters</td>
-                      <td>Accountant</td>
-                      <td>Egresado</td>
-                      <td>63</td>
-                      <td>2011/07/25</td>
+                    <%
+                        }
+                        
+                        %>
 
-                    </tr>
-                    <tr>
-                      <td>Ashton Cox</td>
-                      <td>Junior Technical Author</td>
-                      <td>Egresado</td>
-                      <td>66</td>
-                      <td>2009/01/12</td>
-
-                    </tr>
-                    <tr>
-                      <td>Cedric Kelly</td>
-                      <td>Senior Javascript Developer</td>
-                      <td>Egresado</td>
-                      <td>22</td>
-                      <td>2012/03/29</td>
-
-                    </tr>
-                    <tr>
-                      <td>Airi Satou</td>
-                      <td>Accountant</td>
-                      <td>Egresado</td>
-                      <td>33</td>
-                      <td>2008/11/28</td>
-
-                    </tr>
-                    <tr>
-                      <td>Brielle Williamson</td>
-                      <td>Integration Specialist</td>
-                      <td>Egresado</td>
-                      <td>61</td>
-                      <td>2012/12/02</td>
-
-                    </tr>
-                    <tr>
-                      <td>Herrod Chandler</td>
-                      <td>Sales Assistant</td>
-                      <td>Egresado</td>
-                      <td>59</td>
-                      <td>2012/08/06</td>
-
-                    </tr>
-                    <tr>
-                      <td>Rhona Davidson</td>
-                      <td>Integration Specialist</td>
-                      <td>Egresado</td>
-                      <td>55</td>
-                      <td>2010/10/14</td>
-
-                    </tr>
-                    <tr>
-                      <td>Colleen Hurst</td>
-                      <td>Javascript Developer</td>
-                      <td>Egresado</td>
-                      <td>39</td>
-                      <td>2009/09/15</td>
-
-                    </tr>
-                    <tr>
-                      <td>Sonya Frost</td>
-                      <td>Software Engineer</td>
-                      <td>Egresado</td>
-                      <td>23</td>
-                      <td>2008/12/13</td>
-
-                    </tr>
-                    <tr>
-                      <td>Jena Gaines</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>30</td>
-                      <td>2008/12/19</td>
-
-                    </tr>
-                    <tr>
-                      <td>Quinn Flynn</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>22</td>
-                      <td>2013/03/03</td>
-
-                    </tr>
-                    <tr>
-                      <td>Charde Marshall</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>36</td>
-                      <td>2008/10/16</td>
-
-                    </tr>
-                    <tr>
-                      <td>Haley Kennedy</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>43</td>
-                      <td>2012/12/18</td>
-
-                    </tr>
-                    <tr>
-                      <td>Tatyana Fitzpatrick</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>19</td>
-                      <td>2010/03/17</td>
-
-                    </tr>
-                    <tr>
-                      <td>Michael Silva</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>66</td>
-                      <td>2012/11/27</td>
-
-                    </tr>
-                    <tr>
-                      <td>Paul Byrd</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>64</td>
-                      <td>2010/06/09</td>
-
-                    </tr>
-                    <tr>
-                      <td>Gloria Little</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>59</td>
-                      <td>2009/04/10</td>
-
-                    </tr>
-                    <tr>
-                      <td>Bradley Greer</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>41</td>
-                      <td>2012/10/13</td>
-
-                    </tr>
-                    <tr>
-                      <td>Dai Rios</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>35</td>
-                      <td>2012/09/26</td>
-
-                    </tr>
-                    <tr>
-                      <td>Jenette Caldwell</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>30</td>
-                      <td>2011/09/03</td>
-
-                    </tr>
-                    <tr>
-                      <td>Yuri Berry</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>40</td>
-                      <td>2009/06/25</td>
-
-                    </tr>
-                    <tr>
-                      <td>Caesar Vance</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>21</td>
-                      <td>2011/12/12</td>
-
-                    </tr>
-                    <tr>
-                      <td>Doris Wilder</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>23</td>
-                      <td>2010/09/20</td>
-
-                    </tr>
-                    <tr>
-                      <td>Angelica Ramos</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>47</td>
-                      <td>2009/10/09</td>
-
-                    </tr>
-                    <tr>
-                      <td>Gavin Joyce</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>42</td>
-                      <td>2010/12/22</td>
-
-                    </tr>
-                    <tr>
-                      <td>Jennifer Chang</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>28</td>
-                      <td>2010/11/14</td>
-
-                    </tr>
-                    <tr>
-                      <td>Brenden Wagner</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>28</td>
-                      <td>2011/06/07</td>
-
-                    </tr>
-                    <tr>
-                      <td>Fiona Green</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>48</td>
-                      <td>2010/03/11</td>
-
-                    </tr>
-                    <tr>
-                      <td>Shou Itou</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>20</td>
-                      <td>2011/08/14</td>
-
-                    </tr>
-                    <tr>
-                      <td>Michelle House</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>37</td>
-                      <td>2011/06/02</td>
-
-                    </tr>
-                    <tr>
-                      <td>Suki Burks</td>
-                      <td>Developer</td>
-                      <td>Egresado</td>
-                      <td>53</td>
-                      <td>2009/10/22</td>
-
-                    </tr>
-                    <tr>
-                      <td>Prescott Bartlett</td>
-                      <td>Technical Author</td>
-                      <td>Egresado</td>
-                      <td>27</td>
-                      <td>2011/05/07</td>
-
-                    </tr>
-                    <tr>
-                      <td>Gavin Cortez</td>
-                      <td>Team Leader</td>
-                      <td>Egresado</td>
-                      <td>22</td>
-                      <td>2008/10/26</td>
-
-                    </tr>
-                    <tr>
-                      <td>Martena Mccray</td>
-                      <td>Post-Sales support</td>
-                      <td>Egresado</td>
-                      <td>46</td>
-                      <td>2011/03/09</td>
-
-                    </tr>
-                    <tr>
-                      <td>Unity Butler</td>
-                      <td>Marketing Designer</td>
-                      <td>Egresado</td>
-                      <td>47</td>
-                      <td>2009/12/09</td>
-
-                    </tr>
-                    <tr>
-                      <td>Howard Hatfield</td>
-                      <td>Office Manager</td>
-                      <td>Egresado</td>
-                      <td>51</td>
-                      <td>2008/12/16</td>
-
-                    </tr>
-                    <tr>
-                      <td>Hope Fuentes</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>41</td>
-                      <td>2010/02/12</td>
-
-                    </tr>
-                    <tr>
-                      <td>Vivian Harrell</td>
-                      <td>-</td>
-                      <td>Alumno</td>
-                      <td>62</td>
-                      <td>2009/02/14</td>
-
-                    </tr>
-                    <tr>
-                      <td>Timothy Mooney</td>
-                      <td>Office Manager</td>
-                      <td>Egresado</td>
-                      <td>37</td>
-                      <td>2008/12/11</td>
-
-                    </tr>
-                    <tr>
-                      <td>Jackson Bradshaw</td>
-                      <td>Director</td>
-                      <td>Egresado</td>
-                      <td>65</td>
-                      <td>2008/09/26</td>
-
-                    </tr>
-                    <tr>
-                      <td>Olivia Liang</td>
-                      <td>Support Engineer</td>
-                      <td>Egresado</td>
-                      <td>64</td>
-                      <td>2011/02/03</td>
-
-                    </tr>
+                    
                   </tbody>
                 </table>
               </div>
