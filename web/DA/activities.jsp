@@ -146,12 +146,14 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
                                     <img class="img-profile rounded-circle" src="https://placekitten.com/60/60">
-                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                                            <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                            Cerrar sesión
-                                        </a>
-                                    </div>
+                                </a>  
+
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Cerrar sesión
+                                    </a>
+                                </div>
                             </li>
                         </ul>
                     </nav>
@@ -169,7 +171,7 @@
 
                             <div class="container-fluid"style="padding-top: 10px">
                                 <div class="col-sm-10 mb-3 mb-sm-0">
-                                    <a href="<%=request.getContextPath()%>/EventoServlet?action=crearview" class="btn btn-success" ><span>Añadir Evento</span></a>
+                                    <a href="#addEvento" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus"></i> <span>Añadir Evento</span></a>
                                 </div>                                
                             </div>
 
@@ -201,15 +203,15 @@
                                                 <td>
                                                     <div class="form-group row text-center btn-user">
                                                         <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="editarActividad.html" style="color: green" class="button btn btn-success"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Editar"></i></a>
+                                                            <a href="#editEvento" data-id='<%=e.getIdEvento()%>' data-descripcion='<%=e.getDescripcion()%>' data-lugar='<%=e.getLugar()%>' data-hora='<%=e.getHora()%>' data-fecha='<%=e.getFecha()%>' data-l class="editar-Actividad button btn btn-success" style="color: green"  data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <a href="#deleteEmployeeModal" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Eliminar"></i></a>
+                                                            <a href="#deleteEvento" data-id='<%=e.getIdEvento()%>' data-nombre='<%=e.getDescripcion()%>' class="borrar-Actividad button btn btn-danger" data-toggle="modal"><i class="fas fa-trash"   style="color: white" data-toggle="tooltip" title="Borrar"></i></a>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr> 
-                                            <%                                                   
+                                            <%
                                                 }
                                             %>
                                         </tbody>
@@ -235,6 +237,46 @@
         </div>
         <!--FIN DE PÁGINA-->
 
+        <div id="addEvento" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form  method="POST" action="<%=request.getContextPath()%>/EventoServlet?action=crear">
+
+                        <div class="modal-header">
+                            <h4 class="modal-title">Añadir actividad</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>                        
+                        <div class="modal-body">
+
+                            <input class='form-control'  type='hidden' name='idActividad'>
+
+                            <div class="form-group">
+                                <label>Descripción del evento</label>
+                                <input class='form-control'  type='text' name='descripcion' required>
+                            </div>
+                            <div class="form-group">
+                                <label>Hora del evento</label>
+                                <input class='form-control'  type='time' name='hora' required>
+                            </div>
+                            <div class="form-group">
+                                <label>Lugar del Evento</label>
+                                <input class='form-control'  type='text' name='lugar' required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha del Evento</label>
+                                <input class='form-control'  type='date' name='fecha' required>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input type="submit" class="btn btn-success" value="Guardar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <!--Botón para subir-->
         <a class="scroll-to-top rounded" href="#page-top">
             <i class="fas fa-angle-up"></i>
@@ -259,70 +301,39 @@
             </div>
         </div>
 
-
-        <div id="addEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">
-                            <h4 class="modal-title">Añadir actividad</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="form-group">
-                                <label>Nombre</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Descrición</label>
-                                <input type="email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Delegado</label>
-                                <select class="form-control form-control-user" type="text" >
-                                    <option value="null">  -- Seleccione una opcion --</option>
-                                    <option value="Alumno">Delegado 1</option>
-                                    <option value="Egresado">Delegado 2</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-
         <!--Botón para editar-->
-        <div id="editEmployeeModal" class="modal fade">
+        <div id="editEvento" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form>
+                    <form method="POST" action="<%=request.getContextPath()%>/EventoServlet?action=editar">
                         <div class="modal-header">
                             <h4 class="modal-title">Editar actividad</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label>Nombre</label>
-                                <input type="text" class="form-control" required>
-                            </div>
+
+                            <input type="hidden" id="eventoId" name="eventoId">
+
                             <div class="form-group">
                                 <label>Descripción</label>
-                                <input type="email" class="form-control" required>
+                                <input type="text" id="descripcion" name="descripcion" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label>Delegado</label>
-                                <select class="form-control form-control-user" type="text" >
-                                    <option value="null">  -- Seleccione una opcion --</option>
-                                    <option value="Alumno">Delegado 1</option>
-                                    <option value="Egresado">Delegado 2</option>
-                                </select>
+                                <label>Lugar</label>
+                                <input type="text" id="lugar" name="lugar" class="form-control" required>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <label>Hora</label>
+                                <input type="time" id="hora" name="hora" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Fecha</label>
+                                <input type="date" id="fecha" name="fecha" class="form-control" required>
+                            </div>                            
+                        </div>                       
+
                         <div class="modal-footer">
+
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
                             <input type="submit" class="btn btn-info" value="Guardar">
                         </div>
@@ -332,15 +343,16 @@
         </div>
 
         <!--Botón para borrar-->
-        <div id="deleteEmployeeModal" class="modal fade">
+        <div id="deleteEvento" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form>
+                    <form method="POST" action="<%=request.getContextPath()%>/EventoServlet?action=borrar">
                         <div class="modal-header">
                             <h4 class="modal-title">Borrar actividad </h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
+                            <input type="hidden" id="eventoId" name="eventoId">
                             <p>¿Estás seguro que deseas eliminar esta actividad?</p>
                             <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
                         </div>
@@ -369,6 +381,28 @@
 
         <!-- Page level custom scripts -->
         <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
+
+        <script>
+
+            $(document).on("click", ".editar-Actividad", function () {
+
+                $(".modal-body  #eventoId").val($(this).data('id'));
+                $(".modal-body .form-group #descripcion").val($(this).data('descripcion'));
+                $(".modal-body .form-group #lugar").val($(this).data('lugar'));
+                $(".modal-body .form-group #hora").val($(this).data('hora'));
+                $(".modal-body .form-group #fecha").val($(this).data('fecha'));
+
+            });
+
+
+            $(document).on("click", ".borrar-Actividad", function () {
+
+                $(".modal-body  #eventoId").val($(this).data('id'));
+                $(".modal-body .form-group #nombreActividadBorrar").val($(this).data('nombre'));
+
+
+            });
+        </script>
 
     </body>
 </html>

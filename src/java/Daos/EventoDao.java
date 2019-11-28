@@ -43,28 +43,28 @@ public class EventoDao extends BaseDao {
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, cod);
 
-             try (ResultSet rs = pstmt.executeQuery();){
-            /////////////esto igual es lo de siempre
-            while (rs.next()) {
+            try (ResultSet rs = pstmt.executeQuery();) {
+                /////////////esto igual es lo de siempre
+                while (rs.next()) {
 
-                Evento eve = new Evento();
+                    Evento eve = new Evento();
 
-                eve.setIdEvento(rs.getInt(1));
-                eve.setDescripcion(rs.getString(2));
-                eve.setLugar(rs.getString(3));
-                eve.setFecha(rs.getString(4));
-                eve.setHora(rs.getString(5));
+                    eve.setIdEvento(rs.getInt(1));
+                    eve.setDescripcion(rs.getString(2));
+                    eve.setLugar(rs.getString(3));
+                    eve.setFecha(rs.getString(4));
+                    eve.setHora(rs.getString(5));
 
-                Actividad act = new Actividad();
-                act.setDelegado_codigoPucp(rs.getInt(9));
-                act.setIdActividad(rs.getInt(7));
-                act.setNombreActividad(rs.getString(8));
+                    Actividad act = new Actividad();
+                    act.setDelegado_codigoPucp(rs.getInt(9));
+                    act.setIdActividad(rs.getInt(7));
+                    act.setNombreActividad(rs.getString(8));
 
-                eve.setAct(act);
+                    eve.setAct(act);
 
-                listaEventos.add(eve);
+                    listaEventos.add(eve);
+                }
             }
-             }
         } catch (SQLException ex) {
             Logger.getLogger(EventoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -72,7 +72,7 @@ public class EventoDao extends BaseDao {
         return listaEventos;
     }
 
-    public void crearEvento( String descripcion, String lugar, String fecha, String hora, int idActividad) {
+    public void crearEvento(String descripcion, String lugar, String fecha, String hora, int idActividad) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException ex) {
@@ -95,6 +95,37 @@ public class EventoDao extends BaseDao {
         } catch (SQLException ex) {
             Logger.getLogger(EventoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    public void editarEvento(int eventoId, String descripcion, String lugar, String hora, String fecha) {
+        String sql = "UPDATE Evento "
+                + "SET descripcion = ?, lugar = ?, hora = ?, fecha = ?"
+                + "WHERE idEvento = ?";
+        
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            pstmt.setInt(5, eventoId);
+            pstmt.setString(1, descripcion);
+            pstmt.setString(2, lugar);
+            pstmt.setString(3, hora);
+            pstmt.setString(4, fecha);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(EventoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void borrarEvento(int id) {
+        String sql = "DELETE from Evento where idEvento = ?";
+
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EventoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

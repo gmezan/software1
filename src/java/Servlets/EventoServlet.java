@@ -45,19 +45,19 @@ public class EventoServlet extends HttpServlet {
         EventoDao eveDao = new EventoDao();
         RequestDispatcher rd = null;
         HttpSession session = request.getSession();
-        
+
         Usuario u = (Usuario) session.getAttribute("usuario");
-        
+
         switch (action) {
-            case "listar":                
-                int cod=u.getCodigoPucp();
+            case "listar":
+                int cod = u.getCodigoPucp();
                 ArrayList<Evento> listaEventos = eveDao.listarEventos(cod);
                 request.setAttribute("lista", listaEventos);
                 rd = request.getRequestDispatcher("/DA/activities.jsp");
                 rd.forward(request, response);
                 break;
 
-            case "crearview":                
+            case "crearview":
                 int idAct = u.getIdActividad();
                 ArrayList<Evento> listaEve = eveDao.listarEventos(idAct);
                 request.setAttribute("idAct", listaEve);
@@ -74,10 +74,22 @@ public class EventoServlet extends HttpServlet {
 
                 eveDao.crearEvento(descripcion, lugar, fecha, hora, idActividad);
 
-                response.sendRedirect(request.getContextPath() + "EventoServlet?action=listar");
+                response.sendRedirect(request.getContextPath() + "/EventoServlet?action=listar");
                 break;
-                
-               
+
+            case "editar":
+                String description = request.getParameter("descripcion");
+                String place = request.getParameter("lugar");
+                String time = request.getParameter("hora");
+                String date = request.getParameter("fecha");
+                eveDao.editarEvento(Integer.parseInt(request.getParameter("eventoId")), description, place, time, date);
+                response.sendRedirect(request.getContextPath() + "/EventoServlet?action=listar");
+                break;
+
+            case "borrar":
+                eveDao.borrarEvento(Integer.parseInt(request.getParameter("eventoId")));
+                response.sendRedirect(request.getContextPath() + "/EventoServlet?action=listar");
+                break;
 
             /*
             case "crearTrabajo":
@@ -102,12 +114,7 @@ public class EventoServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath());
 
                 break;
-            case "borrarTrabajo":
-                String jobID = request.getParameter("id");
-                jobDao.borrartrabajo(jobID);
-                response.sendRedirect(request.getContextPath());
-
-                break;
+            
                 
                 
              */
