@@ -340,7 +340,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">Opciones:</div>
-                      <a class="dropdown-item" href="statisticsR.html">Estadísticas de recaudaciones</a>
+                      <a class="dropdown-item" href="<%=request.getContextPath()+"/UsuarioServlet?action=estadisticaRecaudaciones"%>">Estadísticas de recaudaciones</a>
 
                     </div>
                   </div>
@@ -366,10 +366,10 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">Opciones:</div>
-                      <a class="dropdown-item" href="statisticsP.html">Estadísticas a detalle</a>
-                      <a class="dropdown-item" href="peopleR.html">Información de participantes</a>
+                      <a class="dropdown-item" href="<%=request.getContextPath()+"/UsuarioServlet?action=estadisticaPersonas"%>">Estadísticas a detalle</a>
+                      <a class="dropdown-item" href="<%=request.getContextPath()+"/UsuarioServlet?action=listaUsuario"%>">Información de participantes</a>
                       <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="peopleNR.html">Solicitudes pendientes</a>
+                      <a class="dropdown-item" href="<%=request.getContextPath()+"/UsuarioServlet?action=listaNR"%>">Solicitudes pendientes</a>
                     </div>
                   </div>
                 </div>
