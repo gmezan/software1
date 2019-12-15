@@ -315,6 +315,19 @@ public class UsuarioDao extends BaseDao {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void registrarUsuario(int codigoPucp) {
+        String sql = "update Usuarios set Estado_idEstado = 1 where (codigoPucp = ?)";
+
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, codigoPucp);
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     public void banearUsuario(int codigo) {
         String sql = "update Usuarios set Estado_idEstado = 3 where (codigoPucp = ?)";
