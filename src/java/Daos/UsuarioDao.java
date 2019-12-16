@@ -143,9 +143,7 @@ public class UsuarioDao extends BaseDao {
 
         ArrayList<PartiEvento> partis = new ArrayList<>();
 
-        String sql = "SELECT mydb.Usuarios.codigoPucp, mydb.Usuarios.nombre, mydb.Usuarios.apellido, mydb.EstadoEvento.estado, mydb.Usuarios.condicion, mydb.Evento.descripcion \n"
-                + "FROM mydb.EstadoEvento, mydb.Participante_a_Evento, mydb.Evento, mydb.Usuarios \n"
-                + "WHERE mydb.Participante_a_Evento.Evento_idEvento = mydb.Evento.idEvento AND EstadoEvento.idEstadoEvento <> 3 AND mydb.Usuarios.codigoPucp = mydb.Participante_a_Evento.Participante_codigoPucp AND mydb.Evento.Actividad_idActividad = ?;";
+        String sql = "SELECT mydb.Usuarios.codigoPucp, mydb.Usuarios.nombre, mydb.Usuarios.apellido, mydb.EstadoEvento.estado, mydb.Usuarios.condicion, mydb.Evento.descripcion, mydb.Participante_a_Evento.Evento_idEvento FROM mydb.EstadoEvento, mydb.Participante_a_Evento, mydb.Evento, mydb.Usuarios WHERE mydb.Participante_a_Evento.Evento_idEvento = mydb.Evento.idEvento AND EstadoEvento.idEstadoEvento <> 3 AND mydb.Usuarios.codigoPucp = mydb.Participante_a_Evento.Participante_codigoPucp AND mydb.Evento.Actividad_idActividad = ?;";
         try (Connection conn = this.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, codigo);
@@ -160,6 +158,7 @@ public class UsuarioDao extends BaseDao {
                 partiEvento.setTipoApoyo(rs.getString(4));
                 partiEvento.setCondicion(rs.getString(5));
                 partiEvento.setEvento(rs.getString(6));
+                partiEvento.setIdEvento(rs.getInt(7));
 
                 partis.add(partiEvento);
 
@@ -177,9 +176,7 @@ public class UsuarioDao extends BaseDao {
 
         ArrayList<PartiEvento> partis = new ArrayList<>();
 
-        String sql = "SELECT mydb.Usuarios.codigoPucp, mydb.Usuarios.nombre, mydb.Usuarios.apellido, mydb.EstadoEvento.estado, mydb.Usuarios.condicion, mydb.Evento.descripcion \n"
-                + "FROM mydb.EstadoEvento, mydb.Participante_a_Evento, mydb.Evento, mydb.Usuarios \n"
-                + "WHERE mydb.Participante_a_Evento.Evento_idEvento = mydb.Evento.idEvento AND EstadoEvento.idEstadoEvento = 3 AND mydb.Usuarios.codigoPucp = mydb.Participante_a_Evento.Participante_codigoPucp AND mydb.Evento.Actividad_idActividad = ?;";
+        String sql = "SELECT mydb.Usuarios.codigoPucp, mydb.Usuarios.nombre, mydb.Usuarios.apellido, mydb.EstadoEvento.estado, mydb.Usuarios.condicion, mydb.Evento.descripcion, mydb.Participante_a_Evento.Evento_idEvento FROM mydb.EstadoEvento, mydb.Participante_a_Evento, mydb.Evento, mydb.Usuarios WHERE mydb.Participante_a_Evento.Evento_idEvento = mydb.Evento.idEvento AND EstadoEvento.idEstadoEvento = 3 AND mydb.Usuarios.codigoPucp = mydb.Participante_a_Evento.Participante_codigoPucp AND mydb.Evento.Actividad_idActividad = ?;";
         try (Connection conn = this.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, codigo);
@@ -194,6 +191,7 @@ public class UsuarioDao extends BaseDao {
                 partiEvento.setTipoApoyo(rs.getString(4));
                 partiEvento.setCondicion(rs.getString(5));
                 partiEvento.setEvento(rs.getString(6));
+                partiEvento.setIdEvento(rs.getInt(7));
 
                 partis.add(partiEvento);
 
