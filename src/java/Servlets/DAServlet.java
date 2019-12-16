@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import Beans.Usuario;
 import Daos.ActividadesDao;
 import Daos.EstadisticasDgDao;
 import Daos.UsuarioDao;
@@ -58,18 +59,23 @@ public class DAServlet extends HttpServlet {
                     break;
 
                 case "listarEsperas":
-                    request.setAttribute("listaUsuariosEspera", uDao.listaUsuariosEnEsperaEventos());
+                    Usuario user1 = (Usuario) session.getAttribute("usuario");
+                    request.setAttribute("listaUsuariosEspera", uDao.listaUsuariosEnEsperaEventos(user1.getIdActividad()));
                     view = request.getRequestDispatcher("/DA/peopleNR.jsp");
                     view.forward(request, response);
                     break;
 
                 case "listarBarrEq":
-                    request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq());
+                    Usuario user2 = (Usuario) session.getAttribute("usuario");
+                    request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq(user2.getIdActividad()));
                     view = request.getRequestDispatcher("/DA/revisarParticipantes.jsp");
                     view.forward(request, response);
                     break;
+                    
                 case "listarEstadisticas":
-                    request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq());
+                    
+                    Usuario user3 = (Usuario) session.getAttribute("usuario");
+                    request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq(user3.getIdActividad()));
                     view = request.getRequestDispatcher("/DA/statisticsA.jsp");
                     view.forward(request, response);
                     break;
