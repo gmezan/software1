@@ -101,7 +101,7 @@
                     <div id="collapseEstd" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Todas las estadísticas</h6>
-                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarEsperas">Cantidad de apoyos</a>
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarEstadisticas">Cantidad de apoyos</a>
                         </div>
                     </div>
                 </li>
