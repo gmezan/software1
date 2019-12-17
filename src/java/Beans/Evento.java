@@ -17,6 +17,7 @@ public class Evento {
     private String fecha;
     private String hora;
     private Actividad act;
+    private Estado est;
 
     
     
@@ -105,6 +106,20 @@ public class Evento {
      */
     public void setAct(Actividad act) {
         this.act = act;
+    }
+
+    /**
+     * @return the est
+     */
+    public Estado getEst() {
+        return est;
+    }
+
+    /**
+     * @param est the est to set
+     */
+    public void setEst(Estado est) {
+        this.est = est;
     }
     
     
