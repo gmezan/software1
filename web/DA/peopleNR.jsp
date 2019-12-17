@@ -217,7 +217,7 @@
                                                         </div>
                                                         
                                                         <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="DA?action=rechazarSolicitud&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>" type="button" class="btn btn-warning">Equipo</a>
+                                                            <a href="DA?action=desginarEquipo&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>" type="button" class="btn btn-warning">Equipo</a>
                                                         </div>
                                                         
                                                         <div class="col-sm-4 mb-2 mb-sm-0">
