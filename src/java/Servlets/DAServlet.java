@@ -121,7 +121,7 @@ public class DAServlet extends HttpServlet {
                 case "listarEstadisticas":
 
                     Usuario user3 = (Usuario) session.getAttribute("usuario");
-                    request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq(user3.getIdActividad()));
+                    request.setAttribute("listaUsuariosDistintos", uDao.participantesDistintos(user3.getIdActividad()));
                     view = request.getRequestDispatcher("/DA/statisticsA.jsp");
                     view.forward(request, response);
                     break;
