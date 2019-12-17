@@ -69,9 +69,9 @@
 
                 <!-- Nav Item - Dashboard -->
                 <li class="nav-item active">
-                    <a class="nav-link" href="indexA.html">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Actividades</span></a>
+                        <span>Inicio</span></a>
                 </li>
 
 
@@ -85,14 +85,14 @@
                 </div>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="misEventos.html">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=listaEventos">
                         <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
                         <span>Mis eventos</span></a>
                 </li>
 
 
                 <li class="nav-item">
-                    <a class="nav-link" href="donaciones.html">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donaciones">
                         <i class="fas fa-fw fa-dollar-sign"></i> <!--icono!!!!!-->
                         <span>Donaciones</span></a>
                 </li>

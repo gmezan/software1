@@ -20,12 +20,73 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+
+import java.util.Properties;  
+import javax.mail.*;  
+import javax.mail.internet.*;   
+
 /**
  *
  * @author GUSTAVO
  */
 public class UsuarioDao extends BaseDao {
 
+public static void sendCorreo(String from, String pass, String[] to, String subject, String body) {     
+  
+  //String host="smtp.gmail.com";  
+  //final String user="sonoojaiswal@javatpoint.com";//change accordingly  
+  //final String password="xxxxx";//change accordingly  
+    
+  //String to="sonoojaiswal1987@gmail.com";//change accordingly  
+  
+   //Get the session object  
+   Properties props = System.getProperties();
+        String host = "smtp.gmail.com";
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", from);
+        props.put("mail.smtp.password", pass);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress(from));
+            InternetAddress[] toAddress = new InternetAddress[to.length];
+
+            // To get the array of addresses
+            for( int i = 0; i < to.length; i++ ) {
+                toAddress[i] = new InternetAddress(to[i]);
+            }
+
+       for (InternetAddress toAddres : toAddress) {
+           message.addRecipient(Message.RecipientType.TO, toAddres);
+       }
+
+            message.setSubject(subject);
+            message.setText(body);
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, pass);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        }
+        catch (AddressException ae) {
+            ae.printStackTrace();
+        }
+        catch (MessagingException me) {
+            me.printStackTrace();
+        }
+    
+   
+   
+   
+ }
+    
+    
+    
+    
     public ArrayList<Usuario> listarUsuario() {
 
         ArrayList<Usuario> usuario = new ArrayList<>();
