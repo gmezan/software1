@@ -11,7 +11,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
-<% ArrayList<PartiEvento> listaBarrEq = (ArrayList<PartiEvento>) request.getAttribute("listaUsuariosBarrsOEq");%>
+<% ArrayList<Usuario> listaUsuariosDistintos = (ArrayList<Usuario>) request.getAttribute("listaUsuariosDistintos");%>
 
 
 <!DOCTYPE html>
@@ -221,7 +221,7 @@
           <!-- Page Heading -->
           <h1 class="h3 mb-2 text-gray-800">Cantidad de apoyos</h1>
           <p class="mb-4">
-            Acá se muestran la cantidad de personas que están apoyando una actividad.</p>
+            Acá se muestra la cantidad de participaciones por persona en <%= usuario.getActividad().getNombreActividad()%></p>
 
           <!-- Bar Chart -->
           <div class="card shadow mb-4">
@@ -267,7 +267,7 @@
                       <th>Nombre y Apellido de Alumno</th>
                       <th>Condición</th>
                       <th>Imagen</th>
-                      <th>Número de participantes</th>
+                      <th>Cantidad de Participaciones</th>
 
                     </tr>
                   </thead>
@@ -277,23 +277,23 @@
                       <th>Nombre y Apellido de Alumno</th>
                       <th>Condición</th>
                       <th>Imagen</th>
-                      <th>Número de participaciones</th>
+                      <th>Cantidad de Participaciones</th>
                     </tr>
                   </tfoot>
                   <tbody>
                       
-                      <% for(PartiEvento par : listaBarrEq){
+                      <% for(Usuario user : listaUsuariosDistintos){
                           UsuarioDao uDao = new UsuarioDao();
                               
                               
                               %>
                     <tr>
-                      <td><%=par.getCodigo()%></td>
-                      <td><%=par.getNombre()%> <%=par.getApellido()%></td>
-                      <td><%=par.getCondicion()%></td>
+                      <td><%=user.getCodigoPucp()%></td>
+                      <td><%=user.getNombre()%> <%=user.getApellido()%></td>
+                      <td><%=user.getCondicion()%></td>
                       <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
                       </td>
-                      <td><%=uDao.contarParticipaciones(par.getCodigo(), usuario.getIdActividad())%></td>
+                      <td><%=uDao.contarParticipaciones(user.getCodigoPucp(), usuario.getIdActividad())%></td>
                     </tr>
                     <%
                         }
