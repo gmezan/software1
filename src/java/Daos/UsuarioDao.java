@@ -198,6 +198,31 @@ public static void sendCorreo(String from, String pass, String[] to, String subj
         return usuario;
     }
     
+    public int contarParticipaciones(int codigo, int idActividad){
+        int participaciones = 0;
+        String sql = "SELECT count(*) FROM (SELECT * FROM Participante_a_Evento pae, Evento e WHERE pae.EstadoEvento_idEstadoEvento <> 3 AND pae.Evento_idEvento = e.idEvento AND pae.Participante_codigoPucp = ? AND e.Actividad_idActividad = ?) sub";
+
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, codigo);
+            pstmt.setInt(2, idActividad);
+            ResultSet rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                
+                participaciones = rs.getInt(1);
+
+            }
+            
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return participaciones;
+    }
+    
     
     public void rechazarSolicitudEvento(int codigo, int idEvento) {
         String sql = "DELETE FROM Participante_a_Evento WHERE Participante_codigoPucp = ? AND Evento_idEvento = ?";
@@ -247,14 +272,14 @@ public static void sendCorreo(String from, String pass, String[] to, String subj
     
     //////////////////////////////////////////
     //////////////////////////////////////////
-    public ArrayList<PartiEvento> listaUsuariosBarrsOEq(int codigo) {
+    public ArrayList<PartiEvento> listaUsuariosBarrsOEq(int idEvento) {
 
         ArrayList<PartiEvento> partis = new ArrayList<>();
 
         String sql = "SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento, pae.observaciones  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento <> 3 AND e.Actividad_idActividad = ?;";
         try (Connection conn = this.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setInt(1, codigo);
+            pstmt.setInt(1, idEvento);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -282,14 +307,14 @@ public static void sendCorreo(String from, String pass, String[] to, String subj
     
     
 
-    public ArrayList<PartiEvento> listaUsuariosEnEsperaEventos(int codigo) {
+    public ArrayList<PartiEvento> listaUsuariosEnEsperaEventos(int idEvento) {
 
         ArrayList<PartiEvento> partis = new ArrayList<>();
 
         String sql = "SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento, pae.observaciones  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento = 3 AND e.Actividad_idActividad = ?";
         try (Connection conn = this.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setInt(1, codigo);
+            pstmt.setInt(1, idEvento);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {

@@ -4,9 +4,14 @@
     Author     : Labtel
 --%>
 
+<%@page import="Daos.UsuarioDao"%>
+<%@page import="Beans.PartiEvento"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
+<% ArrayList<PartiEvento> listaBarrEq = (ArrayList<PartiEvento>) request.getAttribute("listaUsuariosBarrsOEq");%>
+
 <!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
@@ -236,10 +241,11 @@
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Nombre del participante</th>
-                                                <th>Estado</th>
-                                                <th> Observaciones</th>
-                                                <th> Foto de participante</th>
+                                                <th>Código</th>
+                                                <th>Nombre</th>
+                                                <th>Condición</th>
+                                                <!-- <th> Observaciones</th> -->
+                                                <!-- <th> Foto de participante</th> -->
                                                 <th> Eventos asistidos</th>
                                                 <th> Modificar</th>
                                             </tr>
@@ -248,95 +254,29 @@
 
                                         </tfoot>
                                         <tbody>
+                                            
+                                            <%
+                                                for (PartiEvento par : listaBarrEq) {
+                                                    UsuarioDao uDao = new UsuarioDao(); 
+
+                                            %>
+                                            
+                                            
                                             <tr>
-                                                <td>Alumno 1</td>
-                                                <td>Apto</td>
-                                                <td>Puede asistir a todos los eventos.</td>
-                                                <td><img src="https://images.clarin.com/2019/09/27/donald-trump-se-enfurecio-con___VlWW3Hbb_1256x620__1.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
-                                                </td>
-                                                <td>5</td>
+                                                <td><%=par.getCodigo()%></td>
+                                                <td><%=par.getNombre()%> <%=par.getApellido()%></td>
+                                                <td><%=par.getCondicion()%></td>
+                                                
+                                                <!-- <td>Puede asistir a todos los eventos.</td> -->
+                                                <!-- <td><img src="https://images.clarin.com/2019/09/27/donald-trump-se-enfurecio-con___VlWW3Hbb_1256x620__1.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
+                                                </td> -->
+                                                <td><%=uDao.contarParticipaciones(par.getCodigo(), usuario.getIdActividad())%></td>
                                                 <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
                                             </tr>
-                                            <tr>
-                                                <td>Alumno 2</td>
-                                                <td>Apto</td>
-                                                <td>Sólo apoyará en la primera semana</td>
-                                                <td><img src="https://cdn.cnn.com/cnnnext/dam/assets/190318100224-lionel-messi-exlarge-169.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>10</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alumno 3</td>
-                                                <td>Expulsado</td>
-                                                <td>Juega de arquero y defensa.</td>
-                                                <td><img src="https://www.meokeke.com/wp-content/uploads/ascensio.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>20</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alumno 4</td>
-                                                <td>Apto</td>
-                                                <td>Tiene una amarilla acumulada.</td>
-                                                <td><img src="https://www.ecestaticos.com/imagestatic/clipping/792/b27/792b27cce77633e608c56da5fa7976dc/los-250-diarios-de-cristiano-ronaldo-por-su-amor-a-espana-y-su-conciencia-tranquila.jpg?mtime=1550591252" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>5</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alumno 5</td>
-                                                <td>Retirado</td>
-                                                <td>No puede jugar partidos luego de las 9pm.</td>
-                                                <td><img src="https://as.com/futbol/imagenes/2019/05/06/internacional/1557122398_488952_1557122527_noticia_normal.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>8</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alumno 6</td>
-                                                <td>Baneado</td>
-                                                <td>No puede llegar antes de las 8pm.</td>
-                                                <td><img src="https://fcbarcelona-static-files.s3.amazonaws.com/fcbarcelona/photo/2019/02/08/2f146f67-7619-4df7-be41-a3fd26d7db50/OtroFCB-VIL02122018_pic_2018-12-03otrobarcelona-villarreal12-Optimized.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>10</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alumno 7</td>
-                                                <td>Apto</td>
-                                                <td>Solo juega como delantero.</td>
-                                                <td><img src="https://as.com/futbol/imagenes/2019/01/24/primera/1548370158_049160_1548370305_noticia_normal.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>3</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alumno 8</td>
-                                                <td>Apto</td>
-                                                <td>No sabe las reglas de futsal.</td>
-                                                <td><img src="https://amp.businessinsider.com/images/5ce7eb1a828ac164c16bea22-750-500.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>10</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alumno 9</td>
-                                                <td>Apto</td>
-                                                <td>Solo aguanta medio tiempo.</td>
-                                                <td><img src="https://static01.nyt.com/images/2018/05/24/universal/guerreroes/guerreroes-master1050.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>9</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alumno 10</td>
-                                                <td>Expulsado</td>
-                                                <td>Es diestro.</td>
-                                                <td><img src="https://www.pasionfutbol.com/__export/1555612752470/sites/pasionlibertadores/img/2019/04/18/higuain.jpg_715985292.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>10</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Alumno 11</td>
-                                                <td>Lesionado</td>
-                                                <td>Es zurdo.</td>
-                                                <td><img src="https://futbolete.com/wp-content/uploads/2019/03/noticias-futbol-falcao-seleccion-colombia-japon-2019.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image"></td>
-                                                <td>12</td>
-                                                <td><a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a></td>
-                                            </tr>
+                                            
+                                            <%
+                                                }%>
+                                            
 
                                         </tbody>
                                     </table>
