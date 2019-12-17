@@ -16,7 +16,8 @@ public class PartiEvento {
     private String apellido;
     private String tipoApoyo;
     private String condicion;
-    private String evento;    
+    private String evento;
+    private int idEvento;    
 
     /**
      * @return the codigo
@@ -100,6 +101,20 @@ public class PartiEvento {
      */
     public void setEvento(String evento) {
         this.evento = evento;
+    }
+
+    /**
+     * @return the idEvento
+     */
+    public int getIdEvento() {
+        return idEvento;
+    }
+
+    /**
+     * @param idEvento the idEvento to set
+     */
+    public void setIdEvento(int idEvento) {
+        this.idEvento = idEvento;
     }
     
 }

@@ -75,8 +75,8 @@
                 </div>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="activities.html">
-                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listar">
+                        <i class="fas fa-fw fa-running"></i>
                         <span>Eventos</span></a>
                 </li>
 
@@ -101,8 +101,7 @@
                     <div id="collapseEstd" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Todas las estadísticas</h6>
-                            <a class="collapse-item" href="statisticsA.html">Cantidad de apoyos</a>
-
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarEstadisticas">Cantidad de apoyos</a>
                         </div>
                     </div>
                 </li>

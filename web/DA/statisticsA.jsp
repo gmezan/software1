@@ -46,24 +46,23 @@
             <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexDA.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
                 </a>
 
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexDA.html">
-
-                    <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de actividad</div>
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
+                    <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de <%= usuario.getActividad().getNombreActividad()%></div>
                 </a>
                 <!-- Divider -->
 
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item">
-                    <a class="nav-link" href="indexDA.html">
+                <li class="nav-item active">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/DA?action=main">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Menú Principal</span></a>
                 </li>
@@ -79,10 +78,11 @@
                 </div>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="activities.html">
-                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listar">
+                        <i class="fas fa-fw fa-running"></i>
                         <span>Eventos</span></a>
                 </li>
+
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePers" aria-expanded="true" aria-controls="collapsePers">
@@ -91,8 +91,8 @@
                     </a>
                     <div id="collapsePers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="peopleNR.html">Personas no registradas</a>
-                            <a class="collapse-item" href="revisarParticipantes.html">Revisar participantes</a>
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarEsperas">Personas no registradas</a>
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarBarrEq">Revisar participantes</a>
                         </div>
                     </div>
                 </li>
@@ -102,11 +102,10 @@
                         <i class="fas fa-fw fa-chart-area"></i>
                         <span>Estadísticas</span>
                     </a>
-                    <div id="collapseEstd" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div id="collapseEstd" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <h6 class="collapse-header">Todas las estadísticas</h6>
-                            <a class="collapse-item active" href="statisticsA.html">Cantidad de apoyos</a>
-
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarEstadisticas">Cantidad de apoyos</a>
                         </div>
                     </div>
                 </li>

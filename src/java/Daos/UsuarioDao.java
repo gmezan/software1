@@ -139,17 +139,16 @@ public class UsuarioDao extends BaseDao {
 
     //////////////////////////////////////////
     //////////////////////////////////////////
-    public ArrayList<PartiEvento> listaUsuariosBarrsOEq() {
+    public ArrayList<PartiEvento> listaUsuariosBarrsOEq(int codigo) {
 
         ArrayList<PartiEvento> partis = new ArrayList<>();
 
-        String sql = "SELECT p.Participante_codigoPucp, u.nombre, u.apellido, estEv.estado, u.condicion, e.descripcion , p.EstadoEvento_idEstadoEvento, p.observaciones, e.Actividad_idActividad, a.nombreActividad\n"
-                + "FROM Participante_a_Evento p, Evento e, Usuarios u, Actividad a, EstadoEvento estEv\n"
-                + "WHERE e.idEvento = p.Evento_idEvento AND p.EstadoEvento_idEstadoEvento <> 3 AND u.codigoPucp = p.Participante_codigoPucp AND e.Actividad_idActividad = a.idActividad AND p.EstadoEvento_idEstadoEvento = estEv.idEstadoEvento;";
-
+        String sql = "SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento <> 3 AND e.Actividad_idActividad = ?;";
         try (Connection conn = this.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql);) {
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, codigo);
+            ResultSet rs = pstmt.executeQuery();
+
             while (rs.next()) {
                 PartiEvento partiEvento = new PartiEvento();
 
@@ -159,6 +158,7 @@ public class UsuarioDao extends BaseDao {
                 partiEvento.setTipoApoyo(rs.getString(4));
                 partiEvento.setCondicion(rs.getString(5));
                 partiEvento.setEvento(rs.getString(6));
+                partiEvento.setIdEvento(rs.getInt(7));
 
                 partis.add(partiEvento);
 
@@ -167,11 +167,45 @@ public class UsuarioDao extends BaseDao {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return partis;
 
     }
 
-    public ArrayList<PartiEvento> listaUsuariosEnEsperaEventos() {
+    public ArrayList<PartiEvento> listaUsuariosEnEsperaEventos(int codigo) {
+
+        ArrayList<PartiEvento> partis = new ArrayList<>();
+
+        String sql = "SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento = 3 AND e.Actividad_idActividad = ?;";
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, codigo);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                PartiEvento partiEvento = new PartiEvento();
+
+                partiEvento.setCodigo(rs.getInt(1));
+                partiEvento.setNombre(rs.getString(2));
+                partiEvento.setApellido(rs.getString(3));
+                partiEvento.setTipoApoyo(rs.getString(4));
+                partiEvento.setCondicion(rs.getString(5));
+                partiEvento.setEvento(rs.getString(6));
+                partiEvento.setIdEvento(rs.getInt(7));
+
+                partis.add(partiEvento);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return partis;
+
+        /*
+        
+        
 
         ArrayList<PartiEvento> partis = new ArrayList<>();
 
@@ -200,8 +234,19 @@ public class UsuarioDao extends BaseDao {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return partis;
-
+        
+        
+         */
     }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     public ArrayList<Usuario> listaUsuariosBarrsOEq2() {
 
@@ -315,7 +360,7 @@ public class UsuarioDao extends BaseDao {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void registrarUsuario(int codigoPucp) {
         String sql = "update Usuarios set Estado_idEstado = 1 where (codigoPucp = ?)";
 
@@ -485,16 +530,15 @@ public class UsuarioDao extends BaseDao {
 
         return u;
     }
-    
-    
-    public ArrayList<Integer> dataDashboard(){
+
+    public ArrayList<Integer> dataDashboard() {
         ArrayList<Integer> data = new ArrayList<>();
 
         String sqlSolicitudes = "select count(codigoPucp) from Usuarios where Estado_idEstado = 2";
         String sqlDonacionHoy = "SELECT sum(monto) from Donacion where date(now()) = fecha ";
         String sqlDonacionTotal = "SELECT sum(monto) FROM Donacion";
         String sqlActividadesConDelegado = "select floor( 100*(SELECT count(delegado_codigoPucp) FROM Actividad where delegado_codigoPucp is not null)/(SELECT count(*) FROM Actividad ))";
-        try(Connection con = this.getConnection();
+        try (Connection con = this.getConnection();
                 Statement stmt1 = con.createStatement();
                 Statement stmt2 = con.createStatement();
                 Statement stmt3 = con.createStatement();
@@ -502,27 +546,38 @@ public class UsuarioDao extends BaseDao {
                 ResultSet rs1 = stmt1.executeQuery(sqlSolicitudes);
                 ResultSet rs2 = stmt2.executeQuery(sqlDonacionHoy);
                 ResultSet rs3 = stmt3.executeQuery(sqlDonacionTotal);
-                ResultSet rs4 = stmt4.executeQuery(sqlActividadesConDelegado);
-                ) {
-            
-            if(rs1.next()) data.add(rs1.getInt(1)); else data.add(0);
-            if(rs2.next()) data.add(rs2.getInt(1)); else data.add(0);
-            if(rs3.next()) data.add(rs3.getInt(1)); else data.add(0);
-            if(rs4.next()) data.add(rs4.getInt(1)); else data.add(0);
+                ResultSet rs4 = stmt4.executeQuery(sqlActividadesConDelegado);) {
+
+            if (rs1.next()) {
+                data.add(rs1.getInt(1));
+            } else {
+                data.add(0);
+            }
+            if (rs2.next()) {
+                data.add(rs2.getInt(1));
+            } else {
+                data.add(0);
+            }
+            if (rs3.next()) {
+                data.add(rs3.getInt(1));
+            } else {
+                data.add(0);
+            }
+            if (rs4.next()) {
+                data.add(rs4.getInt(1));
+            } else {
+                data.add(0);
+            }
             //data.add(0);
             //data.add(1);
             //data.add(2);
             //data.add(3);
-            
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
 
         return data;
     }
-    
 
 }
