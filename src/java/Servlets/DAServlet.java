@@ -81,6 +81,20 @@ public class DAServlet extends HttpServlet {
                     response.sendRedirect("DA?action=listarBarrEq");
                     break;
 
+                case "designarBarra":
+                    int idUsuario5 = Integer.parseInt(request.getParameter("idUsuario"));
+                    int idEvento5 = Integer.parseInt(request.getParameter("idEvento"));
+                    uDao.cambiar_A_Barra(idUsuario5, idEvento5);
+                    response.sendRedirect("DA?action=listarEsperas");
+                    break;
+                    
+                case "desginarEquipo":
+                    int idUsuario4 = Integer.parseInt(request.getParameter("idUsuario"));
+                    int idEvento4 = Integer.parseInt(request.getParameter("idEvento"));
+                    uDao.cambiar_A_Barra(idUsuario4, idEvento4);
+                    response.sendRedirect("DA?action=listarEsperas");
+                    break;
+                    
                 case "cambiarTipoApoyo":
                     String tipoApoyo = request.getParameter("tipoApoyo");
                     int idUsuario3 = Integer.parseInt(request.getParameter("idUsuario"));
