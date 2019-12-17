@@ -39,7 +39,7 @@ public class DonacionDao extends BaseDao {
 
     public ArrayList<Donacion> listarDonacion(int idUsuario) {
 
-        ArrayList<Donacion> listaDonacion = new ArrayList<>();
+        ArrayList<Donacion> listaDon = new ArrayList<>();
 
         String sql = "SELECT * FROM Donacion "
                 + "where contribuyente_codigoPucp = ?";
@@ -59,7 +59,7 @@ public class DonacionDao extends BaseDao {
                     d.setMonto(rs.getString(2));
                     d.setFecha(rs.getString(4));
 
-                    listaDonacion.add(d);
+                    listaDon.add(d);
 
                 }
             }
@@ -67,7 +67,7 @@ public class DonacionDao extends BaseDao {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return listaDonacion;
+        return listaDon;
 
     }
 }
