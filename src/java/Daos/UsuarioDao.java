@@ -138,9 +138,6 @@ public class UsuarioDao extends BaseDao {
     }
     
     
-    
-    
-
     public void rechazarSolicitudEvento(int codigo, int idEvento) {
         String sql = "DELETE FROM Participante_a_Evento WHERE Participante_codigoPucp = ? AND Evento_idEvento = ?";
 
@@ -156,15 +153,37 @@ public class UsuarioDao extends BaseDao {
 
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
+    public void cambiar_A_Barra(int codigo, int idEvento) {
+        String sql = "UPDATE Participante_a_Evento SET EstadoEvento_idEstadoEvento = 1 WHERE Participante_codigoPucp = ? AND Evento_idEvento = ?;";
 
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, codigo);
+            pstmt.setInt(2, idEvento);
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    public void cambiar_A_Equipo(int codigo, int idEvento) {
+        String sql = "UPDATE Participante_a_Evento SET EstadoEvento_idEstadoEvento = 2 WHERE Participante_codigoPucp = ? AND Evento_idEvento = ?;";
+
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, codigo);
+            pstmt.setInt(2, idEvento);
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
     //////////////////////////////////////////
     //////////////////////////////////////////
     public ArrayList<PartiEvento> listaUsuariosBarrsOEq(int codigo) {
@@ -199,6 +218,8 @@ public class UsuarioDao extends BaseDao {
         return partis;
 
     }
+    
+    
 
     public ArrayList<PartiEvento> listaUsuariosEnEsperaEventos(int codigo) {
 
