@@ -5,6 +5,7 @@
  */
 package Servlets;
 
+import Beans.Usuario;
 import Daos.EventosAluDao;
 import Daos.InscripcionEventoDao;
 import java.io.IOException;
@@ -41,21 +42,28 @@ public class AlumnoServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = request.getSession();
         EventosAluDao EvAlDao = new EventosAluDao();
+        
 //        InscripcionEventoDao InEvDao = new InscripcionEventoDao();
-        if (session.getAttribute("usuario") == null) {
+        if (session.getAttribute("usuario")==null) {
             response.sendRedirect(request.getContextPath());
         } else {
 
             switch (action) {
                 case "listaEventos":
-                    request.setAttribute("listaEventos", EvAlDao.listarEventos());
-                    view = request.getRequestDispatcher("/DG/misEventos.jsp");
+                    Usuario us = (Usuario) session.getAttribute("usuario");
+                    request.setAttribute("listaEventosParticipando", EvAlDao.listarEventosPart(us.getCodigoPucp()));
+                    request.setAttribute("listaEventosNoRegistrado", EvAlDao.listarEventosNoRegistrado(us.getCodigoPucp()));
+                    view = request.getRequestDispatcher("/AL/misEventos.jsp");
                     view.forward(request, response);
+                    break;
+                case "donaciones":
+                    
                     break;
                 case "main":
                     view = request.getRequestDispatcher("/AL/indexA.jsp");
                     view.forward(request, response);
                     break;
+                    
                 case "inscribirse":
 //                    String descripcionNuevo = request.getParameter("descripcionActividadNuevo");
 //                    String nombreNuevo = request.getParameter("nombreActividadNuevo");
