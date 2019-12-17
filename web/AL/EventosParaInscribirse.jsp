@@ -24,7 +24,7 @@
 
         <!-- Custom fonts for this template -->
         <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link href="<%=request.getContextPath()%>https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
@@ -45,14 +45,14 @@
             <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet?action=PaginaPrincipal">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet">
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
                 </a>
 
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/AlumnoServlet?action=PaginaPrincipal">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet">
 
                     <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Alumno</div>
                 </a>
@@ -61,10 +61,10 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=PaginaPrincipal">
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Actividades</span></a>
+                        <span>Inicio</span></a>
                 </li>
 
 

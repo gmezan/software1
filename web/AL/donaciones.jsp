@@ -31,11 +31,7 @@
 
         <!-- Custom styles for this template-->
         <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
-        <script>
-            function myalert() {
-                alert("¡Gracias por donar a Telito!");
-            }
-        </script> 
+       
     </head>
     <body id="page-top">
         <%
@@ -49,14 +45,14 @@
             <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexA.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet">
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
                 </a>
 
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="indexA.html">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet">
 
                     <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Alumno</div>
                 </a>
@@ -65,10 +61,10 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item">
-                    <a class="nav-link" href="indexA.html">
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Actividades</span></a>
+                        <span>Inicio</span></a>
                 </li>
 
 
@@ -196,6 +192,7 @@
                         <h1 class="my-4">
                             ¡Apoya a Telito!
                         </h1>
+
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
@@ -249,19 +246,14 @@
                         </form>    
 
 
-
-
-
-
-
-
-
                         <br>
-                        <br>
-                        <h2 align="center">¡Gracias por colaborar!</h2>
+                        <p>Acá podrás ver tus aportes a la Fibra.</p>
 
-                        <br>
-                        <br>
+
+
+
+
+
 
 
 
@@ -309,102 +301,84 @@
                         </div>
 
 
+                        <br>
+                        <h1 align="center">¡Gracias por colaborar!</h2>
+
+                            <br>
+                            <br>
+
+                            </div>
+                            <!-- FIN DE CONTENIDO -->
+
+
+
+                            </div>
+                            <!-- End of Main Content -->
+
+                            <!-- Footer -->
+                            <footer class="sticky-footer bg-white">
+                                <div class="container my-auto">
+                                    <div class="copyright text-center my-auto">
+                                        <span>Copyright &copy; Your Website 2019</span>
+                                    </div>
+                                </div>
+                            </footer>
+                            <!-- End of Footer -->
 
                     </div>
-                    <!-- FIN DE CONTENIDO -->
-
-
+                    <!-- End of Content Wrapper -->
 
                 </div>
-                <!-- End of Main Content -->
+                <!-- End of Page Wrapper -->
 
-                <!-- Footer -->
-                <footer class="sticky-footer bg-white">
-                    <div class="container my-auto">
-                        <div class="copyright text-center my-auto">
-                            <span>Copyright &copy; Your Website 2019</span>
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+
+                <!-- Logout Modal-->
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Listo para salir?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar tu sesión actual.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                                <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesión</a>
+                            </div>
                         </div>
-                    </div>
-                </footer>
-                <!-- End of Footer -->
-
-            </div>
-            <!-- End of Content Wrapper -->
-
-        </div>
-        <!-- End of Page Wrapper -->
-
-        <!-- Scroll to Top Button-->
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
-
-        <!-- Logout Modal-->
-        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Listo para salir?</h5>
-                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar tu sesión actual.</div>
-                    <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesión</a>
                     </div>
                 </div>
-            </div>
-        </div>
-
-
-        <!-- DONACION Modal HTML -->
-        <div id="donacion" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form method="POST" action="ActividadDgServlet?action=borrarActividad">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Borrar actividad</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">
-
-                            <input type="hidden" id="actividadIdBorrar" name="actividadIdBorrar"  >
-
-                            <p>¿Estás seguro que deseas eliminar esta actividad?</p>
-                            <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
-                            <input type="submit" class="btn btn-danger" value="Borrar">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
 
 
 
 
 
-        <!-- Bootstrap core JavaScript-->
-        <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
-        <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Core plugin JavaScript-->
-        <script src="<%=request.getContextPath()%>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-        <!-- Custom scripts for all pages-->
-        <script src="<%=request.getContextPath()%>/js/sb-admin-2.min.js"></script> <!--checked-->
 
-        <!-- Page level plugins -->
-        <script src="<%=request.getContextPath()%>/vendor/chart.js/Chart.min.js"></script>
+                <!-- Bootstrap core JavaScript-->
+                <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
+                <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-        <!-- Page level custom scripts -->
-        <script src="<%=request.getContextPath()%>/js/demo/chart-area-demo.js"></script>
-        <script src="<%=request.getContextPath()%>/js/demo/chart-pie-demo.js"></script>
+                <!-- Core plugin JavaScript-->
+                <script src="<%=request.getContextPath()%>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-    </body>
-</html>
+                <!-- Custom scripts for all pages-->
+                <script src="<%=request.getContextPath()%>/js/sb-admin-2.min.js"></script> <!--checked-->
+
+                <!-- Page level plugins -->
+                <script src="<%=request.getContextPath()%>/vendor/chart.js/Chart.min.js"></script>
+
+                <!-- Page level custom scripts -->
+                <script src="<%=request.getContextPath()%>/js/demo/chart-area-demo.js"></script>
+                <script src="<%=request.getContextPath()%>/js/demo/chart-pie-demo.js"></script>
+
+                </body>
+                </html>

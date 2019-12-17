@@ -25,7 +25,7 @@
 
         <!-- Custom fonts for this template -->
         <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-        <link href="<%=request.getContextPath()%>https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
         <!-- Custom styles for this template -->
         <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
@@ -46,14 +46,14 @@
             <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet?action=PaginaPrincipal">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet">
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
                 </a>
 
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/AlumnoServlet?action=PaginaPrincipal">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet">
 
                     <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Alumno</div>
                 </a>
@@ -62,10 +62,10 @@
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-                <li class="nav-item">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=PaginaPrincipal">
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
-                        <span>Actividades</span></a>
+                        <span>Inicio</span></a>
                 </li>
 
 
@@ -199,9 +199,7 @@
                         <h1 class="h3 mb-2 text-gray-800">Mis eventos</h1>
                         <p class="mb-4">Acá encontrarás los eventos en los que estás participando. Si aun no has sido aceptado en un evento, puedes observarlo en la segunda lista.</p>
 
-                        <div class="row justify-content-end">
-                            <a href="#newEvento" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus"></i> <span>Inscribirse</span></a>
-                        </div>
+                      
 
                         <br>
 
@@ -216,8 +214,8 @@
                                     <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Nombre del evento</th>
                                                 <th>Actividad</th>
+                                                <th>Nombre del evento</th>
                                                 <th>Rol</th>
                                                 <th>Lugar</th>
                                                 <th>Fecha</th>
@@ -232,20 +230,16 @@
                                                 for (Evento e : listaEventosParticipando) {
                                             %>
                                             <tr>
-                                                <td><%=e.getDescripcion()%></td>
                                                 <td><%=e.getAct().getNombreActividad()%></td>
+                                                <td><%=e.getDescripcion()%></td>
                                                 <td><%=e.getEst().getEstado()%></td>
                                                 <td><%=e.getLugar()%></td>
                                                 <td><%=e.getFecha()%></td>
                                                 <td><%=e.getHora()%></td>
-                                                
-
                                             </tr>
 
-                                            <%
-                                                    i++;
+                                            <%        i++;
                                                 }
-
                                             %>
 
 
@@ -270,8 +264,9 @@
                                     <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Nombre del evento</th>
                                                 <th>Actividad</th>
+                                                <th>Nombre del evento</th>
+                                                
                                                 <th>Lugar</th>
                                                 <th>Fecha</th>
                                                 <th>Hora</th>
@@ -287,8 +282,9 @@
                                                 for (Evento ev : listaEventosNoRegistrado) {
                                             %>
                                             <tr>
-                                                <td><%=ev.getDescripcion()%></td>
                                                 <td><%=ev.getAct().getNombreActividad()%></td>
+                                                <td><%=ev.getDescripcion()%></td>
+                                                
                                                 <td><%=ev.getLugar()%></td>
                                                 <td><%=ev.getFecha()%></td>
                                                 <td><%=ev.getHora()%></td>
