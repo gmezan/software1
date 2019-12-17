@@ -65,15 +65,32 @@ public class DAServlet extends HttpServlet {
                     view.forward(request, response);
                     break;
 
+                case "rechazarSolicitud":
+                    
+                    
+                    int idUsuario1 = Integer.parseInt(request.getParameter("idUsuario"));
+                    int idEvento1 = Integer.parseInt(request.getParameter("idEvento"));
+                    uDao.rechazarSolicitudEvento(idUsuario1, idEvento1);
+                    response.sendRedirect("DA?action=listarEsperas");
+
+                    break;
+                    
+                case "borrarBarraoEquipo":
+                    int idUsuario2 = Integer.parseInt(request.getParameter("idUsuario"));
+                    int idEvento2 = Integer.parseInt(request.getParameter("idEvento"));
+                    uDao.rechazarSolicitudEvento(idUsuario2, idEvento2);
+                    response.sendRedirect("DA?action=listarBarrEq");
+                    break;
+                
                 case "listarBarrEq":
                     Usuario user2 = (Usuario) session.getAttribute("usuario");
                     request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq(user2.getIdActividad()));
                     view = request.getRequestDispatcher("/DA/revisarParticipantes.jsp");
                     view.forward(request, response);
                     break;
-                    
+
                 case "listarEstadisticas":
-                    
+
                     Usuario user3 = (Usuario) session.getAttribute("usuario");
                     request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq(user3.getIdActividad()));
                     view = request.getRequestDispatcher("/DA/statisticsA.jsp");

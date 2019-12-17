@@ -105,6 +105,9 @@ public class UsuarioServlet extends HttpServlet {
                 response.sendRedirect("UsuarioServlet?action=listaUsuario");
                 break;
                 
+            
+            
+            
             case "dashboard":
                 request.setAttribute("estadisticasP",e.estadisticaP());
                 request.setAttribute("estadisticasR",e.estadisticaR2());
