@@ -290,7 +290,7 @@
                     <tr>
                       <td><%=par.getCodigo()%></td>
                       <td><%=par.getNombre()%> <%=par.getApellido()%></td>
-                      <td>XXXXXX</td>
+                      <td><%=par.getCondicion()%></td>
                       <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
                       </td>
                       <td><%=uDao.contarParticipaciones(par.getCodigo(), usuario.getIdActividad())%></td>
