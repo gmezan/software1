@@ -292,8 +292,7 @@
                       <td><%=user.getNombre()%> <%=user.getApellido()%></td>
                       <td><%=user.getCondicion()%></td>
                       <td><%=user.getCorreoPucp()%></td>
-                      <!--<td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
-                      </td>-->
+                      
                       <td><%=uDao.contarParticipaciones(user.getCodigoPucp(), usuario.getIdActividad())%></td>
                     </tr>
                     <%
