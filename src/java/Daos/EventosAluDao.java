@@ -53,12 +53,11 @@ public class EventosAluDao extends BaseDao {
                     Actividad act = new Actividad();
                     act.setNombreActividad(rs.getString(2));
                     e.setAct(act);
-                    
+
                     Estado est = new Estado();
                     est.setEstado(rs.getString(6));
                     e.setEst(est);
-                    
-                    
+
                     listaEventos.add(e);
 
                 }
@@ -111,4 +110,68 @@ public class EventosAluDao extends BaseDao {
         return listaEventos;
 
     }
+
+    public ArrayList<Evento> listaEventosParaInscribirse(int idUsuario) {
+
+        ArrayList<Evento> listaEventos = new ArrayList<>();
+
+        String sql = "SELECT e.descripcion, act.nombreActividad, e.lugar,e.fecha, e.hora, e.idEvento\n"
+                + "FROM Evento e\n"
+                + "INNER JOIN Actividad act ON e.Actividad_idActividad=act.idActividad\n"
+                + "where e.idEvento not in (SELECT Evento_idEvento \n"
+                + "from Participante_a_Evento where Participante_codigoPucp= ? )";
+
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, idUsuario);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+
+                while (rs.next()) {
+                    Evento e = new Evento();
+                    e.setDescripcion(rs.getString(1));
+
+                    e.setLugar(rs.getString(3));
+                    e.setFecha(rs.getString(4));
+                    e.setHora(rs.getString(5));
+                    e.setIdEvento(rs.getInt(6));
+
+                    Actividad act = new Actividad();
+                    act.setNombreActividad(rs.getString(2));
+
+                    e.setAct(act);
+
+                    listaEventos.add(e);
+
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listaEventos;
+
+    }
+    
+    
+    
+    
+    public void crearPartiEvento(int idEvento, int  idUsuario) {
+        
+
+        try (Connection conn = this.getConnection();) {
+            String sql = "INSERT INTO Participante_a_Evento "
+                    + "(Participante_codigoPucp, Evento_idEvento, EstadoEvento_idEstadoEvento) "
+                    + "VALUES ( ?, ?, 3)";
+
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, idUsuario);
+                pstmt.setInt(2, idEvento);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EventoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

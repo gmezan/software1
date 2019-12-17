@@ -4,9 +4,16 @@
     Author     : Labtel
 --%>
 
+<%@page import="Beans.Donacion"%>
+<%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
+<% ArrayList<Donacion> listaDon = (ArrayList<Donacion>) request.getAttribute("listaDonacion");%>
+
+
+
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -15,7 +22,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        
+
         <title>Donaciones</title>
 
         <!-- Custom fonts for this template-->
@@ -24,6 +31,11 @@
 
         <!-- Custom styles for this template-->
         <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
+        <script>
+            function myalert() {
+                alert("¡Gracias por donar a Telito!");
+            }
+        </script> 
     </head>
     <body id="page-top">
         <%
@@ -69,19 +81,26 @@
                     funciones
                 </div>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="misEventos.html">
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=listaEventosParaInscribirse">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Eventos para inscribirse</span></a>
+                </li>
+
+
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=listaEventos">
                         <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
                         <span>Mis eventos</span></a>
                 </li>
 
 
                 <li class="nav-item active">
-                    <a class="nav-link" href="donaciones.html">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donaciones">
                         <i class="fas fa-fw fa-dollar-sign"></i> <!--icono!!!!!-->
-                        <span>Donaciones</span></a>
+                        <span>Donaciones</span>
+                    </a>
                 </li>
-
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
@@ -177,11 +196,6 @@
                         <h1 class="my-4">
                             ¡Apoya a Telito!
                         </h1>
-
-
-
-
-
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
@@ -195,32 +209,52 @@
 
                         <br>
 
-                        <div class="row">
-                            <div class="col-md-4"></div>
 
-                            <div class="col-md-4">
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">$</span>
+
+
+
+
+
+                        <form method="POST" action="AL?action=agregarDonacion">
+                            <div class="row">
+                                <div class="col-md-4"></div>
+
+                                <div class="col-md-4">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">$</span>
+                                        </div>
+                                        <input required type="number" min="<%=usuario.getCondicion().equals("Egresado") ? "100" : "0"%>" name="monto" class="form-control" aria-label="Amount (to the nearest dollar)" autofocus>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">.00</span>
+                                        </div>
                                     </div>
-                                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">.00</span>
-                                    </div>
+
                                 </div>
+                                <div class="col-md-4"></div>
+                            </div>
+
+                            <p align="center">Si eres egresado, el monto mínimo es de 100$.</p>
+
+                            <div align="center">
+
+                                <br>
+                                <button type="submit" align="right" class="btn btn-outline-primary" s >Donar</button>
 
                             </div>
-                            <div class="col-md-4"></div>
-                        </div>
 
-                        <p align="center">Si eres egresado, se adicionará el monto mínimo de 100$.</p>
 
-                        <div align="center">
 
-                            <br>
 
-                            <a href="indexA.html"><button type="button" align="right" class="btn btn-outline-primary" >Donar</button></a>
-                        </div>
+                        </form>    
+
+
+
+
+
+
+
+
 
                         <br>
                         <br>
@@ -229,6 +263,50 @@
                         <br>
                         <br>
 
+
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Tus donaciones</h6>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Monto</th>
+                                                <th>Fecha</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <% int i = 1;
+                                                for (Donacion d : listaDon) {
+
+                                            %>
+                                            <tr>
+                                                <td><%=i%></td>
+                                                <td><%=d.getMonto()%></td>
+                                                <td><%=d.getFecha()%></td>
+                                            </tr>
+
+                                            <%
+                                                    i++;
+                                                }
+
+                                            %>
+
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
 
 
 
@@ -281,7 +359,30 @@
         </div>
 
 
+        <!-- DONACION Modal HTML -->
+        <div id="donacion" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="POST" action="ActividadDgServlet?action=borrarActividad">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Borrar actividad</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
 
+                            <input type="hidden" id="actividadIdBorrar" name="actividadIdBorrar"  >
+
+                            <p>¿Estás seguro que deseas eliminar esta actividad?</p>
+                            <p class="text-warning"><small>Esta acción no se puede deshacer.</small></p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancelar">
+                            <input type="submit" class="btn btn-danger" value="Borrar">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
 

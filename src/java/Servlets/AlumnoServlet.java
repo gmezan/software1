@@ -6,6 +6,7 @@
 package Servlets;
 
 import Beans.Usuario;
+import Daos.DonacionDao;
 import Daos.EventosAluDao;
 import Daos.InscripcionEventoDao;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Labtel
  */
-@WebServlet(name = "AlumnoServlet", urlPatterns = {"/AlumnoServlet","/AL"})
+@WebServlet(name = "AlumnoServlet", urlPatterns = {"/AlumnoServlet", "/AL"})
 public class AlumnoServlet extends HttpServlet {
 
     /**
@@ -42,37 +43,59 @@ public class AlumnoServlet extends HttpServlet {
         RequestDispatcher view;
         HttpSession session = request.getSession();
         EventosAluDao EvAlDao = new EventosAluDao();
-        
+        DonacionDao donDao = new DonacionDao();
+
 //        InscripcionEventoDao InEvDao = new InscripcionEventoDao();
-        if (session.getAttribute("usuario")==null) {
+        if (session.getAttribute("usuario") == null) {
             response.sendRedirect(request.getContextPath());
         } else {
-
+            Usuario us = (Usuario) session.getAttribute("usuario");
             switch (action) {
                 case "listaEventos":
-                    Usuario us = (Usuario) session.getAttribute("usuario");
+
                     request.setAttribute("listaEventosParticipando", EvAlDao.listarEventosPart(us.getCodigoPucp()));
                     request.setAttribute("listaEventosNoRegistrado", EvAlDao.listarEventosNoRegistrado(us.getCodigoPucp()));
+
                     view = request.getRequestDispatcher("/AL/misEventos.jsp");
                     view.forward(request, response);
                     break;
+                case "listaEventosParaInscribirse":
+
+                    request.setAttribute("listaEventosParaInscribirse", EvAlDao.listaEventosParaInscribirse(us.getCodigoPucp()));
+                    view = request.getRequestDispatcher("/AL/EventosParaInscribirse.jsp");
+                    view.forward(request, response);
+                    break;
                 case "donaciones":
-                    
+
+                    request.setAttribute("listaDonacion", donDao.listarDonacion(us.getCodigoPucp()));
+
+                    view = request.getRequestDispatcher("/AL/donaciones.jsp");
+                    view.forward(request, response);
                     break;
                 case "main":
                     view = request.getRequestDispatcher("/AL/indexA.jsp");
                     view.forward(request, response);
                     break;
-                    
+
                 case "inscribirse":
-//                    String descripcionNuevo = request.getParameter("descripcionActividadNuevo");
-//                    String nombreNuevo = request.getParameter("nombreActividadNuevo");
-//                    InEvDao.inscribirseAlEvento(nombreNuevo, descripcionNuevo);
-                    response.sendRedirect("ActividadDgServlet?action=listaActividades");
+
+                    int idEvento = Integer.parseInt(request.getParameter("id"));
+
+                    EvAlDao.crearPartiEvento(idEvento, us.getCodigoPucp());
+
+                    response.sendRedirect(request.getContextPath() + "/AL?action=listaEventos");
                     break;
                 case "agregarDonacion":
+
+                    String monto = request.getParameter("monto");
+                    if (!monto.isEmpty()) {
+                        donDao.donar(us.getCodigoPucp(), monto);
+                    }
+                   
+                    response.sendRedirect(request.getContextPath() + "/AL?action=donaciones");
+
 //                    uDao.agregarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));
-                    response.sendRedirect("UsuarioServlet?action=listaUsuario");
+//                    response.sendRedirect("UsuarioServlet?action=listaUsuario");
                     break;
             }
         }

@@ -84,6 +84,11 @@
                     funciones
                 </div>
 
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=listaEventosParaInscribirse">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Eventos para inscribirse</span></a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=listaEventos">
                         <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
@@ -122,7 +127,7 @@
                             <i class="fa fa-bars"></i>
                         </button>
 
-                        
+
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -338,7 +343,7 @@
                                             <h2>Sergio Muro</h2>
                                             <p>Celular: 941963750</p>
                                             <p>Correo: sergiomuro@pucp.edu.pe</p>
-
+                                            <p>Alfajores al inbox</p>
                                         </div>
                                     </div>
                                 </div>
