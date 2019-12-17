@@ -10,7 +10,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
-<% ArrayList<PartiEvento> listaBarrEq = (ArrayList<PartiEvento>) request.getAttribute("listaUsuariosBarrsOEq"); %>
+<% ArrayList<PartiEvento> listaBarrEq = (ArrayList<PartiEvento>) request.getAttribute("listaUsuariosBarrsOEq");%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -230,19 +230,19 @@
                                         </thead>
 
                                         <tbody>
-                                            
-                                            
+
+
                                             <%
-                                                for (PartiEvento par : listaBarrEq){
-                                            
+                                                for (PartiEvento par : listaBarrEq) {
+
                                             %>
-                                            
-                                            
+
+
                                             <tr>
-                                                
+
                                                 <td><%=par.getCodigo()%></td>
                                                 <td><%=par.getNombre()%> <%=par.getApellido()%></td>
-                                                
+
                                                 <td><%=par.getTipoApoyo()%></td>
                                                 <td><%=par.getCondicion()%></td>
                                                 <td><%=par.getEvento()%></td>
@@ -252,7 +252,7 @@
                                                             <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                                                         </div>
                                                         <div class="col-sm-4">
-                                                            <a href="#deleteParticipacion" style="color: green" class="button btn btn-danger" data-toggle="modal"><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
+                                                            <a href="DA?action=borrarBarraoEquipo&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>" style="color: green" class="button btn btn-danger" ><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
                                                         </div>
                                                     </div>
                                                 </td>
@@ -260,7 +260,7 @@
 
                                             <%
                                                 }%>
-                                          
+
 
                                         </tbody>
                                     </table>
@@ -279,7 +279,7 @@
 
                 <!-- Footer -->
                 <footer class="sticky-footer bg-white">
-                    
+
                 </footer>
                 <!-- End of Footer -->
 
