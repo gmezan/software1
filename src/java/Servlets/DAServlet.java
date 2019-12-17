@@ -66,22 +66,37 @@ public class DAServlet extends HttpServlet {
                     break;
 
                 case "rechazarSolicitud":
-                    
-                    
+
                     int idUsuario1 = Integer.parseInt(request.getParameter("idUsuario"));
                     int idEvento1 = Integer.parseInt(request.getParameter("idEvento"));
                     uDao.rechazarSolicitudEvento(idUsuario1, idEvento1);
                     response.sendRedirect("DA?action=listarEsperas");
 
                     break;
-                    
+
                 case "borrarBarraoEquipo":
                     int idUsuario2 = Integer.parseInt(request.getParameter("idUsuario"));
                     int idEvento2 = Integer.parseInt(request.getParameter("idEvento"));
                     uDao.rechazarSolicitudEvento(idUsuario2, idEvento2);
                     response.sendRedirect("DA?action=listarBarrEq");
                     break;
-                
+
+                case "cambiarTipoApoyo":
+                    String tipoApoyo = request.getParameter("tipoApoyo");
+                    int idUsuario3 = Integer.parseInt(request.getParameter("idUsuario"));
+                    int idEvento3 = Integer.parseInt(request.getParameter("idEvento"));
+                    
+                    if(tipoApoyo.equalsIgnoreCase("barra")){
+                        uDao.cambiar_A_Equipo(idUsuario3, idEvento3);
+                    }
+                    if(tipoApoyo.equalsIgnoreCase("equipo")){
+                        uDao.cambiar_A_Barra(idUsuario3, idEvento3);
+                    }
+                    
+                    response.sendRedirect("DA?action=listarBarrEq");
+                    
+                    break;
+
                 case "listarBarrEq":
                     Usuario user2 = (Usuario) session.getAttribute("usuario");
                     request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq(user2.getIdActividad()));
