@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/Users/Gustavo_Meza/NetBeansProjects/JavaApplication4/sw1_web/src/java/Daos/EstadisticasDgDao.java</file>
-            <file>file:/Users/Gustavo_Meza/NetBeansProjects/JavaApplication4/sw1_web/src/java/Daos/EventoDao.java</file>
-            <file>file:/Users/Gustavo_Meza/NetBeansProjects/JavaApplication4/sw1_web/web/DG/peopleR.jsp</file>
-            <file>file:/Users/Gustavo_Meza/NetBeansProjects/JavaApplication4/sw1_web/src/java/Daos/BaseDao.java</file>
-            <file>file:/Users/Gustavo_Meza/NetBeansProjects/JavaApplication4/sw1_web/src/java/Daos/UsuarioDao.java</file>
-            <file>file:/Users/Gustavo_Meza/NetBeansProjects/JavaApplication4/sw1_web/src/java/Servlets/UsuarioServlet.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
