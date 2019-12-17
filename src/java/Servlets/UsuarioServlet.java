@@ -46,7 +46,8 @@ public class UsuarioServlet extends HttpServlet {
         ActividadesDao actividadesDao = new ActividadesDao();
         RequestDispatcher view;
         HttpSession session = request.getSession();
-        String[] correos = {"gustavomeza27@gmail.com"};
+        String[] correos = {"meza.gustavo@pucp.edu.pe", "a20160679@pucp.edu.pe", "r.yangali@pucp.pe",
+        "a20162001@pucp.edu.pe", "a20160555@pucp.edu.pe", "a.velardep@pucp.edu.pe" };
          
         if(session.getAttribute("usuario") == null)
         {
@@ -67,7 +68,7 @@ public class UsuarioServlet extends HttpServlet {
                 break;
                 
             case "listaNR":
-                UsuarioDao.sendCorreo("gustavomeza27@gmail.com", "gmn-14899", correos,"HOLA", "hola");
+                //UsuarioDao.sendCorreo("gustavomeza27@gmail.com", "gmn-14899", correos,"HOLA", "hola");
                 request.setAttribute("listaNR", uDao.listarUsuarioNR());
                 view = request.getRequestDispatcher("/DG/peopleNR.jsp");
                 view.forward(request, response);
