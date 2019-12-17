@@ -48,7 +48,7 @@
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
-                    <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingenierÌa</div>
+                    <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
                 </a>
 
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/AlumnoServlet?action=PaginaPrincipal">
@@ -170,7 +170,7 @@
 
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Cerrar sesiÛn
+                                        Cerrar sesión
                                     </a>
                                 </div>
                             </li>
@@ -185,10 +185,10 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Mis eventos</h1>
-                        <p class="mb-4">Ac· encontrar·s los eventos en los que est·s participando. Si aun no has sido aceptado en un evento, puedes observarlo en la segunda lista.</p>
+                        <p class="mb-4">Acá encontrarás los eventos en los que estás participando. Si aun no has sido aceptado en un evento, puedes observarlo en la segunda lista.</p>
 
                         <div class="row justify-content-end">
-                            <a href="#newEvento" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus"></i> <span>AÒadir</span></a>
+                            <a href="#newEvento" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus"></i> <span>Añadir</span></a>
                         </div>
 
                         <br>
@@ -329,13 +329,13 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Listo para salir?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">◊</span>
+                            <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Selecciona "Cerrar sesiÛn" abajo si est·s listo para cerrar tu sesiÛn actual.</div>
+                    <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar tu sesión actual.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesiÛn</a>
+                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesión</a>
                     </div>
                 </div>
             </div>
@@ -347,7 +347,7 @@
                     <form  method="POST" action="ActividadDgServlet?action=guardarActividad">
 
                         <div class="modal-header">
-                            <h4 class="modal-title">AÒadir actividad</h4>
+                            <h4 class="modal-title">Añadir actividad</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
@@ -359,7 +359,7 @@
                                 <input type="text" id="nombreActividadNuevo" name="nombreActividadNuevo" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label>DescripciÛn</label>
+                                <label>Descripción</label>
                                 <input type="text" id="descripcionActividadNuevo" name="descripcionActividadNuevo"  class="form-control" required>
                             </div>
 
