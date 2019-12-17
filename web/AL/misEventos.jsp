@@ -8,7 +8,9 @@
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<% ArrayList<Evento> listaEventos = (ArrayList<Evento>) request.getAttribute("listaEventos"); %>
+<jsp:useBean id="listaEventosParticipando" type="ArrayList<Evento>" scope="request" />
+<jsp:useBean id="listaEventosNoRegistrado" type="ArrayList<Evento>" scope="request" />
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,7 +48,7 @@
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
-                    <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
+                    <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingenierÌa</div>
                 </a>
 
                 <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/AlumnoServlet?action=PaginaPrincipal">
@@ -168,7 +170,7 @@
 
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                        Cerrar sesión
+                                        Cerrar sesiÛn
                                     </a>
                                 </div>
                             </li>
@@ -183,10 +185,10 @@
 
                         <!-- Page Heading -->
                         <h1 class="h3 mb-2 text-gray-800">Mis eventos</h1>
-                        <p class="mb-4">Acá encontrarás los eventos en los que estás participando. Si aun no has sido aceptado en un evento, puedes observarlo en la segunda lista.</p>
+                        <p class="mb-4">Ac· encontrar·s los eventos en los que est·s participando. Si aun no has sido aceptado en un evento, puedes observarlo en la segunda lista.</p>
 
                         <div class="row justify-content-end">
-                            <a href="#inscribirse" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus"></i> <span>Inscribirse</span></a>
+                            <a href="#newEvento" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus"></i> <span>AÒadir</span></a>
                         </div>
 
                         <br>
@@ -207,40 +209,31 @@
                                                 <th>Lugar</th>
                                                 <th>Fecha</th>
                                                 <th>Hora</th>
+                                                <th>Estado</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
 
-
-
+                                            <% int i = 1;
+                                                for (Evento e : listaEventosParticipando) {
+                                            %>
                                             <tr>
-                                                <td>Fibra vs Hormigon Armado</td>
-                                                <td>Actividad A</td>
-                                                <td>Lugar A</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>00:00</td>
-                                                
+                                                <td><%=e.getDescripcion()%></td>
+                                                <td><%=e.getAct().getNombreActividad()%></td>
+                                                <td><%=e.getLugar()%></td>
+                                                <td><%=e.getFecha()%></td>
+                                                <td><%=e.getHora()%></td>
+                                                <td><%=e.getEst().getEstado()%></td>
+
                                             </tr>
 
+                                            <%
+                                                    i++;
+                                                }
 
-                                            <tr>
-                                                <td>Erectroshock vs Fibra</td>
-                                                <td>Actividad B</td>
-                                                <td>Lugar B</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>00:00</td>
-                                                
-                                            </tr>
+                                            %>
 
-
-                                            <tr>
-                                                <td>Fibra vs Memoria Cache</td>
-                                                <td>Actividad C</td>
-                                                <td>Lugar C</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>00:00</td>
-                                            </tr>
 
                                         </tbody>
                                     </table>
@@ -268,7 +261,7 @@
                                                 <th>Lugar</th>
                                                 <th>Fecha</th>
                                                 <th>Hora</th>
-                                               
+
 
 
                                             </tr>
@@ -276,32 +269,24 @@
 
                                         <tbody>
 
+                                            <% int j = 1;
+                                                for (Evento ev : listaEventosNoRegistrado) {
+                                            %>
                                             <tr>
-                                                <td>Fibra vs Erectroshock</td>
-                                                <td>Actividad D</td>
-                                                <td>Lugar D</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>00:00</td>
-                                              
+                                                <td><%=ev.getDescripcion()%></td>
+                                                <td><%=ev.getAct().getNombreActividad()%></td>
+                                                <td><%=ev.getLugar()%></td>
+                                                <td><%=ev.getFecha()%></td>
+                                                <td><%=ev.getHora()%></td>
+
                                             </tr>
 
-                                            <tr>
-                                                <td>Fibra vs Memoria Cache</td>
-                                                <td>Actividad E</td>
-                                                <td>Lugar E</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>00:00</td>
-                                            
-                                            </tr>
+                                            <%
+                                                    j++;
+                                                }
 
-                                            <tr>
-                                                <td>Fibra vs Memoria Cache</td>
-                                                <td>Actividad F</td>
-                                                <td>Lugar F</td>
-                                                <td>DD/MM/AA</td>
-                                                <td>00:00</td>
-                                              
-                                            </tr>
+                                            %>
+
 
                                         </tbody>
                                     </table>
@@ -344,19 +329,57 @@
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Listo para salir?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
+                            <span aria-hidden="true">◊</span>
                         </button>
                     </div>
-                    <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar tu sesión actual.</div>
+                    <div class="modal-body">Selecciona "Cerrar sesiÛn" abajo si est·s listo para cerrar tu sesiÛn actual.</div>
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesión</a>
+                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesiÛn</a>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div id="newEvento" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form  method="POST" action="ActividadDgServlet?action=guardarActividad">
 
+                        <div class="modal-header">
+                            <h4 class="modal-title">AÒadir actividad</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+
+                            <!--<input type="hidden" id="actividadId" name="actividadId"  />-->
+
+                            <div class="form-group">
+                                <label>Nombre</label>
+                                <input type="text" id="nombreActividadNuevo" name="nombreActividadNuevo" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>DescripciÛn</label>
+                                <input type="text" id="descripcionActividadNuevo" name="descripcionActividadNuevo"  class="form-control" required>
+                            </div>
+
+                            <!--
+                            <div class="form-group">
+                              <label>File</label>
+                            <input type="file" name="fileActividad" />
+                            </div>-->
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input type="submit" class="btn btn-success" value="Add">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
 
 
@@ -379,6 +402,28 @@
 
         <!-- Page level custom scripts -->
         <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
+
+        <script>
+
+            $(document).on("click", ".editar-Actividad", function () {
+
+                $(".modal-body  #actividadId").val($(this).data('id'));
+                $(".modal-body .form-group #nombreActividad").val($(this).data('nombre'));
+                $(".modal-body .form-group #descripcionActividad").val($(this).data('descripcion'));
+
+
+            });
+
+
+            $(document).on("click", ".borrar-Actividad", function () {
+
+                $(".modal-body  #actividadIdBorrar").val($(this).data('id'));
+                $(".modal-body .form-group #nombreActividadBorrar").val($(this).data('nombre'));
+
+
+            });
+        </script>
+
 
     </body>
 </html>
