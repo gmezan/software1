@@ -4,10 +4,12 @@
     Author     : USUARIO
 --%>
 
+<%@page import="Beans.Actividad"%>
 <%@page import="Beans.Evento"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <jsp:useBean id="listaEventosParaInscribirse" type="ArrayList<Evento>" scope="request" />
+<jsp:useBean id="listaActParaInscribirse" type="ArrayList<Actividad>" scope="request" />
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
 
@@ -199,16 +201,23 @@
                         <p class="mb-4">Acá encontrarás los eventos a los que puedes inscribirte. </p>
                         <br>
 
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
                         <!-- DataTales Example -->
+                        <%
+                            for (Actividad a : listaActParaInscribirse) {
+                        %>
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Eventos en los que participas</h6>
+                                <h6 class="m-0 font-weight-bold text-primary"><%=a.getNombreActividad()%></h6>
                             </div>
+
+
+
+
 
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -216,7 +225,6 @@
                                         <thead>
                                             <tr>
                                                 <th>Nombre del evento</th>
-                                                <th>Actividad</th>
                                                 <th>Lugar</th>
                                                 <th>Fecha</th>
                                                 <th>Hora</th>
@@ -226,20 +234,22 @@
 
                                         <tbody>
 
-                                            <% int i = 1;
+                                            <%
                                                 for (Evento e : listaEventosParaInscribirse) {
+                                                    if (e.getAct().getIdActividad() == a.getIdActividad()) {
+
+
                                             %>
                                             <tr>
                                                 <td><%=e.getDescripcion()%></td>
-                                                <td><%=e.getAct().getNombreActividad()%></td>
                                                 <td><%=e.getLugar()%></td>
                                                 <td><%=e.getFecha()%></td>
                                                 <td><%=e.getHora()%></td>
-                                                <td><a href="AlumnoServlet?action=inscribirse&id=<%= e.getIdEvento()%>">Inscribirse</a></td>
+                                                <td><a href="AlumnoServlet?action=inscribirse&id=<%= e.getIdEvento()%>">Inscribirme</a></td>
                                             </tr>
 
                                             <%
-                                                    i++;
+                                                    }
                                                 }
                                             %>
                                         </tbody>
@@ -247,7 +257,25 @@
 
                                 </div>
                             </div>
+
+
+
+
+
+
+
                         </div>
+
+                        <%
+                            }
+                        %>     
+
+
+
+
+
+
+
                     </div>
                     <!-- /.container-fluid -->
 
