@@ -136,6 +136,34 @@ public class UsuarioDao extends BaseDao {
 
         return usuario;
     }
+    
+    
+    
+    
+
+    public void rechazarSolicitudEvento(int codigo, int idEvento) {
+        String sql = "DELETE FROM Participante_a_Evento WHERE Participante_codigoPucp = ? AND Evento_idEvento = ?";
+
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, codigo);
+            pstmt.setInt(2, idEvento);
+            pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     //////////////////////////////////////////
     //////////////////////////////////////////
@@ -143,7 +171,7 @@ public class UsuarioDao extends BaseDao {
 
         ArrayList<PartiEvento> partis = new ArrayList<>();
 
-        String sql = "SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento <> 3 AND e.Actividad_idActividad = ?;";
+        String sql = "SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento, pae.observaciones  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento <> 3 AND e.Actividad_idActividad = ?;";
         try (Connection conn = this.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, codigo);
@@ -176,7 +204,7 @@ public class UsuarioDao extends BaseDao {
 
         ArrayList<PartiEvento> partis = new ArrayList<>();
 
-        String sql = "SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento = 3 AND e.Actividad_idActividad = ?;";
+        String sql = "SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento, pae.observaciones  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento = 3 AND e.Actividad_idActividad = ?";
         try (Connection conn = this.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, codigo);
@@ -238,15 +266,6 @@ public class UsuarioDao extends BaseDao {
         
          */
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
     public ArrayList<Usuario> listaUsuariosBarrsOEq2() {
 
