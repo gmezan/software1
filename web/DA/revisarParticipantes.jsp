@@ -249,10 +249,11 @@
                                                 <td>
                                                     <div class="form-group row text-center btn-user">
                                                         <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="DA?action=cambiarTipoApoyo&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>&tipoApoyo=<%= par.getTipoApoyo()%>" style="color: green" class="button btn btn-success" ><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
+                                                            <a href="DA?action=cambiarTipoApoyo&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>&tipoApoyo=<%= par.getTipoApoyo()%>" type="button" class="btn btn-info">Cambiar</a>
                                                         </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="DA?action=borrarBarraoEquipo&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>" style="color: green" class="button btn btn-danger" ><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
+                                                        
+                                                        <div class="col-sm-4 mb-2 mb-sm-0">
+                                                            <a href="DA?action=borrarBarraoEquipo&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>" type="button" class="btn btn-danger">Borrar</a>
                                                         </div>
                                                     </div>
                                                 </td>

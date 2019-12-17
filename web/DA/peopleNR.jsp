@@ -183,7 +183,7 @@
                                                 <!--<th>Tipo de Apoyo</th>-->
                                                 <th>Condición</th>
                                                 <th>Evento</th>
-                                                <th>Modificar participación</th>
+                                                <th>Determinar Participación</th>
                                             </tr>
                                         </thead>
 
@@ -212,13 +212,16 @@
                                                             <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
                                                         </div>
                                                         -->
-                                                        
                                                         <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editParticipacion" style="color: green" class="button btn btn-success" data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
+                                                            <a href="DA?action=designarBarra&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>" type="button" class="btn btn-success">Barra</a>
                                                         </div>
                                                         
-                                                        <div class="col-sm-4">
-                                                            <a href="DA?action=rechazarSolicitud&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>" style="color: green" class="button btn btn-danger" ><i class="fas fa-trash" style="color: white" data-toggle="tooltip" title="Edit"></i></a>
+                                                        <div class="col-sm-4 mb-2 mb-sm-0">
+                                                            <a href="DA?action=rechazarSolicitud&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>" type="button" class="btn btn-warning">Equipo</a>
+                                                        </div>
+                                                        
+                                                        <div class="col-sm-4 mb-2 mb-sm-0">
+                                                            <a href="DA?action=rechazarSolicitud&idUsuario=<%= par.getCodigo()%>&idEvento=<%= par.getIdEvento()%>" type="button" class="btn btn-danger">Rechazar</a>
                                                         </div>
                                                     </div>
                                                 </td>
