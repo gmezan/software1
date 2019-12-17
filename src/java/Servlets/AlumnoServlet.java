@@ -62,6 +62,8 @@ public class AlumnoServlet extends HttpServlet {
                 case "listaEventosParaInscribirse":
 
                     request.setAttribute("listaEventosParaInscribirse", EvAlDao.listaEventosParaInscribirse(us.getCodigoPucp()));
+                    request.setAttribute("listaActParaInscribirse", EvAlDao.listaActParaInscribirse(us.getCodigoPucp()));
+                    
                     view = request.getRequestDispatcher("/AL/EventosParaInscribirse.jsp");
                     view.forward(request, response);
                     break;
@@ -91,7 +93,7 @@ public class AlumnoServlet extends HttpServlet {
                     if (!monto.isEmpty()) {
                         donDao.donar(us.getCodigoPucp(), monto);
                     }
-                   
+
                     response.sendRedirect(request.getContextPath() + "/AL?action=donaciones");
 
 //                    uDao.agregarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));

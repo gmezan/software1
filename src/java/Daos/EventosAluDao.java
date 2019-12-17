@@ -8,15 +8,14 @@ package Daos;
 import Beans.Actividad;
 import Beans.Estado;
 import Beans.Evento;
-import Beans.Rol;
-import Beans.Usuario;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -115,7 +114,7 @@ public class EventosAluDao extends BaseDao {
 
         ArrayList<Evento> listaEventos = new ArrayList<>();
 
-        String sql = "SELECT e.descripcion, act.nombreActividad, e.lugar,e.fecha, e.hora, e.idEvento\n"
+        String sql = "SELECT e.descripcion, act.nombreActividad, e.lugar,e.fecha, e.hora, e.idEvento, act.idActividad\n"
                 + "FROM Evento e\n"
                 + "INNER JOIN Actividad act ON e.Actividad_idActividad=act.idActividad\n"
                 + "where e.idEvento not in (SELECT Evento_idEvento \n"
@@ -137,6 +136,7 @@ public class EventosAluDao extends BaseDao {
                     e.setIdEvento(rs.getInt(6));
 
                     Actividad act = new Actividad();
+                    act.setIdActividad(rs.getInt(7));
                     act.setNombreActividad(rs.getString(2));
 
                     e.setAct(act);
@@ -154,7 +154,41 @@ public class EventosAluDao extends BaseDao {
     }
     
     
-    
+    public ArrayList<Actividad> listaActParaInscribirse(int idUsuario) {
+
+        ArrayList<Actividad> listaAct = new ArrayList<>();
+
+        String sql = "SELECT act.idActividad, act.nombreActividad \n"
+                + "FROM Evento e\n"
+                + "INNER JOIN Actividad act ON e.Actividad_idActividad=act.idActividad\n"
+                + "where e.idEvento not in (SELECT Evento_idEvento \n"
+                + "from Participante_a_Evento where Participante_codigoPucp= ? )"
+                + " GROUP BY act.idActividad";
+
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, idUsuario);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+
+                while (rs.next()) {
+                    Actividad act = new Actividad();
+                    act.setIdActividad(rs.getInt(1));
+
+                    act.setNombreActividad(rs.getString(2));
+
+                    
+                    listaAct.add(act);
+
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listaAct;
+
+    }
     
     public void crearPartiEvento(int idEvento, int  idUsuario) {
         
@@ -173,5 +207,7 @@ public class EventosAluDao extends BaseDao {
             Logger.getLogger(EventoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 
 }
