@@ -24,7 +24,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author GUSTAVO
  */
-@WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet","/EstadisticasDgServlet","/ActividadDgServlet","/DG"})
+@WebServlet(name = "UsuarioServlet", urlPatterns = {"/UsuarioServlet", "/EstadisticasDgServlet", "/ActividadDgServlet", "/DG"})
 public class UsuarioServlet extends HttpServlet {
 
     /**
@@ -40,156 +40,146 @@ public class UsuarioServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String action = request.getParameter("action") == null ? "dashboard" : request.getParameter("action");
-        
+
         UsuarioDao uDao = new UsuarioDao();
         EstadisticasDgDao e = new EstadisticasDgDao();
         ActividadesDao actividadesDao = new ActividadesDao();
         RequestDispatcher view;
         HttpSession session = request.getSession();
         String[] correos = {"meza.gustavo@pucp.edu.pe", "a20160679@pucp.edu.pe", "r.yangali@pucp.pe",
-        "a20162001@pucp.edu.pe", "a20160555@pucp.edu.pe", "a.velardep@pucp.edu.pe" };
-         
-        if(session.getAttribute("usuario") == null)
-        {
-            
-            response.sendRedirect(request.getContextPath());
-        }
-        else{
-            
-            // verficar si es de delegado general
-            
-            switch(action){
-            case "listaUsuario":
-                request.setAttribute("listaUsuario", uDao.listarUsuario());
-                request.setAttribute("listaActividad", uDao.listarActividad());
-                request.setAttribute("listaTodasActividades", uDao.listarTodasActividades());
-                view = request.getRequestDispatcher("/DG/peopleR.jsp");
-                view.forward(request, response);
-                break;
-                
-            case "listaNR":
-                //UsuarioDao.sendCorreo("gustavomeza27@gmail.com", "AAAAAAAAA", correos,"HOLA", "hola");
-                request.setAttribute("listaNR", uDao.listarUsuarioNR());
-                view = request.getRequestDispatcher("/DG/peopleNR.jsp");
-                view.forward(request, response);
-                
-                break;
-            
-            case "listaBan":
-                request.setAttribute("listaBan", uDao.listarUsuarioBaneado());
-                view = request.getRequestDispatcher("/DG/Ban.jsp");
-                view.forward(request, response);
-                break;
-            case "listaDA":
-                request.setAttribute("listaDA", uDao.listarDA());
-                request.setAttribute("listaActividad", uDao.listarActividad());
-                request.setAttribute("listaTodasActividades", uDao.listarTodasActividades());
-                view = request.getRequestDispatcher("/DG/peopleDA.jsp");
-                view.forward(request, response);
-                break;
-                
-            case "actualizar": 
-                boolean checkbox;
-                try{
-                    checkbox = Boolean.parseBoolean(request.getParameterValues("EditModalCheckboxDA")[0]) ;
-                }catch(NullPointerException ex){
-                    checkbox = false;
-                }
-                int idUsuario = Integer.parseInt(request.getParameter("codigoPucpUsuario"));
-                int idActividad = 0;
-                if(checkbox){
-                    idActividad = Integer.parseInt(request.getParameterValues("actividadEscogida")[0]);}
-                uDao.actualizarUsuario(idUsuario, checkbox, idActividad);
-                response.sendRedirect("UsuarioServlet?action=listaUsuario");
-                
-                break;
-            
-            case "borrar":
-                uDao.borrarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioBorrar")));
-                response.sendRedirect("UsuarioServlet?action=listaUsuario");
-                break;
-                
-            
-            
-            
-            case "dashboard":
-                request.setAttribute("estadisticasP",e.estadisticaP());
-                request.setAttribute("estadisticasR",e.estadisticaR2());
-                request.setAttribute("datos", uDao.dataDashboard());
-                view = request.getRequestDispatcher("/DG/indexDG.jsp");
-                view.forward(request, response);
-                break;
-                
-            
-            case "banear":
-                uDao.banearUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioBanear")));
-                response.sendRedirect("UsuarioServlet?action=listaBan");
-                break;
-                
-                
-            case "agregar":
-                uDao.registrarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));
-                response.sendRedirect("UsuarioServlet?action=listaUsuario");
-                break;
-                
-                
-            //Parte de estadisticas  
-                
-                
-            case "estadisticaApoyos":
-                request.setAttribute("estadisticas", e.estadisticaA());
-                view = request.getRequestDispatcher("/DG/statisticsA.jsp");
-                view.forward(request, response);
-                break;
-                
-            case "estadisticaRecaudaciones":
-                request.setAttribute("estadisticas", e.estadisticaR());
-                request.setAttribute("estadisticasR",e.estadisticaR2());
-                view = request.getRequestDispatcher("/DG/statisticsR.jsp");
-                view.forward(request, response);
-                break;
-                
-            case "estadisticaPersonas":
-                request.setAttribute("estadisticas", e.estadisticaP());
-                view = request.getRequestDispatcher("/DG/statisticsP.jsp");
-                view.forward(request, response);
-                break;
-            
-            //Parte de actividades:
-                
-            case "listaActividades":
-                request.setAttribute("listaActividades", actividadesDao.listarActividades());
-                view = request.getRequestDispatcher("/DG/activities.jsp");
-                view.forward(request, response);
-                break;
-               
-            case "guardarActividad":
-                                
-                String descripcionNuevo = request.getParameter("descripcionActividadNuevo");
-                String nombreNuevo = request.getParameter("nombreActividadNuevo");
-                actividadesDao.nuevaActividad(nombreNuevo,descripcionNuevo);
-                response.sendRedirect("ActividadDgServlet?action=listaActividades");
-                break;
-                
-            case "actualizarActividad":
+            "a20162001@pucp.edu.pe", "a20160555@pucp.edu.pe", "a.velardep@pucp.edu.pe"};
 
-                String descripcion = request.getParameter("descripcionActividad");
-                String nombre = request.getParameter("nombreActividad");
-                actividadesDao.actualizarActividad(nombre, descripcion, Integer.parseInt(request.getParameter("actividadId")));
-                response.sendRedirect("ActividadDgServlet?action=listaActividades");
-                break;
-                
-            case "borrarActividad":
-                actividadesDao.borrarActividad(Integer.parseInt(request.getParameter("actividadIdBorrar")));
-                response.sendRedirect("ActividadDgServlet?action=listaActividades");
-                break;  
-                
-                
+        if (session.getAttribute("usuario") == null) {
+
+            response.sendRedirect(request.getContextPath());
+        } else {
+            Usuario us = (Usuario) session.getAttribute("usuario");
+            if (us.getRol().getId() != 3) {
+                response.sendRedirect(request.getContextPath());
+
+            } else {
+                switch (action) {
+                    case "listaUsuario":
+                        request.setAttribute("listaUsuario", uDao.listarUsuario());
+                        request.setAttribute("listaActividad", uDao.listarActividad());
+                        request.setAttribute("listaTodasActividades", uDao.listarTodasActividades());
+                        view = request.getRequestDispatcher("/DG/peopleR.jsp");
+                        view.forward(request, response);
+                        break;
+
+                    case "listaNR":
+                        //UsuarioDao.sendCorreo("gustavomeza27@gmail.com", "AAAAAAAAA", correos,"HOLA", "hola");
+                        request.setAttribute("listaNR", uDao.listarUsuarioNR());
+                        view = request.getRequestDispatcher("/DG/peopleNR.jsp");
+                        view.forward(request, response);
+
+                        break;
+
+                    case "listaBan":
+                        request.setAttribute("listaBan", uDao.listarUsuarioBaneado());
+                        view = request.getRequestDispatcher("/DG/Ban.jsp");
+                        view.forward(request, response);
+                        break;
+                    case "listaDA":
+                        request.setAttribute("listaDA", uDao.listarDA());
+                        request.setAttribute("listaActividad", uDao.listarActividad());
+                        request.setAttribute("listaTodasActividades", uDao.listarTodasActividades());
+                        view = request.getRequestDispatcher("/DG/peopleDA.jsp");
+                        view.forward(request, response);
+                        break;
+
+                    case "actualizar":
+                        boolean checkbox;
+                        try {
+                            checkbox = Boolean.parseBoolean(request.getParameterValues("EditModalCheckboxDA")[0]);
+                        } catch (NullPointerException ex) {
+                            checkbox = false;
+                        }
+                        int idUsuario = Integer.parseInt(request.getParameter("codigoPucpUsuario"));
+                        int idActividad = 0;
+                        if (checkbox) {
+                            idActividad = Integer.parseInt(request.getParameterValues("actividadEscogida")[0]);
+                        }
+                        uDao.actualizarUsuario(idUsuario, checkbox, idActividad);
+                        response.sendRedirect("UsuarioServlet?action=listaUsuario");
+
+                        break;
+
+                    case "borrar":
+                        uDao.borrarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioBorrar")));
+                        response.sendRedirect("UsuarioServlet?action=listaUsuario");
+                        break;
+
+                    case "dashboard":
+                        request.setAttribute("estadisticasP", e.estadisticaP());
+                        request.setAttribute("estadisticasR", e.estadisticaR2());
+                        request.setAttribute("datos", uDao.dataDashboard());
+                        view = request.getRequestDispatcher("/DG/indexDG.jsp");
+                        view.forward(request, response);
+                        break;
+
+                    case "banear":
+                        uDao.banearUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioBanear")));
+                        response.sendRedirect("UsuarioServlet?action=listaBan");
+                        break;
+
+                    case "agregar":
+                        uDao.registrarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));
+                        response.sendRedirect("UsuarioServlet?action=listaUsuario");
+                        break;
+
+                    //Parte de estadisticas  
+                    case "estadisticaApoyos":
+                        request.setAttribute("estadisticas", e.estadisticaA());
+                        view = request.getRequestDispatcher("/DG/statisticsA.jsp");
+                        view.forward(request, response);
+                        break;
+
+                    case "estadisticaRecaudaciones":
+                        request.setAttribute("estadisticas", e.estadisticaR());
+                        request.setAttribute("estadisticasR", e.estadisticaR2());
+                        view = request.getRequestDispatcher("/DG/statisticsR.jsp");
+                        view.forward(request, response);
+                        break;
+
+                    case "estadisticaPersonas":
+                        request.setAttribute("estadisticas", e.estadisticaP());
+                        view = request.getRequestDispatcher("/DG/statisticsP.jsp");
+                        view.forward(request, response);
+                        break;
+
+                    //Parte de actividades:
+                    case "listaActividades":
+                        request.setAttribute("listaActividades", actividadesDao.listarActividades());
+                        view = request.getRequestDispatcher("/DG/activities.jsp");
+                        view.forward(request, response);
+                        break;
+
+                    case "guardarActividad":
+
+                        String descripcionNuevo = request.getParameter("descripcionActividadNuevo");
+                        String nombreNuevo = request.getParameter("nombreActividadNuevo");
+                        actividadesDao.nuevaActividad(nombreNuevo, descripcionNuevo);
+                        response.sendRedirect("ActividadDgServlet?action=listaActividades");
+                        break;
+
+                    case "actualizarActividad":
+
+                        String descripcion = request.getParameter("descripcionActividad");
+                        String nombre = request.getParameter("nombreActividad");
+                        actividadesDao.actualizarActividad(nombre, descripcion, Integer.parseInt(request.getParameter("actividadId")));
+                        response.sendRedirect("ActividadDgServlet?action=listaActividades");
+                        break;
+
+                    case "borrarActividad":
+                        actividadesDao.borrarActividad(Integer.parseInt(request.getParameter("actividadIdBorrar")));
+                        response.sendRedirect("ActividadDgServlet?action=listaActividades");
+                        break;
+
+                }
             }
         }
-        
-        
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
