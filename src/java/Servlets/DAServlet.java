@@ -50,82 +50,88 @@ public class DAServlet extends HttpServlet {
 
             response.sendRedirect(request.getContextPath());
         } else {
-            switch (action) {
+            Usuario us = (Usuario) session.getAttribute("usuario");
+            if (us.getRol().getId() != 2) {
+                response.sendRedirect(request.getContextPath());
 
-                ////////////////////////////////////////
-                case "main":
-                    view = request.getRequestDispatcher("/DA/indexDA.jsp");
-                    view.forward(request, response);
-                    break;
+            } else {
+                switch (action) {
 
-                case "listarEsperas":
-                    Usuario user1 = (Usuario) session.getAttribute("usuario");
-                    request.setAttribute("listaUsuariosEspera", uDao.listaUsuariosEnEsperaEventos(user1.getIdActividad()));
-                    view = request.getRequestDispatcher("/DA/peopleNR.jsp");
-                    view.forward(request, response);
-                    break;
+                    ////////////////////////////////////////
+                    case "main":
+                        view = request.getRequestDispatcher("/DA/indexDA.jsp");
+                        view.forward(request, response);
+                        break;
 
-                case "rechazarSolicitud":
+                    case "listarEsperas":
+                        Usuario user1 = (Usuario) session.getAttribute("usuario");
+                        request.setAttribute("listaUsuariosEspera", uDao.listaUsuariosEnEsperaEventos(user1.getIdActividad()));
+                        view = request.getRequestDispatcher("/DA/peopleNR.jsp");
+                        view.forward(request, response);
+                        break;
 
-                    int idUsuario1 = Integer.parseInt(request.getParameter("idUsuario"));
-                    int idEvento1 = Integer.parseInt(request.getParameter("idEvento"));
-                    uDao.rechazarSolicitudEvento(idUsuario1, idEvento1);
-                    response.sendRedirect("DA?action=listarEsperas");
+                    case "rechazarSolicitud":
 
-                    break;
+                        int idUsuario1 = Integer.parseInt(request.getParameter("idUsuario"));
+                        int idEvento1 = Integer.parseInt(request.getParameter("idEvento"));
+                        uDao.rechazarSolicitudEvento(idUsuario1, idEvento1);
+                        response.sendRedirect("DA?action=listarEsperas");
 
-                case "borrarBarraoEquipo":
-                    int idUsuario2 = Integer.parseInt(request.getParameter("idUsuario"));
-                    int idEvento2 = Integer.parseInt(request.getParameter("idEvento"));
-                    uDao.rechazarSolicitudEvento(idUsuario2, idEvento2);
-                    response.sendRedirect("DA?action=listarBarrEq");
-                    break;
+                        break;
 
-                case "designarBarra":
-                    int idUsuario5 = Integer.parseInt(request.getParameter("idUsuario"));
-                    int idEvento5 = Integer.parseInt(request.getParameter("idEvento"));
-                    uDao.cambiar_A_Barra(idUsuario5, idEvento5);
-                    response.sendRedirect("DA?action=listarEsperas");
-                    break;
-                    
-                case "desginarEquipo":
-                    int idUsuario4 = Integer.parseInt(request.getParameter("idUsuario"));
-                    int idEvento4 = Integer.parseInt(request.getParameter("idEvento"));
-                    uDao.cambiar_A_Equipo(idUsuario4, idEvento4);
-                    response.sendRedirect("DA?action=listarEsperas");
-                    break;
-                    
-                case "cambiarTipoApoyo":
-                    String tipoApoyo = request.getParameter("tipoApoyo");
-                    int idUsuario3 = Integer.parseInt(request.getParameter("idUsuario"));
-                    int idEvento3 = Integer.parseInt(request.getParameter("idEvento"));
-                    
-                    if(tipoApoyo.equalsIgnoreCase("barra")){
-                        uDao.cambiar_A_Equipo(idUsuario3, idEvento3);
-                    }
-                    if(tipoApoyo.equalsIgnoreCase("equipo")){
-                        uDao.cambiar_A_Barra(idUsuario3, idEvento3);
-                    }
-                    
-                    response.sendRedirect("DA?action=listarBarrEq");
-                    
-                    break;
+                    case "borrarBarraoEquipo":
+                        int idUsuario2 = Integer.parseInt(request.getParameter("idUsuario"));
+                        int idEvento2 = Integer.parseInt(request.getParameter("idEvento"));
+                        uDao.rechazarSolicitudEvento(idUsuario2, idEvento2);
+                        response.sendRedirect("DA?action=listarBarrEq");
+                        break;
 
-                case "listarBarrEq":
-                    Usuario user2 = (Usuario) session.getAttribute("usuario");
-                    request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq(user2.getIdActividad()));
-                    view = request.getRequestDispatcher("/DA/revisarParticipantes.jsp");
-                    view.forward(request, response);
-                    break;
+                    case "designarBarra":
+                        int idUsuario5 = Integer.parseInt(request.getParameter("idUsuario"));
+                        int idEvento5 = Integer.parseInt(request.getParameter("idEvento"));
+                        uDao.cambiar_A_Barra(idUsuario5, idEvento5);
+                        response.sendRedirect("DA?action=listarEsperas");
+                        break;
 
-                case "listarEstadisticas":
+                    case "desginarEquipo":
+                        int idUsuario4 = Integer.parseInt(request.getParameter("idUsuario"));
+                        int idEvento4 = Integer.parseInt(request.getParameter("idEvento"));
+                        uDao.cambiar_A_Equipo(idUsuario4, idEvento4);
+                        response.sendRedirect("DA?action=listarEsperas");
+                        break;
 
-                    Usuario user3 = (Usuario) session.getAttribute("usuario");
-                    request.setAttribute("listaUsuariosDistintos", uDao.participantesDistintos(user3.getIdActividad()));
-                    view = request.getRequestDispatcher("/DA/statisticsA.jsp");
-                    view.forward(request, response);
-                    break;
+                    case "cambiarTipoApoyo":
+                        String tipoApoyo = request.getParameter("tipoApoyo");
+                        int idUsuario3 = Integer.parseInt(request.getParameter("idUsuario"));
+                        int idEvento3 = Integer.parseInt(request.getParameter("idEvento"));
 
+                        if (tipoApoyo.equalsIgnoreCase("barra")) {
+                            uDao.cambiar_A_Equipo(idUsuario3, idEvento3);
+                        }
+                        if (tipoApoyo.equalsIgnoreCase("equipo")) {
+                            uDao.cambiar_A_Barra(idUsuario3, idEvento3);
+                        }
+
+                        response.sendRedirect("DA?action=listarBarrEq");
+
+                        break;
+
+                    case "listarBarrEq":
+                        Usuario user2 = (Usuario) session.getAttribute("usuario");
+                        request.setAttribute("listaUsuariosBarrsOEq", uDao.listaUsuariosBarrsOEq(user2.getIdActividad()));
+                        view = request.getRequestDispatcher("/DA/revisarParticipantes.jsp");
+                        view.forward(request, response);
+                        break;
+
+                    case "listarEstadisticas":
+
+                        Usuario user3 = (Usuario) session.getAttribute("usuario");
+                        request.setAttribute("listaUsuariosDistintos", uDao.participantesDistintos(user3.getIdActividad()));
+                        view = request.getRequestDispatcher("/DA/statisticsA.jsp");
+                        view.forward(request, response);
+                        break;
+
+                }
             }
         }
 
