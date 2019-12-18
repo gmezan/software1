@@ -24,10 +24,16 @@
 
         <!-- Custom styles for this template-->
         <link href="css/sb-admin-2.min.css" rel="stylesheet">
-
+        <style>
+            input::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+        </style>
     </head>
 
-    <body class="bg-gray-900">
+    <body class="bg-myColor">
 
         <div class="container">
 
@@ -44,12 +50,19 @@
 
                                 <form class="user" method="POST" action="MainServlet?action=agregar">  
                                     <div class="form-group row">
-                                        <div class="col-sm-4 mb-3 mb-sm-0">
-                                            <input type="text" class="form-control form-control-user" id="exampleRepeatPassword" name="cod" placeholder="Código">
+                                        <div class="col-sm-5 ">
+                                            <input required type="number" class="form-control form-control-user" name="cod" placeholder="Código">
                                         </div>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control form-control-user" id="exampleInputEmail" name="correo" placeholder="Correo PUCP">
+                                        <div class="col-sm-7 ">
+                                            <select class="form-control form-control-sm" name="cond" >
+                                                <option value="sin-condicion" selected>  -- Condicion --</option>
+                                                <option value="Alumno">Alumno</option>
+                                                <option value="Egresado">Egresado</option>
+
+                                            </select>
+                                            <!--<input type="email" class="form-control form-control-user" id="exampleInputCondition" placeholder="Ingrese condicion (Alumno/Egresado)">-->
                                         </div>
+
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-sm-6 mb-3 mb-sm-0">
@@ -60,31 +73,23 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-sm-6 mb-3 mb-sm-0">
-                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="pass" placeholder="Contraseña">
-                                        </div>
-
-                                        <div class="col-sm-6">
-                                            <input type="password" class="form-control form-control-user"  placeholder="Repetir contraseña">
+                                        <div class="col-sm-12">
+                                            <input type="text" class="form-control form-control-user" id="exampleInputEmail" name="correo" placeholder="Correo PUCP">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <div class="col-sm-6 mb-5 mb-sm-0">
-                                            <select class="form-control form-control-user" name="cond" >
-                                                <option value="sin-condicion" selected>  -- Seleccione una opcion --</option>
-                                                <option value="Alumno">Alumno</option>
-                                                <option value="Egresado">Egresado</option>
-
-                                            </select>
-                                            <!--<input type="email" class="form-control form-control-user" id="exampleInputCondition" placeholder="Ingrese condicion (Alumno/Egresado)">-->
+                                        <div class="col-sm-12">
+                                            <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="pass" placeholder="Contraseña">
                                         </div>
+
                                     </div>
-                                    <a type="submit" href="<%=request.getContextPath()%>/MainServlet?action=agregar" class="btn btn-myColor btn-user btn-block">
+
+                                    <button type="submit" class="btn btn-myColor btn-user btn-block">
                                         Registrar Cuenta
-                                    </a>
+                                    </button>
 
                                 </form>
-                                
+
                                 <div class="text-center">
                                     <a class="small" href="<%=request.getContextPath()%>/MainServlet?action=recuperar">Olvidé mi contraseña</a>
                                 </div>

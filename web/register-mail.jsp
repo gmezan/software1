@@ -54,7 +54,7 @@
                     <a class="small" href="<%=request.getContextPath()%>/MainServlet?action=registrarse" >Crear una cuenta!</a> <!--style="color: #121212"-->
                   </div>
                   <div class="text-center">
-                    <a class="small" href="<%=request.getContextPath()%>/MainServlet" >Ya tengo una cuenta, Inicar sesión!</a>
+                    <a class="small" href="<%=request.getContextPath()%>/MainServlet" >¿Ya tienes una cuenta? Inicia sesión!</a>
                   </div>
                 </div>
               </div>

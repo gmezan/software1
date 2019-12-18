@@ -77,13 +77,7 @@
                                             <div class="form-group">
                                                 <label for="password"></label><input id="password" name="passwordIniciarSesion" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Contraseña" required>
                                             </div>
-                                            <div class="form-group">
-                                                <div class="custom-control custom-checkbox small">
-                                                    <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                    <label class="custom-control-label" for="customCheck">Recordarme</label>
-
-                                                </div>
-                                            </div>
+                                            <hr>
                                             <!-- Este boton debe ser submit: -->
                                             <input type="submit" value="Iniciar sesión" id="submit" class="btn btn-myColor btn-user btn-block"/>
 
