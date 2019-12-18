@@ -260,7 +260,7 @@
                   <thead>
                     <tr>
                       <th>Nombre</th>
-                      <th>¿Cumplió la cuota mínima?</th>
+                      
                       <th>Condición</th>
                       <th>Donación (S/.)</th>
                       <th>Fecha de donación</th>
@@ -270,7 +270,7 @@
                   <tfoot>
                     <tr>
                       <th>Nombre</th>
-                      <th>¿Cumplió la cuota mínima?</th>
+                      
                       <th>Condición</th>
                       <th>Donación (S/.)</th>
                       <th>Ultima fecha de donación</th>
@@ -284,7 +284,7 @@
                       
                     <tr>
                       <td><%=e.getNombre()%></td>
-                      <td><%=e.getCuota()%></td>
+                      
                       <td><%=e.getCondicion()%></td>
                       <td><%=e.getCantidad()%></td>
                       <td><%=e.getDate().toString()%></td>

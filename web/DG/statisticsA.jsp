@@ -224,7 +224,7 @@
                 <canvas id="myBarChart"></canvas>
               </div>
               <hr>
-              Se muestran todas las actividades registradas, para agregar o eliminar una actividad ingresar a <a target="_blank" href="activities.html">Actividades</a>.
+              Se muestran todas las actividades registradas, para agregar o eliminar una actividad ingresar a <a href="<%=request.getContextPath()%>/DG?action=listaActividades">Actividades</a>.
 
 
             </div>
@@ -255,7 +255,7 @@
                   <thead>
                     <tr>
                       <th>Nombre de la actividad</th>
-                      <th>Descrición</th>
+                      <th>Descripción</th>
                       <th>Delegado</th>
                       <th>Imagen</th>
                       <th>Número de participantes</th>
@@ -265,7 +265,7 @@
                   <tfoot>
                     <tr>
                       <th>Nombre de la actividad</th>
-                      <th>Descrición</th>
+                      <th>Descripción</th>
                       <th>Delegado</th>
                       <th>Imagen</th>
                       <th>Número de participantes</th>

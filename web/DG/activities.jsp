@@ -240,7 +240,7 @@
                                                 <th>Nombre de la actividad</th>
                                                 <th>Descripción</th>
                                                 <th>Delegado</th>
-                                                <th>Imagen</th>
+                                                
                                                 <th></th>
 
                                             </tr>
@@ -250,7 +250,7 @@
                                                 <th>Nombre de la actividad</th>
                                                 <th>Descrición</th>
                                                 <th>Delegado</th>
-                                                <th>Imagen</th>
+                                                
                                                 <th></th>
                                             </tr>
                                         </tfoot>
@@ -264,8 +264,7 @@
                                                 <td><%=a.getNombreActividad()%></td>
                                                 <td><%=a.getDescripcion()%></td>
                                                 <td><%=x%></td>
-                                                <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
-                                                </td>
+                                                
                                                 <td>
                                                     <div class="form-group row text-center btn-user">
                                                         <div class="col-sm-4 mb-2 mb-sm-0">
