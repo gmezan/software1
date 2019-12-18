@@ -29,6 +29,9 @@ import javax.mail.internet.*;
  * @author GUSTAVO
  */
 public class UsuarioDao extends BaseDao {
+    public static final String CORREO = "software.telecomunicaciones1@gmail.com";
+    public static final String PASS = "testpassword123456";
+    public static final String LINK = "http://localhost:8080/sw1_web/nuevaContrasena.jsp";
 
     public static void sendCorreo(String from, String pass, String[] to, String subject, String body) {
 
@@ -757,5 +760,30 @@ public class UsuarioDao extends BaseDao {
 
         return data;
     }
+    
+    public void nuevaContrasena(int codigo, String correo, String password, String confirmacion){
+        String conf = "1234";
+        if (conf.equals(confirmacion)){
+            
+            String sql = "update Usuarios\n" +
+        "set pass_hash = sha2(?,256)\n" +
+        "where codigoPucp = ? and correoPucp = ?";
+            
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+                
+            pstmt.setString(1, password);
+            pstmt.setInt(2, codigo);
+            pstmt.setString(3, correo);
+            pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        }
+        
+        
+    }
+    
 
 }

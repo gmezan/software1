@@ -42,7 +42,8 @@ public class LoginServlet extends HttpServlet {
         UsuarioDao uDao = new UsuarioDao();
         HttpSession session;
         RequestDispatcher view;
-
+        String correoRecuperar;
+        
         switch (action) {
             case "login":
                 view = request.getRequestDispatcher("index.jsp");
@@ -67,8 +68,18 @@ public class LoginServlet extends HttpServlet {
                 break;
 
             case "correoRecuperar":
-                view = request.getRequestDispatcher("forgot-mail.jsp");
-                view.forward(request, response);
+                correoRecuperar = request.getParameter("correoRecuperar");
+                String[] correos = {correoRecuperar};
+                String subjectCorreo = "RECUPERACIÓN DE CONTRASEÑA";
+                String codigoConfirmacion = "1234";
+                String msgCorreo = "Usted ha solicitado la recuperación de contraseña en la plataforma de semana "
+                        + "de ingeniería, reestablezca su contraseña. Tu codigo de confirmacion es: " + codigoConfirmacion 
+                        + "\n"
+                        + UsuarioDao.LINK;
+                UsuarioDao.sendCorreo(UsuarioDao.CORREO, UsuarioDao.PASS, correos, subjectCorreo, msgCorreo);
+                //view = request.getRequestDispatcher("forgot-mail.jsp");
+                //view.forward(request, response);
+                response.sendRedirect(request.getContextPath()+"/forgot-mail.jsp");
                 break;
 
             case "iniciarSesion":
@@ -130,6 +141,17 @@ public class LoginServlet extends HttpServlet {
                 view = request.getRequestDispatcher("codigoInvalido.jsp");
                 view.forward(request, response);
                 break;
+                
+            case "nuevaContrasena":
+                String correoPucpRecuperar = request.getParameter("correoRecuperar");
+                int codigoPucpRecuperar = Integer.parseInt(request.getParameter("codigoRecuperar"));
+                String passRecuperar1 = request.getParameter("passRecuperar1");
+                String passRecuperar2 = request.getParameter("passRecuperar2");
+                
+                String codigoRecuperacion = request.getParameter("confirmacionRecuperar");
+                if (passRecuperar1.equals(passRecuperar2))
+                    uDao.nuevaContrasena(codigoPucpRecuperar, correoPucpRecuperar, passRecuperar1, codigoRecuperacion);
+                response.sendRedirect(request.getContextPath());
         }
 
     }
