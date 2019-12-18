@@ -17,404 +17,392 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+    <head>
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-  <title>DG - Estadísticas Apoyos</title>
+        <title>DG - Estadísticas Apoyos</title>
 
-  <!-- Custom fonts for this template -->
-  <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="<%=request.getContextPath()%>/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <!-- Custom fonts for this template -->
+        <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href="<%=request.getContextPath()%>/https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="<%=request.getContextPath()%>/css/sb-admin-2.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this page -->
-  <link href="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+        <!-- Custom styles for this page -->
+        <link href="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-</head>
+    </head>
 
-<body id="page-top">
-  <%
-    response.setHeader("Cache-Control","no-cache, no-store, must-revalidate");
-    %>
+    <body id="page-top">
+        <%
+            response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        %>
 
-  <!-- Page Wrapper -->
-  <div id="wrapper">
+        <!-- Page Wrapper -->
+        <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
+            <!-- Sidebar -->
+            <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
-      <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
-        <div class="sidebar-brand-icon ">
-          <i class="fas fa-broadcast-tower"></i>
-        </div>
-        <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
-      </a>
+                <!-- Sidebar - Brand -->
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
+                    <div class="sidebar-brand-icon ">
+                        <i class="fas fa-broadcast-tower"></i>
+                    </div>
+                    <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
+                </a>
 
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
 
-        <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de <%= usuario.getActividad().getNombreActividad()%></div>
-      </a>
-      <!-- Divider -->
+                    <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de <%= usuario.getActividad().getNombreActividad()%></div>
+                </a>
+                <!-- Divider -->
 
-      <hr class="sidebar-divider my-0">
+                <hr class="sidebar-divider my-0">
 
-      <!-- Nav Item - Dashboard -->
-      <li class="nav-item">
-        <a class="nav-link" href="<%=request.getContextPath()%>/DA?action=main">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Menú Principal</span></a>
-      </li>
-
-
-      <!-- Modificacion -->
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
-      <!-- Heading -->
-      <div class="sidebar-heading">
-        funciones
-      </div>
-
-      <li class="nav-item">
-        <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listar">
-          <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
-          <span>Eventos</span></a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePers" aria-expanded="true" aria-controls="collapsePers">
-          <i class="fas fa-fw fa-user-friends"></i>
-          <span>Personas</span>
-        </a>
-        <div id="collapsePers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-              
-              
-              <a class="collapse-item active" href="<%=request.getContextPath()%>/DA?action=listarEsperas">Personas no registradas</a>
-              <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarBarrEq">Revisar participantes</a>
-              
-            <!-- <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaUsuario">Personas registradas</a>
-                    <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaNR">Personas no registradas</a>
-                    <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaBan">Personas baneadas</a>
-                    <h6 class="collapse-header">Otro:</h6>
-                    <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaDA">Delegados de actividad</a>
-            
-            -->
-          </div>
-        </div>
-      </li>
-
-      <li class="nav-item active">
-        <a class="nav-link " href="#" data-toggle="collapse" data-target="#collapseEstd" aria-expanded="true" aria-controls="collapseEstd">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Estadísticas</span>
-        </a>
-        <div id="collapseEstd" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Todas las estadísticas</h6>
-            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarEstadisticas">Cantidad de apoyos</a>
-            
-            
-          </div>
-        </div>
-      </li>
-      
-      
-      
-      
-      
-      <li class="nav-item">
-        <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donacionesDA">
-          <i class="fas fa-fw fa-dollar-sign"></i>
-          <span>Donaciones</span>
-        </a>
-        
-      </li>
-      
-      
-      <br>
+                <!-- Nav Item - Dashboard -->
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/DA?action=main">
+                        <i class="fas fa-fw fa-tachometer-alt"></i>
+                        <span>Menú Principal</span></a>
+                </li>
 
 
-      <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
-      </div>
+                <!-- Modificacion -->
+                <!-- Divider -->
+                <hr class="sidebar-divider">
 
-    </ul>
-    <!-- End of Sidebar -->
+                <!-- Heading -->
+                <div class="sidebar-heading">
+                    Funciones
+                </div>
 
-    <!-- Content Wrapper -->
-    <div id="content-wrapper" class="d-flex flex-column">
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listaEventosParaInscribirse">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Eventos para inscribirse</span></a>
+                </li>
 
-      <!-- Main Content -->
-      <div id="content">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listaEventos">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Mis eventos</span></a>
+                </li>
 
-        <!-- Topbar -->
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listar">
+                        <i class="fas fa-fw fa-running"></i>
+                        <span>Eventos de <%= usuario.getActividad().getNombreActividad()%></span></a>
+                </li>
 
-          <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-            <i class="fa fa-bars"></i>
-          </button>
-
-          <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <!--
-            <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button class="btn btn-dark" type="button">
-                  <i class="fas fa-search fa-sm"></i>
-                </button>
-              </div>
-            </div>
-
-            -->
-          </form>
+                <li class="nav-item">
+                    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePers" aria-expanded="true" aria-controls="collapsePers">
+                        <i class="fas fa-fw fa-user-friends"></i>
+                        <span>Personas</span>
+                    </a>
+                    <div id="collapsePers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
 
 
-          <!-- Topbar Navbar -->
-          <ul class="navbar-nav ml-auto">
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarEsperas">Personas no registradas</a>
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarBarrEq">Revisar participantes</a>
 
-            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-            <li class="nav-item dropdown no-arrow d-sm-none">
-              <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-search fa-fw"></i>
-              </a>
-              <!-- Dropdown - Messages -->
-              <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
-                  <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
-                    <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
-                      </button>
+<!-- <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaUsuario">Personas registradas</a>
+      <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaNR">Personas no registradas</a>
+      <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaBan">Personas baneadas</a>
+      <h6 class="collapse-header">Otro:</h6>
+      <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaDA">Delegados de actividad</a>
+
+                            -->
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item active">
+                    <a class="nav-link " href="#" data-toggle="collapse" data-target="#collapseEstd" aria-expanded="true" aria-controls="collapseEstd">
+                        <i class="fas fa-fw fa-chart-area"></i>
+                        <span>Estadísticas</span>
+                    </a>
+                    <div id="collapseEstd" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <h6 class="collapse-header">Todas las estadísticas</h6>
+                            <a class="collapse-item active" href="<%=request.getContextPath()%>/DA?action=listarEstadisticas">Cantidad de apoyos</a>
+
+
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/DA?action=donaciones">
+                        <i class="fas fa-fw fa-dollar-sign"></i>
+                        <span>Donaciones</span>
+                    </a>
+                </li>
+                <br>
+
+                <div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+            </ul>
+            <!-- End of Sidebar -->
+
+            <!-- Content Wrapper -->
+            <div id="content-wrapper" class="d-flex flex-column">
+
+                <!-- Main Content -->
+                <div id="content">
+
+                    <!-- Topbar -->
+
+                    <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                        <!-- Sidebar Toggle (Topbar) -->
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+
+                        <!-- Topbar Search -->
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <!--
+                            <div class="input-group">
+                              <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                              <div class="input-group-append">
+                                <button class="btn btn-dark" type="button">
+                                  <i class="fas fa-search fa-sm"></i>
+                                </button>
+                              </div>
+                            </div>
+                
+                            -->
+                        </form>
+
+
+                        <!-- Topbar Navbar -->
+                        <ul class="navbar-nav ml-auto">
+
+                            <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                            <li class="nav-item dropdown no-arrow d-sm-none">
+                                <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-search fa-fw"></i>
+                                </a>
+                                <!-- Dropdown - Messages -->
+                                <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+                                    <form class="form-inline mr-auto w-100 navbar-search">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="button">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+
+
+
+                            <div class="topbar-divider d-none d-sm-block"></div>
+
+                            <!-- Nav Item - User Information -->
+                            <li class="nav-item dropdown no-arrow">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
+                                    <img class="img-profile rounded-circle" src="<%=request.getContextPath()%>/DA/imgDA/perfil.jpg">
+                                </a>
+                                <!-- Dropdown - User Information -->
+                                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Cerrar sesión
+                                    </a>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </nav>
+
+
+
+
+
+
+
+
+                    <!-- End of Topbar -->
+
+                    <!-- Begin Page Content -->
+                    <div class="container-fluid">
+
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Cantidad de apoyos</h1>
+                        <p class="mb-4">
+                            Acá se muestra la cantidad de participaciones por persona en <%= usuario.getActividad().getNombreActividad()%></p>
+
+                        <!-- Bar Chart -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Gráfico de barras</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-bar">
+                                    <canvas id="myBarChart"></canvas>
+                                </div>
+                                <hr>
+                                Se muestran todas las actividades registradas, para agregar o eliminar una actividad ingresar a <a target="_blank" href="activities.html">Actividades</a>.
+
+
+                            </div>
+                        </div>
+
+                        <!--
+                        <div class="card shadow mb-4">
+                          <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Pie Chart</h6>
+                          </div>
+                          <div class="card-body">
+                            <div class="chart-pie pt-4">
+                              <canvas id="myPieChart"></canvas>
+                            </div>
+                            <hr>
+                            Se muestran todas las actividades registradas, para agregar o eliminar una actividad ingresar a <a target="_blank" href="activities.html">Actividades</a>.
+                          </div>
+                        </div>-->
+
+                        <!-- DataTales Example -->
+                        <div id="myTable" class="card shadow mb-4" >
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Tabla de datos</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Código de Alumno</th>
+                                                <th>Nombre y Apellido de Alumno</th>
+                                                <th>Condición</th>
+                                                <th>Correo</th>
+                                                <th>Cantidad de Participaciones</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Código de Alumno</th>
+                                                <th>Nombre y Apellido de Alumno</th>
+                                                <th>Condición</th>
+                                                <th>Correo</th>
+                                                <th>Cantidad de Participaciones</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody>
+
+                                            <% for (Usuario user : listaUsuariosDistintos) {
+                                                    UsuarioDao uDao = new UsuarioDao();
+
+
+                                            %>
+                                            <tr>
+                                                <td><%=user.getCodigoPucp()%></td>
+                                                <td><%=user.getNombre()%> <%=user.getApellido()%></td>
+                                                <td><%=user.getCondicion()%></td>
+                                                <td><%=user.getCorreoPucp()%></td>
+
+                                                <td><%=uDao.contarParticipaciones(user.getCodigoPucp(), usuario.getIdActividad())%></td>
+                                            </tr>
+                                            <%
+                                                }
+
+                                            %>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+                <!-- Footer -->
+
+                <!--
+                <footer class="sticky-footer bg-white">
+                  <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                      <span>Copyright &copy; Your Website 2019</span>
                     </div>
                   </div>
-                </form>
-              </div>
-            </li>
-
-
-
-            <div class="topbar-divider d-none d-sm-block"></div>
-
-            <!-- Nav Item - User Information -->
-            <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
-                <img class="img-profile rounded-circle" src="https://placekitten.com/60/60">
-              </a>
-              <!-- Dropdown - User Information -->
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-
-                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Cerrar sesión
-                </a>
-              </div>
-            </li>
-
-          </ul>
-
-        </nav>
-        
-                
-                
-                
-                
-                
-                
-                
-                <!-- End of Topbar -->
-
-        <!-- Begin Page Content -->
-        <div class="container-fluid">
-
-          <!-- Page Heading -->
-          <h1 class="h3 mb-2 text-gray-800">Cantidad de apoyos</h1>
-          <p class="mb-4">
-            Acá se muestra la cantidad de participaciones por persona en <%= usuario.getActividad().getNombreActividad()%></p>
-
-          <!-- Bar Chart -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Gráfico de barras</h6>
-            </div>
-            <div class="card-body">
-              <div class="chart-bar">
-                <canvas id="myBarChart"></canvas>
-              </div>
-              <hr>
-              Se muestran todas las actividades registradas, para agregar o eliminar una actividad ingresar a <a target="_blank" href="activities.html">Actividades</a>.
-
+                </footer>
+                -->
+                <!-- End of Footer -->
 
             </div>
-          </div>
-
-          <!--
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Pie Chart</h6>
-            </div>
-            <div class="card-body">
-              <div class="chart-pie pt-4">
-                <canvas id="myPieChart"></canvas>
-              </div>
-              <hr>
-              Se muestran todas las actividades registradas, para agregar o eliminar una actividad ingresar a <a target="_blank" href="activities.html">Actividades</a>.
-            </div>
-          </div>-->
-
-          <!-- DataTales Example -->
-          <div id="myTable" class="card shadow mb-4" >
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Tabla de datos</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Código de Alumno</th>
-                      <th>Nombre y Apellido de Alumno</th>
-                      <th>Condición</th>
-                      <th>Correo</th>
-                      <th>Cantidad de Participaciones</th>
-
-                    </tr>
-                  </thead>
-                  <tfoot>
-                    <tr>
-                      <th>Código de Alumno</th>
-                      <th>Nombre y Apellido de Alumno</th>
-                      <th>Condición</th>
-                      <th>Correo</th>
-                      <th>Cantidad de Participaciones</th>
-                    </tr>
-                  </tfoot>
-                  <tbody>
-                      
-                      <% for(Usuario user : listaUsuariosDistintos){
-                          UsuarioDao uDao = new UsuarioDao();
-                              
-                              
-                              %>
-                    <tr>
-                      <td><%=user.getCodigoPucp()%></td>
-                      <td><%=user.getNombre()%> <%=user.getApellido()%></td>
-                      <td><%=user.getCondicion()%></td>
-                      <td><%=user.getCorreoPucp()%></td>
-                      
-                      <td><%=uDao.contarParticipaciones(user.getCodigoPucp(), usuario.getIdActividad())%></td>
-                    </tr>
-                    <%
-                        }
-                        
-                        %>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
+            <!-- End of Content Wrapper -->
 
         </div>
-        <!-- /.container-fluid -->
+        <!-- End of Page Wrapper -->
 
-      </div>
-      <!-- End of Main Content -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
 
-      <!-- Footer -->
-      
-      <!--
-      <footer class="sticky-footer bg-white">
-        <div class="container my-auto">
-          <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Your Website 2019</span>
-          </div>
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Listo para salir?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar tu sesión actual.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                        <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesión</a>
+                    </div>
+                </div>
+            </div>
         </div>
-      </footer>
-      -->
-      <!-- End of Footer -->
 
-    </div>
-    <!-- End of Content Wrapper -->
+        <!-- Bootstrap core JavaScript-->
+        <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
+        <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  </div>
-  <!-- End of Page Wrapper -->
+        <!-- Core plugin JavaScript-->
+        <script src="<%=request.getContextPath()%>/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Scroll to Top Button-->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+        <!-- Custom scripts for all pages-->
+        <script src="<%=request.getContextPath()%>/js/sb-admin-2.min.js"></script>
 
-  <!-- Logout Modal-->
-  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Listo para salir?</h5>
-          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">Selecciona "Cerrar sesión" abajo si estás listo para cerrar tu sesión actual.</div>
-        <div class="modal-footer">
-          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-primary" href="<%=request.getContextPath()%>/MainServlet?action=inicio">Cerrar sesión</a>
-        </div>
-      </div>
-    </div>
-  </div>
+        <!-- Page level plugins -->
+        <script src="<%=request.getContextPath()%>/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="<%=request.getContextPath()%>/vendor/jquery/jquery.min.js"></script>
-  <script src="<%=request.getContextPath()%>/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Page level plugins -->
+        <script src="<%=request.getContextPath()%>/vendor/chart.js/Chart.min.js"></script>
 
-  <!-- Core plugin JavaScript-->
-  <script src="<%=request.getContextPath()%>/vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Page level custom scripts -->
+        <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
+        <script src="<%=request.getContextPath()%>/js/demo/chart-area-demo.js"></script>
+        <script src="<%=request.getContextPath()%>/DG/js/pieChartA.js"></script>
+        <script src="<%=request.getContextPath()%>/DG/js/chart-bar.js"></script>
 
-  <!-- Custom scripts for all pages-->
-  <script src="<%=request.getContextPath()%>/js/sb-admin-2.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="<%=request.getContextPath()%>/vendor/datatables/jquery.dataTables.min.js"></script>
-  <script src="<%=request.getContextPath()%>/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-  <!-- Page level plugins -->
-  <script src="<%=request.getContextPath()%>/vendor/chart.js/Chart.min.js"></script>
-
-  <!-- Page level custom scripts -->
-  <script src="<%=request.getContextPath()%>/js/demo/datatables-demo.js"></script>
-  <script src="<%=request.getContextPath()%>/js/demo/chart-area-demo.js"></script>
-  <script src="<%=request.getContextPath()%>/DG/js/pieChartA.js"></script>
-  <script src="<%=request.getContextPath()%>/DG/js/chart-bar.js"></script>
-
-</body>
+    </body>
 
 </html>
 

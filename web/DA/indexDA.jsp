@@ -8,7 +8,7 @@
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 
     <head>
         <meta charset="utf-8">
@@ -106,9 +106,9 @@
                     </div>
                 </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donacionesDA">
-                        <i class="fas fa-fw fa-dollar-sign"></i> <!--icono!!!!!-->
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/DA?action=donaciones">
+                        <i class="fas fa-fw fa-dollar-sign"></i>
                         <span>Donaciones</span>
                     </a>
                 </li>
@@ -154,7 +154,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
-                                    <img class="img-profile rounded-circle" src="https://placekitten.com/60/60">
+                                    <img class="img-profile rounded-circle" src="<%=request.getContextPath()%>/DA/imgDA/perfil.jpg">
                                 </a>                                
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
                                     <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">

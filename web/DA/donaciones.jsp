@@ -45,52 +45,50 @@
             <ul class="navbar-nav bg-gray-900 sidebar sidebar-dark accordion" id="accordionSidebar">
 
                 <!-- Sidebar - Brand -->
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet">
                     <div class="sidebar-brand-icon ">
                         <i class="fas fa-broadcast-tower"></i>
                     </div>
                     <div class="sidebar-brand-text mx-3" style="font-size: 18px">Semana de ingeniería</div>
                 </a>
 
+                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/AlumnoServlet">
 
-
-
-                <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=request.getContextPath()%>/DA?action=main">
-
-                    <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Delegado de <%= usuario.getActividad().getNombreActividad()%></div>
+                    <div class="sidebar-brand-text mx-3" style="font-size: 13px; font-family: Arial">Alumno</div>
                 </a>
-
-
                 <!-- Divider -->
 
                 <hr class="sidebar-divider my-0">
 
                 <!-- Nav Item - Dashboard -->
-
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/DA?action=main">
                         <i class="fas fa-fw fa-tachometer-alt"></i>
                         <span>Menú Principal</span></a>
                 </li>
 
-
-
-
-                <!-- Modificacion -->
-                <!-- Divider -->
                 <hr class="sidebar-divider">
 
-                <!-- Heading -->
                 <div class="sidebar-heading">
-                    funciones
+                    Funciones
                 </div>
-
-
+                
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listaEventosParaInscribirse">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Eventos para inscribirse</span></a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listaEventos">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Mis eventos</span></a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listar">
-                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
-                        <span>Eventos</span></a>
+                        <i class="fas fa-fw fa-running"></i>
+                        <span>Eventos de <%= usuario.getActividad().getNombreActividad()%></span></a>
                 </li>
 
                 <li class="nav-item">
@@ -100,29 +98,11 @@
                     </a>
                     <div id="collapsePers" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-
-
-                            <a class="collapse-item active" href="<%=request.getContextPath()%>/DA?action=listarEsperas">Personas no registradas</a>
+                            <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarEsperas">Personas no registradas</a>
                             <a class="collapse-item" href="<%=request.getContextPath()%>/DA?action=listarBarrEq">Revisar participantes</a>
-
-<!-- <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaUsuario">Personas registradas</a>
-      <a class="collapse-item" href="<%=request.getContextPath()%>/UsuarioServlet?action=listaNR">Personas no registradas</a>
-      <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaBan">Personas baneadas</a>
-      <h6 class="collapse-header">Otro:</h6>
-      <a class="collapse-item " href="<%=request.getContextPath()%>/UsuarioServlet?action=listaDA">Delegados de actividad</a>
-
-                            -->
                         </div>
                     </div>
                 </li>
-
-
-
-
-
-
-
-
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEstd" aria-expanded="true" aria-controls="collapseEstd">
@@ -137,17 +117,13 @@
                     </div>
                 </li>
 
-
-
-
                 <li class="nav-item active">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donacionesDA">
-                        <i class="fas fa-fw fa-dollar-sign"></i> <!--icono!!!!!-->
+                    <a class="nav-link" href="<%=request.getContextPath()%>/DAServlet?action=donacionesDA">
+                        <i class="fas fa-fw fa-dollar-sign"></i>
                         <span>Donaciones</span>
                     </a>
                 </li>
-
-
+                
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
                 </div>
@@ -162,9 +138,6 @@
                 <div id="content">
 
                     <!-- Topbar -->
-
-
-
                     <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                         <!-- Sidebar Toggle (Topbar) -->
@@ -183,10 +156,9 @@
                                 </button>
                               </div>
                             </div>
-                
+        
                             -->
                         </form>
-
 
                         <!-- Topbar Navbar -->
                         <ul class="navbar-nav ml-auto">
@@ -202,7 +174,7 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
                                             <div class="input-group-append">
-                                                <button class="btn btn-primary" type="button">
+                                                <button class="btn btn-dark" type="button">
                                                     <i class="fas fa-search fa-sm"></i>
                                                 </button>
                                             </div>
@@ -211,6 +183,7 @@
                                 </div>
                             </li>
 
+                            <!-- Nav Item - Messages deleted-->
 
 
                             <div class="topbar-divider d-none d-sm-block"></div>
@@ -219,7 +192,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
-                                    <img class="img-profile rounded-circle" src="https://placekitten.com/60/60">
+                                    <img class="img-profile rounded-circle" src="<%=request.getContextPath()%>/DA/imgDA/perfil.jpg">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
@@ -234,31 +207,6 @@
                         </ul>
 
                     </nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                     <!-- End of Topbar -->
 
                     <!-- CONTENIDO -->
@@ -283,13 +231,7 @@
 
                         <br>
 
-
-
-
-
-
-
-                        <form method="POST" action="AL?action=agregarDonacionDA">
+                        <form method="POST" action="DA?action=agregarDonacion">
                             <div class="row">
                                 <div class="col-md-4"></div>
 
@@ -316,23 +258,10 @@
                                 <button type="submit" align="right" class="btn btn-outline-primary" s >Donar</button>
 
                             </div>
-
-
-
-
                         </form>    
-
-
+                                        
                         <br>
                         <p>Acá podrás ver tus aportes a la Fibra.</p>
-
-
-
-
-
-
-
-
 
                         <!-- DataTales Example -->
                         <div class="card shadow mb-4">
@@ -393,6 +322,8 @@
                             <!-- End of Main Content -->
 
                             <!-- Footer -->
+
+
                             <footer class="sticky-footer bg-white">
                                 <div class="container my-auto">
                                     <div class="copyright text-center my-auto">

@@ -167,7 +167,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="<%=request.getContextPath()%>/AL/indexA.jsp#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
-                                    <img class="img-profile rounded-circle" src="<%=request.getContextPath()%>/AL/indexA_files/60">
+                                    <img class="img-profile rounded-circle" src="<%=request.getContextPath()%>/AL/imgAL/perfil.jpg">
                                 </a>
                                 <!-- Dropdown - User Information -->
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

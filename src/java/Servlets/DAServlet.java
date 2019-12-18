@@ -7,6 +7,7 @@ package Servlets;
 
 import Beans.Usuario;
 import Daos.ActividadesDao;
+import Daos.DonacionDao;
 import Daos.EstadisticasDgDao;
 import Daos.UsuarioDao;
 import java.io.IOException;
@@ -42,6 +43,7 @@ public class DAServlet extends HttpServlet {
 
         UsuarioDao uDao = new UsuarioDao();
         EstadisticasDgDao e = new EstadisticasDgDao();
+        DonacionDao donDao = new DonacionDao();
         ActividadesDao actividadesDao = new ActividadesDao();
         RequestDispatcher view;
         HttpSession session = request.getSession();
@@ -124,11 +126,24 @@ public class DAServlet extends HttpServlet {
                         break;
 
                     case "listarEstadisticas":
-
                         Usuario user3 = (Usuario) session.getAttribute("usuario");
                         request.setAttribute("listaUsuariosDistintos", uDao.participantesDistintos(user3.getIdActividad()));
                         view = request.getRequestDispatcher("/DA/statisticsA.jsp");
                         view.forward(request, response);
+                        break;
+
+                    case "donaciones":
+                        request.setAttribute("listaDonacion", donDao.listarDonacion(us.getCodigoPucp()));
+                        view = request.getRequestDispatcher("/DA/donaciones.jsp");
+                        view.forward(request, response);
+                        break;
+
+                    case "agregarDonacion":
+                        String monto = request.getParameter("monto");
+                        if (!monto.isEmpty()) {
+                            donDao.donar(us.getCodigoPucp(), monto);
+                        }
+                        response.sendRedirect(request.getContextPath() + "/DA?action=donaciones");
                         break;
 
                 }

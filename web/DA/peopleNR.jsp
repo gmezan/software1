@@ -64,10 +64,22 @@
                     Funciones
                 </div>
 
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listaEventosParaInscribirse">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Eventos para inscribirse</span></a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listaEventos">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Mis eventos</span></a>
+                </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listar">
                         <i class="fas fa-fw fa-running"></i>
-                        <span>Eventos</span></a>
+                        <span>Eventos de <%= usuario.getActividad().getNombreActividad()%></span></a>
                 </li>
 
                 <li class="nav-item active">
@@ -97,23 +109,12 @@
                 </li>
                 
                 
-                <li class="nav-item active">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donacionesDA">
-                        <i class="fas fa-fw fa-dollar-sign"></i> <!--icono!!!!!-->
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/DA?action=donaciones">
+                        <i class="fas fa-fw fa-dollar-sign"></i>
                         <span>Donaciones</span>
                     </a>
                 </li>
-                
-                
-                <!--
-
-                <li class="nav-item">
-                    <a class="nav-link" href="donaciones.jsp">
-                        <i class="fas fa-fw fa-dollar-sign"></i>
-                        <span>Donaciones</span></a>
-                </li>
-                
-                -->
 
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -159,7 +160,7 @@
                             <li class="nav-item dropdown no-arrow">
                                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=usuario.getNombre()%> <%=usuario.getApellido()%></span>
-                                    <img class="img-profile rounded-circle" src="https://placekitten.com/60/60">
+                                    <img class="img-profile rounded-circle" src="<%=request.getContextPath()%>/DA/imgDA/perfil.jpg">
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
