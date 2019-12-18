@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -502,14 +503,34 @@ public class UsuarioDao extends BaseDao {
 
     public void borrarUsuario(int codigo) {
         String sql = "delete from Usuarios where codigoPucp = ?";
+        String sql2 = "delete from Participante_a_Evento where Participante_codigoPucp = ?";
+        String sql3 = "update Actividad set delegado_codigoPucp = null where delegado_codigoPucp = ?";
+        String sql4 = "update Donacion set contribuyente_codigoPucp = null where contribuyente_codigoPucp = ?";
+        
+        Usuario u =  buscarUsuarioDG(codigo);
+        
+        if (u.getRol().getId() != 3){
+        
+        
+            try (Connection conn = this.getConnection();
+                    PreparedStatement pstmt1 = conn.prepareStatement(sql);
+                    PreparedStatement pstmt2 = conn.prepareStatement(sql2);
+                    PreparedStatement pstmt3 = conn.prepareStatement(sql3);
+                    PreparedStatement pstmt4 = conn.prepareStatement(sql4);
+                    ) {
+                pstmt1.setInt(1, codigo);
+                pstmt2.setInt(1, codigo);
+                pstmt3.setInt(1, codigo);
+                pstmt4.setInt(1, codigo);
 
-        try (Connection conn = this.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setInt(1, codigo);
-            pstmt.executeUpdate();
+                pstmt4.executeUpdate();
+                pstmt3.executeUpdate();
+                pstmt2.executeUpdate();
+                pstmt1.executeUpdate();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
     }
@@ -783,6 +804,49 @@ public class UsuarioDao extends BaseDao {
         }
         
         
+    }
+    
+    private Usuario buscarUsuarioDG(int userId) {
+        Usuario u = null;
+        String sql = "SELECT u.codigoPucp, u.nombre, u.apellido, u.correoPucp, u.condicion, r.idRol,e.estado,r.nombre_rol,a.idActividad, a.nombreActividad  FROM Usuarios u\n"
+                + "inner join Rol r on u.Rol_idRol = r.idRol\n"
+                + "inner join EstadoUsuario e on e.idEstado = u.Estado_idEstado "
+                + "left join Actividad a on u.codigoPucp = a.delegado_codigoPucp "
+                + "where e.idEstado = 1 and (codigoPucp = ? )";
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, userId);
+            
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    u = new Usuario();
+                    u.setNombre(rs.getString(2));
+                    u.setCodigoPucp(rs.getInt(1));
+                    u.setApellido(rs.getString(3));
+                    u.setCondicion(rs.getString(5));
+                    u.setCorreoPucp(rs.getString(4));
+
+                    Rol r = new Rol();
+                    r.setId(rs.getInt(6));
+                    r.setRol(rs.getString(8));
+                    u.setRol(r);
+
+                    Estado e = new Estado();
+                    e.setEstado(rs.getString(7));
+                    u.setEstado(e);
+
+                    Actividad a = new Actividad();
+                    a.setIdActividad(rs.getInt(9));
+                    a.setNombreActividad(rs.getString(10));
+                    u.setActividad(a);
+                    u.setIdActividad(a.getIdActividad());
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return u;
     }
     
 
