@@ -663,7 +663,7 @@ public class UsuarioDao extends BaseDao {
                 + "inner join Rol r on u.Rol_idRol = r.idRol\n"
                 + "inner join EstadoUsuario e on e.idEstado = u.Estado_idEstado "
                 + "left join Actividad a on u.codigoPucp = a.delegado_codigoPucp "
-                + "where e.idEstado = 1 and (codigoPucp = ? and password = ?)";
+                + "where e.idEstado = 1 and (codigoPucp = ? and pass_hash = sha2(?,256))";
         try (Connection conn = this.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setInt(1, userId);
