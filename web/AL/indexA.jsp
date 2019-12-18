@@ -224,8 +224,8 @@
                                     <div class="carousel-item <%=i2 == 0 ? "active" : ""%>">
                                         <img src="<%=request.getContextPath()%>/images/act<%=a.getIdActividad()%>.jpeg" alt="<%=a.getNombreActividad()%>" style="width:100%; ">
                                         <div class="carousel-caption">
-                                            <h3><%=a.getNombreActividad()%></h3>
-                                            <p><%=a.getDescripcion()%></p>
+                                            <h1><%=a.getNombreActividad()%></h1>
+                                            <h4><%=a.getDescripcion()%></h4>
                                             <p>Delegado: <%=a.getNombreDelegado()%></p>
                                         </div>
                                     </div>
@@ -278,11 +278,7 @@
                                         <div class="content">
                                             <h2><%=us.getNombre()%> <%=us.getApellido()%></h2>
                                             <p>Correo: <%=us.getCorreoPucp()%></p>
-                                            <%
-                                                if (us.getApellido().equalsIgnoreCase("muro")) {%>
-                                            <p>Alfajores al inbox</p>
-                                            <%
-                                                }%>
+                                            
                                         </div>
                                     </div>
                                 </div>
