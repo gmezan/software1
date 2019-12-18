@@ -8,6 +8,7 @@ package Daos;
 import Beans.Actividad;
 import Beans.Estado;
 import Beans.Evento;
+import Beans.Usuario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -24,6 +25,62 @@ import java.util.logging.Logger;
  * @author Labtel
  */
 public class EventosAluDao extends BaseDao {
+
+    public ArrayList<Actividad> listarActividades() {
+        ArrayList<Actividad> listaAct = new ArrayList<>();
+
+        String sql = "SELECT a.*, u.nombre, u.apellido FROM Actividad a left join Usuarios u on a.delegado_codigoPucp=u.codigoPucp;";
+
+        try (Connection conn = this.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);) {
+
+            while (rs.next()) {
+                Actividad act = new Actividad();
+                int id = rs.getInt(1);
+                if (id == 2 || id == 4 || id == 8 || id == 9 || id == 20 || id == 23 || id == 34) {
+                    act.setIdActividad(rs.getInt(1));
+                    act.setNombreActividad(rs.getString(2));
+                    act.setDescripcion(rs.getString(4));
+                    act.setNombreDelegado(rs.getString(5) + " " + rs.getString(6));
+                    listaAct.add(act);
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listaAct;
+
+    }
+
+    public ArrayList<Usuario> listarDG() {
+        ArrayList<Usuario> listaAct = new ArrayList<>();
+
+        String sql = "SELECT a.*, u.nombre, u.apellido FROM Actividad a left join Usuarios u on a.delegado_codigoPucp=u.codigoPucp;";
+
+        try (Connection conn = this.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql);) {
+
+            while (rs.next()) {
+                Actividad act = new Actividad();
+                int id = rs.getInt(1);
+                if (id == 2 || id == 4 || id == 8 || id == 9 || id == 20 || id == 23 || id == 34) {
+                    act.setIdActividad(rs.getInt(1));
+                    act.setNombreActividad(rs.getString(2));
+                    act.setDescripcion(rs.getString(4));
+                    act.setNombreDelegado(rs.getString(5) + " " + rs.getString(6));
+                    
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return listaAct;
+
+    }
 
     public ArrayList<Evento> listarEventosPart(int idUsuario) {
 
@@ -152,8 +209,7 @@ public class EventosAluDao extends BaseDao {
         return listaEventos;
 
     }
-    
-    
+
     public ArrayList<Actividad> listaActParaInscribirse(int idUsuario) {
 
         ArrayList<Actividad> listaAct = new ArrayList<>();
@@ -177,7 +233,6 @@ public class EventosAluDao extends BaseDao {
 
                     act.setNombreActividad(rs.getString(2));
 
-                    
                     listaAct.add(act);
 
                 }
@@ -189,9 +244,8 @@ public class EventosAluDao extends BaseDao {
         return listaAct;
 
     }
-    
-    public void crearPartiEvento(int idEvento, int  idUsuario) {
-        
+
+    public void crearPartiEvento(int idEvento, int idUsuario) {
 
         try (Connection conn = this.getConnection();) {
             String sql = "INSERT INTO Participante_a_Evento "
@@ -207,7 +261,5 @@ public class EventosAluDao extends BaseDao {
             Logger.getLogger(EventoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
 
 }
