@@ -105,20 +105,31 @@ public class LoginServlet extends HttpServlet {
             case "agregar":
                 Usuario u = new Usuario();
                 String cod = request.getParameter("cod");
-//                u.setCodigoPucp(Integer.parseInt(request.getParameter("cod")));
-                u.setNombre(request.getParameter("nombre"));
-                u.setApellido(request.getParameter("ap"));
-                u.setPassword(request.getParameter("pass"));
-                u.setCorreoPucp(request.getParameter("correo"));
-                u.setCondicion(request.getParameter("cond"));
-                uDao.agregarUsuario(u);
-                response.sendRedirect("/MainServlet/?action=registrado");
+                if (cod==null) {
+                    response.sendRedirect(request.getContextPath() + "/MainServlet?action=registrarse");
+                    
+                } else if (uDao.buscarUsuario(Integer.parseInt(request.getParameter("cod")))) {
+                    response.sendRedirect(request.getContextPath() + "/MainServlet?action=invalido");
+                } else {
+                    u.setCodigoPucp(Integer.parseInt(request.getParameter("cod")));
+
+                    u.setNombre(request.getParameter("nombre"));
+                    u.setApellido(request.getParameter("ap"));
+                    u.setPassword(request.getParameter("pass"));
+                    u.setCorreoPucp(request.getParameter("correo"));
+                    u.setCondicion(request.getParameter("cond"));
+                    uDao.agregarUsuario(u);
+                    response.sendRedirect(request.getContextPath() + "/MainServlet?action=registrado");
+                }
                 break;
             case "registrado":
                 view = request.getRequestDispatcher("register-mail.jsp");
                 view.forward(request, response);
                 break;
-
+            case "invalido":
+                view = request.getRequestDispatcher("codigoInvalido.jsp");
+                view.forward(request, response);
+                break;
         }
 
     }
