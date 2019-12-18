@@ -72,7 +72,7 @@
                                         </div>
                                         <form class="user" method="POST" action="<%=request.getContextPath()%>/MainServlet?action=iniciarSesion">
                                             <div class="form-group">
-                                                <label for="username"></label><input id="username" name="usernameIniciarSesion" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Ingrese correo PUCP..." required>
+                                                <label for="username"></label><input id="username" name="usernameIniciarSesion" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Ingrese código PUCP..." required>
                                             </div>
                                             <div class="form-group">
                                                 <label for="password"></label><input id="password" name="passwordIniciarSesion" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Contraseña" required>
