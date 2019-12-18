@@ -209,8 +209,45 @@ public class UsuarioDao extends BaseDao {
 
         return usuario;
     }
+    
+    
+    public ArrayList<Usuario> participantesDistintos(int idEvento) {
 
-    public int contarParticipaciones(int codigo, int idActividad) {
+        ArrayList<Usuario> lista = new ArrayList<>();
+        
+        
+        String sql = "SELECT * FROM Usuarios u,(SELECT DISTINCT(Participante_codigoPucp) FROM (SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento, pae.observaciones  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento <> 3 AND e.Actividad_idActividad = ?) sub) sub1 WHERE u.codigoPucp = sub1.Participante_codigoPucp;";
+        try (Connection conn = this.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setInt(1, idEvento);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                
+                u.setCodigoPucp(rs.getInt(1));
+                u.setNombre(rs.getString(2));
+                u.setApellido(rs.getString(3));
+                u.setCondicion(rs.getString(6));
+                u.setCorreoPucp(rs.getString(4));
+
+                lista.add(u);
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return lista;
+    }
+    
+    
+    
+    
+    
+    
+    public int contarParticipaciones(int codigo, int idActividad){
         int participaciones = 0;
         String sql = "SELECT count(*) FROM (SELECT * FROM Participante_a_Evento pae, Evento e WHERE pae.EstadoEvento_idEstadoEvento <> 3 AND pae.Evento_idEvento = e.idEvento AND pae.Participante_codigoPucp = ? AND e.Actividad_idActividad = ?) sub";
 
@@ -670,9 +707,8 @@ public class UsuarioDao extends BaseDao {
         String sqlDonacionHoy = "SELECT sum(monto) from Donacion where date(now()) = fecha ";
         String sqlDonacionTotal = "SELECT sum(monto) FROM Donacion";
         String sqlActividadesConDelegado = "select floor( 100*(SELECT count(delegado_codigoPucp) FROM Actividad where delegado_codigoPucp is not null)/(SELECT count(*) FROM Actividad ))";
-        String sqlDonacionEgresados = "select round(100*(SELECT count(*) FROM Donacion d inner join Usuarios u on (u.codigoPucp = d.contribuyente_codigoPucp)\n"
-                + "where u.condicion = \"Egresado\" group by u.nombre having sum(monto) > 100) / (select count(codigoPucp) from Usuarios where condicion = \"Egresado\" ) ); ";
-
+        String sqlDonacionEgresados = "select round(100*(select count(*) from (SELECT * FROM Donacion d inner join Usuarios u on (u.codigoPucp = d.contribuyente_codigoPucp)\n" +
+"where u.condicion = \"Egresado\" group by u.codigoPucp having sum(monto) >= 100) tabla) / (select count(codigoPucp) from Usuarios where condicion = \"Egresado\" ))";        
         try (Connection con = this.getConnection();
                 Statement stmt1 = con.createStatement();
                 Statement stmt2 = con.createStatement();
