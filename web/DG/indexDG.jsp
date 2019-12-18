@@ -405,9 +405,9 @@
                 </div>
                 <div class="card-body">
 
-                  <h4 class="small font-weight-bold">Egresados <span class="float-right">60%</span></h4>
+                  <h4 class="small font-weight-bold">Egresados <span class="float-right"><%=lista.get(4)%>%</span></h4>
                   <div class="progress mb-4">
-                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar" role="progressbar" style="width: <%=lista.get(4)%>%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
 
 
@@ -544,7 +544,7 @@
 
             <div class="col-lg-6 mb-4">
 
-              <!-- Illustrations -->
+              <!-- Illustrations 
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
                   <h6 class="m-0 font-weight-bold text-primary">Movilidad</h6>
@@ -556,7 +556,7 @@
                   <p> Puedes ingresar a esta página desde cualquier dispositivo y asegurarte de que todo vaya en orden en esta semana de ingeniería.</p>
                   <a target="_blank" rel="nofollow" href="https://blog.telecom.pucp.edu.pe/">Blog telecom &rarr;</a>
                 </div>
-              </div>
+              </div>-->
 
               <!-- Approach -->
               <div class="card shadow mb-4">

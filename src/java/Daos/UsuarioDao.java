@@ -20,9 +20,10 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.*;
+
+import java.util.Properties;  
+import javax.mail.*;  
+import javax.mail.internet.*;   
 
 /**
  *
@@ -30,14 +31,16 @@ import javax.mail.internet.*;
  */
 public class UsuarioDao extends BaseDao {
 
-    public static void sendCorreo(String from, String pass, String[] to, String subject, String body) {
-
-        //String host="smtp.gmail.com";  
-        //final String user="sonoojaiswal@javatpoint.com";//change accordingly  
-        //final String password="xxxxx";//change accordingly  
-        //String to="sonoojaiswal1987@gmail.com";//change accordingly  
-        //Get the session object  
-        Properties props = System.getProperties();
+public static void sendCorreo(String from, String pass, String[] to, String subject, String body) {     
+  
+  //String host="smtp.gmail.com";  
+  //final String user="sonoojaiswal@javatpoint.com";//change accordingly  
+  //final String password="xxxxx";//change accordingly  
+    
+  //String to="sonoojaiswal1987@gmail.com";//change accordingly  
+  
+   //Get the session object  
+   Properties props = System.getProperties();
         String host = "smtp.gmail.com";
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
@@ -54,13 +57,13 @@ public class UsuarioDao extends BaseDao {
             InternetAddress[] toAddress = new InternetAddress[to.length];
 
             // To get the array of addresses
-            for (int i = 0; i < to.length; i++) {
+            for( int i = 0; i < to.length; i++ ) {
                 toAddress[i] = new InternetAddress(to[i]);
             }
 
-            for (InternetAddress toAddres : toAddress) {
-                message.addRecipient(Message.RecipientType.TO, toAddres);
-            }
+       for (InternetAddress toAddres : toAddress) {
+           message.addRecipient(Message.RecipientType.TO, toAddres);
+       }
 
             message.setSubject(subject);
             message.setText(body);
@@ -68,14 +71,22 @@ public class UsuarioDao extends BaseDao {
             transport.connect(host, from, pass);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-        } catch (AddressException ae) {
+        }
+        catch (AddressException ae) {
             ae.printStackTrace();
-        } catch (MessagingException me) {
+        }
+        catch (MessagingException me) {
             me.printStackTrace();
         }
-
-    }
-
+    
+   
+   
+   
+ }
+    
+    
+    
+    
     public ArrayList<Usuario> listarUsuario() {
 
         ArrayList<Usuario> usuario = new ArrayList<>();
@@ -186,8 +197,8 @@ public class UsuarioDao extends BaseDao {
 
         return usuario;
     }
-
-    public int contarParticipaciones(int codigo, int idActividad) {
+    
+    public int contarParticipaciones(int codigo, int idActividad){
         int participaciones = 0;
         String sql = "SELECT count(*) FROM (SELECT * FROM Participante_a_Evento pae, Evento e WHERE pae.EstadoEvento_idEstadoEvento <> 3 AND pae.Evento_idEvento = e.idEvento AND pae.Participante_codigoPucp = ? AND e.Actividad_idActividad = ?) sub";
 
@@ -196,20 +207,23 @@ public class UsuarioDao extends BaseDao {
             pstmt.setInt(1, codigo);
             pstmt.setInt(2, idActividad);
             ResultSet rs = pstmt.executeQuery();
-
+            
             while (rs.next()) {
-
+                
                 participaciones = rs.getInt(1);
 
             }
+            
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
+        
         return participaciones;
     }
-
+    
+    
     public void rechazarSolicitudEvento(int codigo, int idEvento) {
         String sql = "DELETE FROM Participante_a_Evento WHERE Participante_codigoPucp = ? AND Evento_idEvento = ?";
 
@@ -224,7 +238,7 @@ public class UsuarioDao extends BaseDao {
         }
 
     }
-
+    
     public void cambiar_A_Barra(int codigo, int idEvento) {
         String sql = "UPDATE Participante_a_Evento SET EstadoEvento_idEstadoEvento = 1 WHERE Participante_codigoPucp = ? AND Evento_idEvento = ?;";
 
@@ -239,7 +253,7 @@ public class UsuarioDao extends BaseDao {
         }
 
     }
-
+    
     public void cambiar_A_Equipo(int codigo, int idEvento) {
         String sql = "UPDATE Participante_a_Evento SET EstadoEvento_idEstadoEvento = 2 WHERE Participante_codigoPucp = ? AND Evento_idEvento = ?;";
 
@@ -254,7 +268,8 @@ public class UsuarioDao extends BaseDao {
         }
 
     }
-
+    
+    
     //////////////////////////////////////////
     //////////////////////////////////////////
     public ArrayList<PartiEvento> listaUsuariosBarrsOEq(int idEvento) {
@@ -289,6 +304,8 @@ public class UsuarioDao extends BaseDao {
         return partis;
 
     }
+    
+    
 
     public ArrayList<PartiEvento> listaUsuariosEnEsperaEventos(int idEvento) {
 
@@ -435,37 +452,6 @@ public class UsuarioDao extends BaseDao {
         }
 
         return usuario;
-    }
-
-    public ArrayList<Usuario> participantesDistintos(int idEvento) {
-
-        ArrayList<Usuario> lista = new ArrayList<>();
-        
-        
-        String sql = "SELECT * FROM Usuarios u,(SELECT DISTINCT(Participante_codigoPucp) FROM (SELECT pae.Participante_codigoPucp, u.nombre, u.apellido, ee.estado, u.condicion, e.descripcion, e.idEvento, pae.observaciones  FROM Participante_a_Evento pae, Usuarios u, Evento e, EstadoEvento ee WHERE pae.Participante_codigoPucp = u.codigoPucp AND e.idEvento = pae.Evento_idEvento AND pae.EstadoEvento_idEstadoEvento = ee.idEstadoEvento AND ee.idEstadoEvento <> 3 AND e.Actividad_idActividad = ?) sub) sub1 WHERE u.codigoPucp = sub1.Participante_codigoPucp;";
-        try (Connection conn = this.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql);) {
-            pstmt.setInt(1, idEvento);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                Usuario u = new Usuario();
-                
-                u.setCodigoPucp(rs.getInt(1));
-                u.setNombre(rs.getString(2));
-                u.setApellido(rs.getString(3));
-                u.setCondicion(rs.getString(6));
-                u.setCorreoPucp(rs.getString(4));
-
-                lista.add(u);
-
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return lista;
     }
 
     public void borrarUsuario(int codigo) {
@@ -678,15 +664,20 @@ public class UsuarioDao extends BaseDao {
         String sqlDonacionHoy = "SELECT sum(monto) from Donacion where date(now()) = fecha ";
         String sqlDonacionTotal = "SELECT sum(monto) FROM Donacion";
         String sqlActividadesConDelegado = "select floor( 100*(SELECT count(delegado_codigoPucp) FROM Actividad where delegado_codigoPucp is not null)/(SELECT count(*) FROM Actividad ))";
+        String sqlDonacionEgresados = "select round(100*(SELECT count(*) FROM Donacion d inner join Usuarios u on (u.codigoPucp = d.contribuyente_codigoPucp)\n" +
+"where u.condicion = \"Egresado\" group by u.nombre having sum(monto) > 100) / (select count(codigoPucp) from Usuarios where condicion = \"Egresado\" ) ); ";
+        
         try (Connection con = this.getConnection();
                 Statement stmt1 = con.createStatement();
                 Statement stmt2 = con.createStatement();
                 Statement stmt3 = con.createStatement();
                 Statement stmt4 = con.createStatement();
+                Statement stmt5 = con.createStatement();
                 ResultSet rs1 = stmt1.executeQuery(sqlSolicitudes);
                 ResultSet rs2 = stmt2.executeQuery(sqlDonacionHoy);
                 ResultSet rs3 = stmt3.executeQuery(sqlDonacionTotal);
-                ResultSet rs4 = stmt4.executeQuery(sqlActividadesConDelegado);) {
+                ResultSet rs4 = stmt4.executeQuery(sqlActividadesConDelegado);
+                ResultSet rs5 = stmt5.executeQuery(sqlDonacionEgresados);) {
 
             if (rs1.next()) {
                 data.add(rs1.getInt(1));
@@ -705,6 +696,11 @@ public class UsuarioDao extends BaseDao {
             }
             if (rs4.next()) {
                 data.add(rs4.getInt(1));
+            } else {
+                data.add(0);
+            }
+            if (rs5.next()) {
+                data.add(rs5.getInt(1));
             } else {
                 data.add(0);
             }
