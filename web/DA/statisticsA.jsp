@@ -266,7 +266,7 @@
                       <th>Código de Alumno</th>
                       <th>Nombre y Apellido de Alumno</th>
                       <th>Condición</th>
-                      <th>Imagen</th>
+                      <th>Correo</th>
                       <th>Cantidad de Participaciones</th>
 
                     </tr>
@@ -276,7 +276,7 @@
                       <th>Código de Alumno</th>
                       <th>Nombre y Apellido de Alumno</th>
                       <th>Condición</th>
-                      <th>Imagen</th>
+                      <th>Correo</th>
                       <th>Cantidad de Participaciones</th>
                     </tr>
                   </tfoot>
@@ -291,8 +291,8 @@
                       <td><%=user.getCodigoPucp()%></td>
                       <td><%=user.getNombre()%> <%=user.getApellido()%></td>
                       <td><%=user.getCondicion()%></td>
-                      <td><img src="https://raw.githubusercontent.com/gmn14/webpage/master/images/semana.jpg" height="100px" width="100px" class="img-fluid" alt="Responsive image">
-                      </td>
+                      <td><%=user.getCorreoPucp()%></td>
+                      
                       <td><%=uDao.contarParticipaciones(user.getCodigoPucp(), usuario.getIdActividad())%></td>
                     </tr>
                     <%

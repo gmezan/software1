@@ -91,7 +91,7 @@ public class DAServlet extends HttpServlet {
                 case "desginarEquipo":
                     int idUsuario4 = Integer.parseInt(request.getParameter("idUsuario"));
                     int idEvento4 = Integer.parseInt(request.getParameter("idEvento"));
-                    uDao.cambiar_A_Barra(idUsuario4, idEvento4);
+                    uDao.cambiar_A_Equipo(idUsuario4, idEvento4);
                     response.sendRedirect("DA?action=listarEsperas");
                     break;
                     
