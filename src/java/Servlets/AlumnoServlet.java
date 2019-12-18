@@ -91,7 +91,7 @@ public class AlumnoServlet extends HttpServlet {
 
                     case "main":
                         request.setAttribute("listaAct", EvAlDao.listarActividades());
-                        request.setAttribute("listaDG", EvAlDao.listarActividades());
+                        request.setAttribute("listaDG", EvAlDao.listarDG());
                         view = request.getRequestDispatcher("/AL/indexA.jsp");
                         view.forward(request, response);
                         break;

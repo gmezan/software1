@@ -55,30 +55,30 @@ public class EventosAluDao extends BaseDao {
     }
 
     public ArrayList<Usuario> listarDG() {
-        ArrayList<Usuario> listaAct = new ArrayList<>();
+        ArrayList<Usuario> listaDG = new ArrayList<>();
 
-        String sql = "SELECT a.*, u.nombre, u.apellido FROM Actividad a left join Usuarios u on a.delegado_codigoPucp=u.codigoPucp;";
+        String sql = "SELECT * FROM Usuarios where Rol_idRol = 3;";
 
         try (Connection conn = this.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql);) {
 
             while (rs.next()) {
-                Actividad act = new Actividad();
+                Usuario us = new Usuario();
                 int id = rs.getInt(1);
-                if (id == 2 || id == 4 || id == 8 || id == 9 || id == 20 || id == 23 || id == 34) {
-                    act.setIdActividad(rs.getInt(1));
-                    act.setNombreActividad(rs.getString(2));
-                    act.setDescripcion(rs.getString(4));
-                    act.setNombreDelegado(rs.getString(5) + " " + rs.getString(6));
-                    
+                if (id == 20143363 || id == 20150632 || id == 33333333 || id == 44444444 ) {
+                    us.setCodigoPucp(rs.getInt(1));
+                    us.setNombre(rs.getString(2));
+                    us.setApellido(rs.getString(3));
+                    us.setCorreoPucp(rs.getString(4));
+                    listaDG.add(us);
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        return listaAct;
+        return listaDG;
 
     }
 
