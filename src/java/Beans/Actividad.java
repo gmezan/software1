@@ -19,7 +19,7 @@ public class Actividad {
     private int delegado_codigoPucp;
     private String descripcion;
     private String nombreDelegado;
-    private InputStream foto;
+    
             
     //
     //
@@ -85,18 +85,5 @@ public class Actividad {
         this.nombreDelegado = nombreDelegado;
     }
 
-    /**
-     * @return the foto
-     */
-    public InputStream getFoto() {
-        return foto;
-    }
-
-    /**
-     * @param foto the foto to set
-     */
-    public void setFoto(InputStream foto) {
-        this.foto = foto;
-    }
-
+    
 }
