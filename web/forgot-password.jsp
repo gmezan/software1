@@ -45,15 +45,13 @@
                 <div class="p-5">
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-2">¿Olvidaste tu contraseña?</h1>
-                    <p class="mb-4">Ingresa tu correo abajo y te enviaremos un enlace para que puedas reinicar tu contraseña</p>
+                    <p class="mb-4">Ingresa tu correo abajo y te enviaremos un enlace para que puedas reiniciar tu contraseña</p>
                   </div>
-                  <form class="user">
+                    <form class="user" method="POST" action="<%=request.getContextPath()%>/MainServlet?action=correoRecuperar">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Ingresa tu correo PUCP">
+                      <input type="email" class="form-control form-control-user" name="correoRecuperar" aria-describedby="emailHelp" placeholder="Ingresa tu correo PUCP">
                     </div>
-                    <a href="<%=request.getContextPath()%>/MainServlet?action=correoRecuperar" class="btn btn-myColor btn-user btn-block">
-                      Reiniciar contraseña
-                    </a>
+                    <input type="submit" class="btn btn-myColor btn-user btn-block" value="Reiniciar contraseña"/>
                   </form>
                   <hr>
                   <div class="text-center">
