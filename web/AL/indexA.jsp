@@ -10,6 +10,7 @@
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
 <jsp:useBean id="listaAct" type="ArrayList<Actividad>" scope="request" />
+<jsp:useBean id="listaDG" type="ArrayList<Usuario>" scope="request" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -225,6 +226,7 @@
                                         <div class="carousel-caption">
                                             <h3><%=a.getNombreActividad()%></h3>
                                             <p><%=a.getDescripcion()%></p>
+                                            <p>Delegado: <%=a.getNombreDelegado()%></p>
                                         </div>
                                     </div>
 
@@ -261,79 +263,33 @@
 
                         <div class="row">
                             <div class="container">
-
-
-                                <div class="card" style="width: 20%;">
-
-                                    <div class="face face1" style="width: 100%;">
-
-                                        <img src="<%=request.getContextPath()%>/images/pine.jpeg" style="width: 100%;">
-
-
-                                    </div>
-                                    <div class="face face2" style="width: 100%;">
-                                        <div class="content">
-                                            <h2>Chris Pine</h2>
-                                            <p>Celular: 966980925</p>
-                                            <p>Correo: chrispine@pucp.edu.pe</p>
-
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <%
+                                    for (Usuario us : listaDG) {%>
 
                                 <div class="card" style="width: 20%;">
 
                                     <div class="face face1" style="width: 100%;">
 
-                                        <img src="<%=request.getContextPath()%>/images/muro.jpeg" style="width: 100%;">
+                                        <img src="<%=request.getContextPath()%>/images/<%=us.getApellido()%>.jpeg" style="width: 100%;">
 
 
                                     </div>
                                     <div class="face face2" style="width: 100%;">
                                         <div class="content">
-                                            <h2>Sergio Muro</h2>
-                                            <p>Celular: 941963750</p>
-                                            <p>Correo: sergiomuro@pucp.edu.pe</p>
+                                            <h2><%=us.getNombre()%> <%=us.getApellido()%></h2>
+                                            <p>Correo: <%=us.getCorreoPucp()%></p>
+                                            <%
+                                                if (us.getApellido().equalsIgnoreCase("muro")) {%>
                                             <p>Alfajores al inbox</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card" style="width: 20%;">
-                                    <div class="face face1" style="width: 100%;">
-
-                                        <img src="<%=request.getContextPath()%>/images/goslin.jpeg" style="width: 100%;">
-
-
-                                    </div>
-                                    <div class="face face2" style="width: 100%;">
-                                        <div class="content">
-                                            <h2>Ryan Gosling</h2>
-                                            <p>Celular: 900854763</p>
-                                            <p>Correo: ryangosling@pucp.edu.pe</p>
-
+                                            <%
+                                                }%>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="card" style="width: 20%;">
-                                    <div class="face face1" style="width: 100%;">
+                                <%
+                                    }%>
 
-                                        <img src="<%=request.getContextPath()%>/images/burga.jpeg" style="width: 100%;">
-
-
-                                    </div>
-                                    <div class="face face2" style="width: 100%;">
-                                        <div class="content">
-                                            <h2>Alvaro Burga</h2>
-                                            <p></p>
-                                            <p>Celular: 947865125</p>
-                                            <p>Correo: alvaroburga@pucp.edu.pe</p>
-
-
-                                        </div>
-                                    </div>
-                                </div>
 
                             </div>
                         </div>
