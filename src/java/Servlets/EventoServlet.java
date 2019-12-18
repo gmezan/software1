@@ -91,33 +91,25 @@ public class EventoServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/EventoServlet?action=listar");
                 break;
 
-            /*
-            case "crearTrabajo":
-                rd = request.getRequestDispatcher("/CrearTrabajo.jsp");
+            case "listaEventosParaInscribirse":
+                request.setAttribute("listaEventosParaInscribirse", eveDao.listaEventosParaInscribirse(u.getCodigoPucp()));
+                request.setAttribute("listaActParaInscribirse", eveDao.listaActParaInscribirse(u.getCodigoPucp()));
+                rd = request.getRequestDispatcher("/DA/EventosParaInscribirse.jsp");
                 rd.forward(request, response);
                 break;
-            case "guardarTrabajo":
-                String id = request.getParameter("id");
-                String jobTitle = request.getParameter("jobTitle");
-                int minSalary = Integer.parseInt(request.getParameter("minSalary"));
-                int maxSalary = Integer.parseInt(request.getParameter("maxSalary"));
 
-                Job job = new Job();
-                job.setJobId(id);
-                job.setJobTitle(jobTitle);
-                job.setMaxSalary(maxSalary);
-                job.setMinSalary(minSalary);
-
-                jobDao.crearTrabajo(job);
-                request.setAttribute("lista", jobDao.listarTrabajos());
-
-                response.sendRedirect(request.getContextPath());
-
+            case "listaEventos":
+                request.setAttribute("listaEventosParticipando", eveDao.listarEventosPart(u.getCodigoPucp()));
+                request.setAttribute("listaEventosNoRegistrado", eveDao.listarEventosNoRegistrado(u.getCodigoPucp()));
+                rd = request.getRequestDispatcher("/DA/misEventos.jsp");
+                rd.forward(request, response);
                 break;
-            
-                
-                
-             */
+
+            case "inscribirse":
+                int idEvento = Integer.parseInt(request.getParameter("id"));
+                eveDao.crearPartiEvento(idEvento, u.getCodigoPucp());
+                response.sendRedirect(request.getContextPath() + "/EventoServlet?action=listaEventos");
+                break;
         }
 
     }
