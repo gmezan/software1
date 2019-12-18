@@ -126,7 +126,20 @@
           </div>
         </div>
       </li>
-
+      
+      
+      
+      
+      
+      <li class="nav-item">
+        <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donacionesDA">
+          <i class="fas fa-fw fa-dollar-sign"></i>
+          <span>Donaciones</span>
+        </a>
+        
+      </li>
+      
+      
       <br>
 
 
@@ -144,6 +157,22 @@
       <div id="content">
 
         <!-- Topbar -->
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
@@ -213,7 +242,15 @@
           </ul>
 
         </nav>
-        <!-- End of Topbar -->
+        
+                
+                
+                
+                
+                
+                
+                
+                <!-- End of Topbar -->
 
         <!-- Begin Page Content -->
         <div class="container-fluid">
@@ -312,6 +349,8 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
+      
+      <!--
       <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
@@ -319,6 +358,7 @@
           </div>
         </div>
       </footer>
+      -->
       <!-- End of Footer -->
 
     </div>

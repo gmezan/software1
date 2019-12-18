@@ -95,6 +95,19 @@
                     </div>
                 </li>
 
+                <li class="nav-item active">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donacionesDA">
+                        <i class="fas fa-fw fa-dollar-sign"></i> <!--icono!!!!!-->
+                        <span>Donaciones</span>
+                    </a>
+                </li>
+                
+                
+                
+                
+                
+                
+                
                 <li class="nav-item">
                     <a class="nav-link" href="donaciones.html">
                         <i class="fas fa-fw fa-dollar-sign"></i>

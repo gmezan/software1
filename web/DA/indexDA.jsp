@@ -94,11 +94,28 @@
                     </div>
                 </li>
 
+                <li class="nav-item active">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donacionesDA">
+                        <i class="fas fa-fw fa-dollar-sign"></i> <!--icono!!!!!-->
+                        <span>Donaciones</span>
+                    </a>
+                </li>
+
+
+
+
+
+
+
+
+
+                <!--
                 <li class="nav-item">
                     <a class="nav-link" href="donaciones.jsp">
                         <i class="fas fa-fw fa-dollar-sign"></i>
                         <span>Donaciones</span></a>
                 </li>
+                -->
 
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -180,7 +197,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="container">
-                                
+
                                 <div class="card">
                                     <div class="face face1">
                                         <div class="content">
