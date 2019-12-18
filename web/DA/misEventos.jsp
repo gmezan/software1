@@ -1,15 +1,17 @@
 <%-- 
-    Document   : activities
-    Created on : 16-nov-2019, 15:39:25
-    Author     : Labtel
+    Document   : misEventos
+    Created on : 18/12/2019, 12:16:57 AM
+    Author     : katty
 --%>
 
 <%@page import="Beans.Evento"%>
 <%@page import="java.util.ArrayList"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
-<% ArrayList<Evento> listaEventos = (ArrayList<Evento>) request.getAttribute("lista");%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<jsp:useBean id="listaEventosParticipando" type="ArrayList<Evento>" scope="request" />
+<jsp:useBean id="listaEventosNoRegistrado" type="ArrayList<Evento>" scope="request" />
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,7 +21,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>DA - Actividades</title>
+        <title>Mis Eventos</title>
 
         <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -173,65 +175,94 @@
 
                     <!--CONTENIDO-->
                     <div class="container-fluid">
-                        <h1 class="h3 mb-2 text-gray-800">Eventos</h1>
-                        <p class="mb-4">Acá encontrarás los eventos programados para semana, puedes añadir, editar o borrar eventos.</p>
 
+                        <!-- Page Heading -->
+                        <h1 class="h3 mb-2 text-gray-800">Mis eventos</h1>
+                        <p class="mb-4">Acá encontrarás los eventos en los que estás participando. Si aun no has sido aceptado en un evento, puedes observarlo en la segunda lista.</p>
+                        <br>
+
+                        <!-- DataTales Example -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
-                                <h6 class="m-0 font-weight-bold text-primary">Lista de eventos</h6>
-                            </div>
-
-                            <div class="container-fluid"style="padding-top: 10px">
-                                <div class="col-sm-10 mb-3 mb-sm-0">
-                                    <a href="#addEvento" class="btn btn-success" data-toggle="modal"><i class="fas fa-plus"></i> <span>Añadir Evento</span></a>
-                                </div>                                
+                                <h6 class="m-0 font-weight-bold text-primary">Eventos en los que participas</h6>
                             </div>
 
                             <div class="card-body">
                                 <div class="table-responsive">
-
-                                    <!--TABLA DE ACTIVIDADES-->
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Descripción</th>
+                                                <th>Actividad</th>
+                                                <th>Nombre del evento</th>
+                                                <th>Rol</th>
                                                 <th>Lugar</th>
                                                 <th>Fecha</th>
                                                 <th>Hora</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
-                                            <%
-                                                for (Evento e : listaEventos) {
+                                            <% int i = 1;
+                                                for (Evento e : listaEventosParticipando) {
                                             %>
                                             <tr>
+                                                <td><%=e.getAct().getNombreActividad()%></td>
                                                 <td><%=e.getDescripcion()%></td>
+                                                <td><%=e.getEst().getEstado()%></td>
                                                 <td><%=e.getLugar()%></td>
                                                 <td><%=e.getFecha()%></td>
                                                 <td><%=e.getHora()%></td>
-
-                                                <td>
-                                                    <div class="form-group row text-center btn-user">
-                                                        <div class="col-sm-4 mb-2 mb-sm-0">
-                                                            <a href="#editEvento" data-id='<%=e.getIdEvento()%>' data-descripcion='<%=e.getDescripcion()%>' data-lugar='<%=e.getLugar()%>' data-hora='<%=e.getHora()%>' data-fecha='<%=e.getFecha()%>' data-l class="editar-Actividad button btn btn-success" style="color: green"  data-toggle="modal"><i class="fas fa-edit" style="color:white;" data-toggle="tooltip" title="Edit"></i></a>
-                                                        </div>
-                                                        <div class="col-sm-4">
-                                                            <a href="#deleteEvento" data-id='<%=e.getIdEvento()%>' data-nombre='<%=e.getDescripcion()%>' class="borrar-Actividad button btn btn-danger" data-toggle="modal"><i class="fas fa-trash"   style="color: white" data-toggle="tooltip" title="Borrar"></i></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr> 
-                                            <%
+                                            </tr>
+                                            <%        i++;
                                                 }
                                             %>
                                         </tbody>
                                     </table>
-                                    <!--FIN DE TABLA-->
+
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
+
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-primary">Eventos en los que te inscribiste (solicitud en proceso)</h6>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th>Actividad</th>
+                                                <th>Nombre del evento</th>                                                
+                                                <th>Lugar</th>
+                                                <th>Fecha</th>
+                                                <th>Hora</th>
+                                            </tr>
+                                        </thead>
+                                        
+                                        <tbody>
+                                            <% int j = 1;
+                                                for (Evento ev : listaEventosNoRegistrado) {
+                                            %>
+                                            <tr>
+                                                <td><%=ev.getAct().getNombreActividad()%></td>
+                                                <td><%=ev.getDescripcion()%></td>                                                
+                                                <td><%=ev.getLugar()%></td>
+                                                <td><%=ev.getFecha()%></td>
+                                                <td><%=ev.getHora()%></td>
+                                            </tr>
+                                            <%
+                                                    j++;
+                                                }
+
+                                            %>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!--FIN DE CONTENIDO-->
                 </div>

@@ -61,11 +61,23 @@
                 <div class="sidebar-heading">
                     Funciones
                 </div>
+                
+                <li class="nav-item ">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listaEventosParaInscribirse">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Eventos para inscribirse</span></a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listaEventos">
+                        <i class="fas fa-fw fa-running"></i> <!--icono!!!!!-->
+                        <span>Mis eventos</span></a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="<%=request.getContextPath()%>/EventoServlet?action=listar">
                         <i class="fas fa-fw fa-running"></i>
-                        <span>Eventos</span></a>
+                        <span>Eventos de <%= usuario.getActividad().getNombreActividad()%></span></a>
                 </li>
 
                 <li class="nav-item">
@@ -94,28 +106,11 @@
                     </div>
                 </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="<%=request.getContextPath()%>/AlumnoServlet?action=donacionesDA">
-                        <i class="fas fa-fw fa-dollar-sign"></i> <!--icono!!!!!-->
-                        <span>Donaciones</span>
-                    </a>
-                </li>
-
-
-
-
-
-
-
-
-
-                <!--
                 <li class="nav-item">
                     <a class="nav-link" href="donaciones.jsp">
                         <i class="fas fa-fw fa-dollar-sign"></i>
                         <span>Donaciones</span></a>
                 </li>
-                -->
 
                 <div class="text-center d-none d-md-inline">
                     <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -182,13 +177,13 @@
                         <div class="row">
                             <div class="col-md-3"></div>
                             <div class="col-md-6">
-                                <img src="<%=request.getContextPath()%>/DA/imgDA/futsal.jpg" height="400" class="rounded" >
+                                <img src="<%=request.getContextPath()%>/DA/imgDA/todos.jpg" height="400" class="rounded" >
                             </div>
                             <div class="col-md-3"></div>
                         </div>
                     </div>
 
-                    <div class="container">
+                    <!--<div class="container">
                         <div class="d-sm-flex align-items-center justify-content-between mb-4">
                             <h2 class="h3 mb-0 text-gray-800">¡Conoce algunas de tus funciones!</h2>
                         </div>
@@ -197,7 +192,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="container">
-
+                                
                                 <div class="card">
                                     <div class="face face1">
                                         <div class="content">
@@ -255,11 +250,11 @@
                                             <p>Chequea las <a href="statisticsA.jsp">estadísticas</a> y si falta apoyo en barras o miembros en el equipo envíale un correo a toda la Fibra solicitando su ayuda.</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
 
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!--FIN DE CONTENIDO-->
                 </div>
 
