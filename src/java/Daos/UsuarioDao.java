@@ -512,8 +512,8 @@ public class UsuarioDao extends BaseDao {
     }
 
     public void agregarUsuario(Usuario u) {
-        String sql = "insert into Usuarios (codigoPucp, nombre, apellido, correoPucp, password, condicion, Rol_idRol, Estado_idEstado)"
-                + " values(?,?,?,?,?,?,'1','2')";
+        String sql = "insert into Usuarios (codigoPucp, nombre, apellido, correoPucp, pass_hash, condicion, Rol_idRol, Estado_idEstado)"
+                + " values(?,?,?,?,sha2(?,256),?,'1','2')";
 
         try (Connection conn = this.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql);) {
