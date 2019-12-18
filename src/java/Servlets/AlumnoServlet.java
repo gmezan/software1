@@ -50,78 +50,85 @@ public class AlumnoServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath());
         } else {
             Usuario us = (Usuario) session.getAttribute("usuario");
-            switch (action) {
-                case "listaEventos":
 
-                    request.setAttribute("listaEventosParticipando", EvAlDao.listarEventosPart(us.getCodigoPucp()));
-                    request.setAttribute("listaEventosNoRegistrado", EvAlDao.listarEventosNoRegistrado(us.getCodigoPucp()));
+            if (us.getRol().getId() != 1) {
+                response.sendRedirect(request.getContextPath());
 
-                    view = request.getRequestDispatcher("/AL/misEventos.jsp");
-                    view.forward(request, response);
-                    break;
-                case "listaEventosParaInscribirse":
+            } else {
 
-                    request.setAttribute("listaEventosParaInscribirse", EvAlDao.listaEventosParaInscribirse(us.getCodigoPucp()));
-                    request.setAttribute("listaActParaInscribirse", EvAlDao.listaActParaInscribirse(us.getCodigoPucp()));
+                switch (action) {
+                    case "listaEventos":
 
-                    view = request.getRequestDispatcher("/AL/EventosParaInscribirse.jsp");
-                    view.forward(request, response);
-                    break;
-                case "donaciones":
+                        request.setAttribute("listaEventosParticipando", EvAlDao.listarEventosPart(us.getCodigoPucp()));
+                        request.setAttribute("listaEventosNoRegistrado", EvAlDao.listarEventosNoRegistrado(us.getCodigoPucp()));
 
-                    request.setAttribute("listaDonacion", donDao.listarDonacion(us.getCodigoPucp()));
+                        view = request.getRequestDispatcher("/AL/misEventos.jsp");
+                        view.forward(request, response);
+                        break;
+                    case "listaEventosParaInscribirse":
 
-                    view = request.getRequestDispatcher("/AL/donaciones.jsp");
-                    view.forward(request, response);
-                    break;
+                        request.setAttribute("listaEventosParaInscribirse", EvAlDao.listaEventosParaInscribirse(us.getCodigoPucp()));
+                        request.setAttribute("listaActParaInscribirse", EvAlDao.listaActParaInscribirse(us.getCodigoPucp()));
 
-                case "donacionesDA":
+                        view = request.getRequestDispatcher("/AL/EventosParaInscribirse.jsp");
+                        view.forward(request, response);
+                        break;
+                    case "donaciones":
 
-                    request.setAttribute("listaDonacion", donDao.listarDonacion(us.getCodigoPucp()));
+                        request.setAttribute("listaDonacion", donDao.listarDonacion(us.getCodigoPucp()));
 
-                    view = request.getRequestDispatcher("/DA/donaciones.jsp");
-                    view.forward(request, response);
-                    break;
+                        view = request.getRequestDispatcher("/AL/donaciones.jsp");
+                        view.forward(request, response);
+                        break;
 
-                case "main":
-                    view = request.getRequestDispatcher("/AL/indexA.jsp");
-                    view.forward(request, response);
-                    break;
+                    case "donacionesDA":
 
-                case "inscribirse":
+                        request.setAttribute("listaDonacion", donDao.listarDonacion(us.getCodigoPucp()));
 
-                    int idEvento = Integer.parseInt(request.getParameter("id"));
+                        view = request.getRequestDispatcher("/DA/donaciones.jsp");
+                        view.forward(request, response);
+                        break;
 
-                    EvAlDao.crearPartiEvento(idEvento, us.getCodigoPucp());
+                    case "main":
+                        view = request.getRequestDispatcher("/AL/indexA.jsp");
+                        view.forward(request, response);
+                        break;
 
-                    response.sendRedirect(request.getContextPath() + "/AL?action=listaEventos");
-                    break;
+                    case "inscribirse":
 
-                case "agregarDonacionDA":
+                        int idEvento = Integer.parseInt(request.getParameter("id"));
 
-                    String monto1 = request.getParameter("monto");
-                    if (!monto1.isEmpty()) {
-                        donDao.donar(us.getCodigoPucp(), monto1);
-                    }
+                        EvAlDao.crearPartiEvento(idEvento, us.getCodigoPucp());
 
-                    response.sendRedirect(request.getContextPath() + "/AL?action=donacionesDA");
+                        response.sendRedirect(request.getContextPath() + "/AL?action=listaEventos");
+                        break;
 
-//                    uDao.agregarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));
-//                    response.sendRedirect("UsuarioServlet?action=listaUsuario");
-                    break;
+                    case "agregarDonacionDA":
 
-                case "agregarDonacion":
+                        String monto1 = request.getParameter("monto");
+                        if (!monto1.isEmpty()) {
+                            donDao.donar(us.getCodigoPucp(), monto1);
+                        }
 
-                    String monto = request.getParameter("monto");
-                    if (!monto.isEmpty()) {
-                        donDao.donar(us.getCodigoPucp(), monto);
-                    }
-
-                    response.sendRedirect(request.getContextPath() + "/AL?action=donaciones");
+                        response.sendRedirect(request.getContextPath() + "/AL?action=donacionesDA");
 
 //                    uDao.agregarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));
 //                    response.sendRedirect("UsuarioServlet?action=listaUsuario");
-                    break;
+                        break;
+
+                    case "agregarDonacion":
+
+                        String monto = request.getParameter("monto");
+                        if (!monto.isEmpty()) {
+                            donDao.donar(us.getCodigoPucp(), monto);
+                        }
+
+                        response.sendRedirect(request.getContextPath() + "/AL?action=donaciones");
+
+//                    uDao.agregarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));
+//                    response.sendRedirect("UsuarioServlet?action=listaUsuario");
+                        break;
+                }
             }
         }
     }
