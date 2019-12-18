@@ -4,9 +4,12 @@
     Author     : Labtel
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="Beans.Actividad"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="Beans.Usuario"%>
 <jsp:useBean id="usuario" type="Usuario" scope="session" />
+<jsp:useBean id="listaAct" type="ArrayList<Actividad>" scope="request" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -202,82 +205,31 @@
                             <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators">
-                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                                    <li data-target="#myCarousel" data-slide-to="1" class=""></li>
-                                    <li data-target="#myCarousel" data-slide-to="2" class=""></li>
-                                    <li data-target="#myCarousel" data-slide-to="3" class=""></li>
-                                    <li data-target="#myCarousel" data-slide-to="4" class=""></li>
-                                    <li data-target="#myCarousel" data-slide-to="5" class=""></li>
-                                    <li data-target="#myCarousel" data-slide-to="6" class=""></li>
 
+                                    <% int i = 0;
+                                        for (Actividad a : listaAct) {%>
+                                    <li data-target="#myCarousel" data-slide-to="<%=i%>" class="<%=i == 0 ? "active" : ""%>"></li>
 
+                                    <% i++;
+                                        }%>
                                 </ol>
 
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
 
+                                    <% int i2 = 0;
+                                        for (Actividad a : listaAct) {%>
 
-
-                                    <div class="carousel-item active">
-                                        <img src="<%=request.getContextPath()%>/images/baileton.jpeg" alt="Baileton" style="width:100%; ">
+                                    <div class="carousel-item <%=i2 == 0 ? "active" : ""%>">
+                                        <img src="<%=request.getContextPath()%>/images/act<%=a.getIdActividad()%>.jpeg" alt="<%=a.getNombreActividad()%>" style="width:100%; ">
                                         <div class="carousel-caption">
-                                            <h3>Baileton</h3>
-                                            <p>Descripcion baileton</p>
+                                            <h3><%=a.getNombreActividad()%></h3>
+                                            <p><%=a.getDescripcion()%></p>
                                         </div>
                                     </div>
 
-                                    <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/images/bas.jpeg" alt="Basquet" style="width:100%;">
-                                        <div class="carousel-caption">
-                                            <h3>Basquet</h3>
-                                            <p>Descripcion basket</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/images/danza.jpeg" alt="Danza" style="width:100%;">
-                                        <div class="carousel-caption">
-                                            <h3>Danza</h3>
-                                            <p>Descripcion danza</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/images/futbol.jpeg" alt="Futsal" style="width:100%;">
-                                        <div class="carousel-caption">
-                                            <h3>Futsal</h3>
-                                            <p>Descripcion futsal</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/images/natacion.jpeg" alt="Natacion" style="width:100%;">
-                                        <div class="carousel-caption">
-                                            <h3>Natacion</h3>
-                                            <p>Descripcion natacion</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/images/sketch.jpeg" alt="Sketch" style="width:100%;">
-                                        <div class="carousel-caption">
-                                            <h3>Sketch</h3>
-                                            <p>Descripcion sketch</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="carousel-item">
-                                        <img src="<%=request.getContextPath()%>/images/volei.jpeg" alt="Voley" style="width:100%;">
-                                        <div class="carousel-caption">
-                                            <h3>Voley</h3>
-                                            <p>Descripcion voley</p>
-                                        </div>
-                                    </div>
-
-
-
-
-
+                                    <% i2++;
+                                        }%>
 
                                 </div>
 
