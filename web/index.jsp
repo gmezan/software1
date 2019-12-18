@@ -39,7 +39,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title>Semana de ingenería</title>
+        <title>Bienvenido</title>
 
         <!-- Custom fonts for this template-->
         <link href="<%=request.getContextPath()%>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
