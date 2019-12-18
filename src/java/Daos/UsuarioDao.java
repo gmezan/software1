@@ -664,9 +664,8 @@ public static void sendCorreo(String from, String pass, String[] to, String subj
         String sqlDonacionHoy = "SELECT sum(monto) from Donacion where date(now()) = fecha ";
         String sqlDonacionTotal = "SELECT sum(monto) FROM Donacion";
         String sqlActividadesConDelegado = "select floor( 100*(SELECT count(delegado_codigoPucp) FROM Actividad where delegado_codigoPucp is not null)/(SELECT count(*) FROM Actividad ))";
-        String sqlDonacionEgresados = "select round(100*(SELECT count(*) FROM Donacion d inner join Usuarios u on (u.codigoPucp = d.contribuyente_codigoPucp)\n" +
-"where u.condicion = \"Egresado\" group by u.nombre having sum(monto) > 100) / (select count(codigoPucp) from Usuarios where condicion = \"Egresado\" ) ); ";
-        
+        String sqlDonacionEgresados = "select round(100*(select count(*) from (SELECT * FROM Donacion d inner join Usuarios u on (u.codigoPucp = d.contribuyente_codigoPucp)\n" +
+"where u.condicion = \"Egresado\" group by u.codigoPucp having sum(monto) >= 100) tabla) / (select count(codigoPucp) from Usuarios where condicion = \"Egresado\" ))";        
         try (Connection con = this.getConnection();
                 Statement stmt1 = con.createStatement();
                 Statement stmt2 = con.createStatement();
