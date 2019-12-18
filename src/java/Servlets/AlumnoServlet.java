@@ -63,7 +63,7 @@ public class AlumnoServlet extends HttpServlet {
 
                     request.setAttribute("listaEventosParaInscribirse", EvAlDao.listaEventosParaInscribirse(us.getCodigoPucp()));
                     request.setAttribute("listaActParaInscribirse", EvAlDao.listaActParaInscribirse(us.getCodigoPucp()));
-                    
+
                     view = request.getRequestDispatcher("/AL/EventosParaInscribirse.jsp");
                     view.forward(request, response);
                     break;
@@ -74,6 +74,15 @@ public class AlumnoServlet extends HttpServlet {
                     view = request.getRequestDispatcher("/AL/donaciones.jsp");
                     view.forward(request, response);
                     break;
+
+                case "donacionesDA":
+
+                    request.setAttribute("listaDonacion", donDao.listarDonacion(us.getCodigoPucp()));
+
+                    view = request.getRequestDispatcher("/DA/donaciones.jsp");
+                    view.forward(request, response);
+                    break;
+
                 case "main":
                     view = request.getRequestDispatcher("/AL/indexA.jsp");
                     view.forward(request, response);
@@ -87,6 +96,20 @@ public class AlumnoServlet extends HttpServlet {
 
                     response.sendRedirect(request.getContextPath() + "/AL?action=listaEventos");
                     break;
+
+                case "agregarDonacionDA":
+
+                    String monto1 = request.getParameter("monto");
+                    if (!monto1.isEmpty()) {
+                        donDao.donar(us.getCodigoPucp(), monto1);
+                    }
+
+                    response.sendRedirect(request.getContextPath() + "/AL?action=donacionesDA");
+
+//                    uDao.agregarUsuario(Integer.parseInt(request.getParameter("codigoPucpUsuarioAgregar")));
+//                    response.sendRedirect("UsuarioServlet?action=listaUsuario");
+                    break;
+
                 case "agregarDonacion":
 
                     String monto = request.getParameter("monto");
